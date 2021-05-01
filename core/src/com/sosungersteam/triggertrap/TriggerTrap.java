@@ -3,6 +3,7 @@ package com.sosungersteam.triggertrap;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,12 +24,10 @@ public class TriggerTrap extends ApplicationAdapter {
 	Texture somov;
 	Texture studentImage;
 	Rectangle somovRect;
+	Sound sound;
 
 	private Array<Rectangle> students;
 	private long lastDropTime;
-
-	Texture img;
-	private Music mainmenu;
 
 	@Override
 	public void create () {
@@ -39,8 +38,9 @@ public class TriggerTrap extends ApplicationAdapter {
 		mainmenu = Gdx.audio.newMusic(Gdx.files.internal("Nitro Fun - Cheat Codes.mp3"));
 		mainmenu.play();
 		mainmenu.setLooping(true);
-		mainmenu.setVolume(0.01f);
+		mainmenu.setVolume(0.1f);
 
+		sound = Gdx.audio.newSound(Gdx.files.internal("wilhelm_scream.mp3"));
 
 		somov = new Texture("somov.png");
 		studentImage = new Texture("student.png");
@@ -53,12 +53,6 @@ public class TriggerTrap extends ApplicationAdapter {
 
 		students = new Array<Rectangle>();
 		spawnStudent();
-
-		img = new Texture("badlogic.jpg");
-		mainmenu = Gdx.audio.newMusic(Gdx.files.internal("Nitro Fun - Cheat Codes.mp3"));
-		mainmenu.play();
-		mainmenu.setLooping(true);
-		mainmenu.setVolume(0.01f);
 	}
 
 	@Override
@@ -83,7 +77,7 @@ public class TriggerTrap extends ApplicationAdapter {
 			student.y -= 200 * Gdx.graphics.getDeltaTime();
 			if(student.y + 64 < 0) iter.remove();
 			if(student.overlaps(somovRect)) {
-				.play();
+				sound.play();
 				iter.remove();
 			}
 		}
