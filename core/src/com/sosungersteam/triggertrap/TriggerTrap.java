@@ -1,12 +1,11 @@
-package com.sosungerteam.triggertrap;
+package com.sosungersteam.triggertrap;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class TriggerTrap extends Game {
+public class TriggerTrap extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
 	
