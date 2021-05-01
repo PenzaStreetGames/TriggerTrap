@@ -3,11 +3,13 @@ package com.sosungersteam.triggertrap;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class TriggerTrap extends ApplicationAdapter {
+	OrthographicCamera CAMERA;
 	SpriteBatch batch;
 	Texture img;
 	private Music mainmenu;
