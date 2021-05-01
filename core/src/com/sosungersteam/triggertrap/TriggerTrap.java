@@ -2,12 +2,9 @@ package com.sosungersteam.triggertrap;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-<<<<<<< HEAD
-import com.badlogic.gdx.Input;
-=======
 import com.badlogic.gdx.audio.Music;
->>>>>>> 601cf50c4689bd4b7f9930a7bdc0fc332e67395b
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -19,12 +16,14 @@ import com.badlogic.gdx.utils.TimeUtils;
 import java.util.Iterator;
 
 public class TriggerTrap extends ApplicationAdapter {
-<<<<<<< HEAD
 	private OrthographicCamera camera;
 	SpriteBatch batch;
+	Texture img;
+	private Music mainmenu;
 	Texture somov;
 	Texture studentImage;
 	Rectangle somovRect;
+
 	private Array<Rectangle> students;
 	private long lastDropTime;
 
@@ -36,6 +35,12 @@ public class TriggerTrap extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
 		batch = new SpriteBatch();
+
+		mainmenu = Gdx.audio.newMusic(Gdx.files.internal("Nitro Fun - Cheat Codes.mp3"));
+		mainmenu.play();
+		mainmenu.setLooping(true);
+		mainmenu.setVolume(0.01f);
+
 
 		somov = new Texture("somov.png");
 		studentImage = new Texture("student.png");
