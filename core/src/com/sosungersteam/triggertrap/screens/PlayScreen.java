@@ -39,10 +39,8 @@ public class PlayScreen implements Screen {
     private OrthographicCamera camera;
     private TextureAtlas atlas;
 
-    private Somov som;
+    private Somov somov;
     //private FitViewport gamePort;
-
-    Texture somov;
     Texture studentImage;
     Rectangle somovRect;
     Sound sound;
@@ -50,7 +48,7 @@ public class PlayScreen implements Screen {
     private long lastDropTime;
 
     public PlayScreen(TriggerTrap game){
-        //atlas = new TextureAtlas("aasd");
+        atlas = new TextureAtlas("somov_pack.pack");
         this.game=game;
         //create camera
         camera = new OrthographicCamera();
@@ -73,7 +71,7 @@ public class PlayScreen implements Screen {
         b2dr=new Box2DDebugRenderer();
 
         new WorldCreator(world,map);
-        som = new Somov(world,this);
+        somov = new Somov(world,this);
 
 
 
@@ -82,28 +80,39 @@ public class PlayScreen implements Screen {
     public void show() {
 
     }
-    public TextureAtlas getAtlas(){
+
+    public TextureAtlas getAtlas() {
         return atlas;
     }
+
     public void handleInput(float delta){ // testing camera moves
-        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && som.b2body.getLinearVelocity().x<=2 ){
-           som.b2body.applyLinearImpulse(new Vector2(0.1f,0),som.b2body.getWorldCenter(),true); //TODO: add camera moves
+        float vx = 0, vy = 0;
+        float velocity_scale = 0.5f;
+
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && somov.b2body.getLinearVelocity().x<=2 ){
+            vx = velocity_scale;
+           //somov.b2body.applyLinearImpulse(new Vector2(0.1f,0),somov.b2body.getWorldCenter(),true); //TODO: add camera moves
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)&& som.b2body.getLinearVelocity().y<=2){
-            som.b2body.applyLinearImpulse(new Vector2(0,0.1f),som.b2body.getWorldCenter(),true);
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)&& somov.b2body.getLinearVelocity().y<=2){
+            vy = velocity_scale;
+            //somov.b2body.applyLinearImpulse(new Vector2(0,0.1f),somov.b2body.getWorldCenter(),true);
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)&& som.b2body.getLinearVelocity().y>=-2){
-            som.b2body.applyLinearImpulse(new Vector2(0,-0.1f),som.b2body.getWorldCenter(),true);
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)&& somov.b2body.getLinearVelocity().y>=-2){
+            vy = -velocity_scale;
+            //somov.b2body.applyLinearImpulse(new Vector2(0,-0.1f),somov.b2body.getWorldCenter(),true);
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)&& som.b2body.getLinearVelocity().x>=-2 ){
-            som.b2body.applyLinearImpulse(new Vector2(-0.1f,0),som.b2body.getWorldCenter(),true);
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)&& somov.b2body.getLinearVelocity().x>=-2 ){
+            vx = -velocity_scale;
+            //somov.b2body.applyLinearImpulse(new Vector2(-0.1f,0),somov.b2body.getWorldCenter(),true);
         }
+        somov.b2body.setLinearVelocity(vx, vy);
     }
     public void update (float delta){
         handleInput(delta);
         world.step(1/60f,6,2); // change later
-        camera.position.x=som.b2body.getPosition().x;
-        camera.position.y=som.b2body.getPosition().y;
+        somov.update(delta);
+        camera.position.x=somov.b2body.getPosition().x;
+        camera.position.y=somov.b2body.getPosition().y;
         camera.update();
         renderer.setView(camera);
     }
@@ -127,9 +136,12 @@ public class PlayScreen implements Screen {
         }
         game.batch.end();
        */
-
-        b2dr.render(world,camera.combined); // render b2dr debug lines
+         // render b2dr debug lines
         renderer.render(); // renders map
+        game.batch.begin();
+        somov.draw(game.batch);
+        game.batch.end();
+        b2dr.render(world,camera.combined);
     }
 
     @Override
