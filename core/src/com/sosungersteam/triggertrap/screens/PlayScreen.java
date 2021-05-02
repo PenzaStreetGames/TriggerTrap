@@ -50,7 +50,7 @@ public class PlayScreen implements Screen {
     private long lastDropTime;
 
     public PlayScreen(TriggerTrap game){
-        atlas = new TextureAtlas("aasd");
+        //atlas = new TextureAtlas("aasd");
         this.game=game;
         //create camera
         camera = new OrthographicCamera();
@@ -65,7 +65,7 @@ public class PlayScreen implements Screen {
         //spawnStudent();
          //Map loading
         maploader = new TmxMapLoader();
-        map = maploader.load("...");
+        map = maploader.load("memrea_hall.tmx");
         renderer = new OrthogonalTiledMapRenderer(map,1/TriggerTrap.pixelsMultiplier);
         camera.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2,0);
 
