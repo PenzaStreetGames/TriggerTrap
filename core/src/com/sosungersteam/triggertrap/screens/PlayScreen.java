@@ -40,7 +40,7 @@ public class PlayScreen implements Screen {
     private TextureAtlas atlas;
 
     private Somov som;
-    private FitViewport gamePort;
+    //private FitViewport gamePort;
 
     Texture somov;
     Texture studentImage;
@@ -55,8 +55,8 @@ public class PlayScreen implements Screen {
         //create camera
         camera = new OrthographicCamera();
         //create port
-        gamePort = new FitViewport(game.virtual_width/TriggerTrap.pixelsMultiplier,game.virtual_height/TriggerTrap.pixelsMultiplier,camera);
-        //camera.setToOrtho(false, 800, 480);
+        //gamePort = new FitViewport(game.virtual_width/TriggerTrap.pixelsMultiplier,game.virtual_height/TriggerTrap.pixelsMultiplier,camera);
+        camera.setToOrtho(false, game.virtual_width/TriggerTrap.pixelsMultiplier, game.virtual_height/TriggerTrap.pixelsMultiplier);
         sound = Gdx.audio.newSound(Gdx.files.internal("wilhelm_scream.mp3"));
         //createSomov();
         setMusic();
@@ -67,7 +67,7 @@ public class PlayScreen implements Screen {
         maploader = new TmxMapLoader();
         map = maploader.load("memrea_hall.tmx");
         renderer = new OrthogonalTiledMapRenderer(map,1/TriggerTrap.pixelsMultiplier);
-        camera.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2,0);
+        //camera.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2,0);
 
         world = new World(new Vector2(0,0),true); // create World container and gravity
         b2dr=new Box2DDebugRenderer();
@@ -134,7 +134,7 @@ public class PlayScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        gamePort.update(height,width);
+        //gamePort.update(height,width);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class Somov{
     }
     public void defineSomov(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(1/ TriggerTrap.pixelsMultiplier,1/TriggerTrap.pixelsMultiplier); // change position
+        bdef.position.set(100/ TriggerTrap.pixelsMultiplier,100/TriggerTrap.pixelsMultiplier); // change position
         bdef.type=BodyDef.BodyType.DynamicBody; // Dynamic or kinetic???
         b2body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
