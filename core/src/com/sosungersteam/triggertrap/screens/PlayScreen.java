@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -56,7 +57,7 @@ public class PlayScreen implements Screen {
         camera = new OrthographicCamera();
         //create port
         //gamePort = new FitViewport(game.virtual_width/TriggerTrap.pixelsMultiplier,game.virtual_height/TriggerTrap.pixelsMultiplier,camera);
-        camera.setToOrtho(false, game.virtual_width/TriggerTrap.pixelsMultiplier, game.virtual_height/TriggerTrap.pixelsMultiplier);
+
         sound = Gdx.audio.newSound(Gdx.files.internal("wilhelm_scream.mp3"));
         //createSomov();
         setMusic();
@@ -66,8 +67,16 @@ public class PlayScreen implements Screen {
          //Map loading
         maploader = new TmxMapLoader();
         map = maploader.load("memrea_hall.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map,1/TriggerTrap.pixelsMultiplier);
-        //camera.position.set(gamePort.getWorldWidth()/2,gamePort.getWorldHeight()/2,0);
+        MapProperties prop = map.getProperties();
+        int mapWidth = prop.get("width", Integer.class);
+        int mapHeight = prop.get("height", Integer.class);
+        int tilePixelWidth = prop.get("tilewidth", Integer.class);
+        int tilePixelHeight = prop.get("tileheight", Integer.class);
+        int mapPixelWidth = mapWidth * tilePixelWidth;
+        int mapPixelHeight = mapHeight * tilePixelHeight;
+        renderer = new OrthogonalTiledMapRenderer(map,1/100f);
+        camera.setToOrtho(false, 5,5);
+
 
         world = new World(new Vector2(0,0),true); // create World container and gravity
         b2dr=new Box2DDebugRenderer();
@@ -86,16 +95,16 @@ public class PlayScreen implements Screen {
         return atlas;
     }
     public void handleInput(float delta){ // testing camera moves
-        if (Gdx.input.isKeyJustPressed(Input.Keys.RIGHT) && som.b2body.getLinearVelocity().x<=2 ){
-           som.b2body.applyLinearImpulse(new Vector2(0.1f,0),som.b2body.getWorldCenter(),true); //TODO: add camera moves
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && som.b2body.getLinearVelocity().x<=2 ){
+           som.b2body.setLinearVelocity(0.1f,0); //TODO: add camera moves
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)&& som.b2body.getLinearVelocity().y<=2){
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)&& som.b2body.getLinearVelocity().y<=2){
             som.b2body.applyLinearImpulse(new Vector2(0,0.1f),som.b2body.getWorldCenter(),true);
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)&& som.b2body.getLinearVelocity().y>=-2){
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)&& som.b2body.getLinearVelocity().y>=-2){
             som.b2body.applyLinearImpulse(new Vector2(0,-0.1f),som.b2body.getWorldCenter(),true);
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)&& som.b2body.getLinearVelocity().x>=-2 ){
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)&& som.b2body.getLinearVelocity().x>=-2 ){
             som.b2body.applyLinearImpulse(new Vector2(-0.1f,0),som.b2body.getWorldCenter(),true);
         }
     }
@@ -114,27 +123,13 @@ public class PlayScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-       /*
-        game.batch.begin();
-        game.batch.draw(somov, somovRect.x, somovRect.y,
-                somovRect.width, somovRect.height, 0, 0,
-                somov.getWidth(), somov.getHeight(), false, false);
-        SomovMoves();
-        if(TimeUtils.nanoTime() - lastDropTime > 1000000000) spawnStudent();
-        deadStudent();
-        for(Rectangle student: students) {
-            game.batch.draw(studentImage, student.x, student.y);
-        }
-        game.batch.end();
-       */
-
         b2dr.render(world,camera.combined); // render b2dr debug lines
         renderer.render(); // renders map
     }
 
     @Override
     public void resize(int width, int height) {
-        //gamePort.update(height,width);
+
     }
 
     @Override
@@ -159,50 +154,12 @@ public class PlayScreen implements Screen {
         world.dispose();
         b2dr.dispose();
     }
-    /*
-    private void deadStudent(){
-        for (Iterator<Rectangle> iter = students.iterator(); iter.hasNext(); ) {
-            Rectangle student = iter.next();
-            student.y -= 200 * Gdx.graphics.getDeltaTime();
-            if(student.y + 64 < 0) iter.remove();
-            if(student.overlaps(somovRect)) {
-                sound.play();
-                iter.remove();
-            }
-        }
-    }
-    private void SomovMoves(){
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) somovRect.y -= 200 * Gdx.graphics.getDeltaTime();
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) somovRect.y += 200 * Gdx.graphics.getDeltaTime();
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)) somovRect.x -= 200 * Gdx.graphics.getDeltaTime();
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) somovRect.x += 200 * Gdx.graphics.getDeltaTime();
-    }
-    */
+
     private void setMusic(){
         mainmenu = Gdx.audio.newMusic(Gdx.files.internal("Nitro Fun - Cheat Codes.mp3"));
         mainmenu.play();
         mainmenu.setLooping(true);
         mainmenu.setVolume(0.1f);
-    }/*
-    private void createSomov(){
-        somov = new Texture("somov.png");
-        somovRect = new Rectangle();
-        somovRect.x = 800 / 2 - 64 / 2;
-        somovRect.y = 20;
-        somovRect.width = somov.getWidth() * 4;
-        somovRect.height = somov.getHeight() * 4;
     }
-    private void spawnStudent() {
-        Rectangle raindrop = new Rectangle();
-        raindrop.x = MathUtils.random(0, 800-64);
-        raindrop.y = 480;
-        raindrop.width = 64;
-        raindrop.height = 64;
-        students.add(raindrop);
-        lastDropTime = TimeUtils.nanoTime();
-    }
-    private void createTouchpad(){
 
-    }
-    */
 }
