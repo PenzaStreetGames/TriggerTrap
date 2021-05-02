@@ -21,7 +21,7 @@ public class WorldCreator {
     }
     private void createWalls(World world, TiledMap map, BodyDef bdef, PolygonShape shape, FixtureDef fdef){
         Body body;
-        for (MapObject object: map.getLayers().get(0).getObjects().getByType(RectangleMapObject.class)){ // TODO: change 1 to walls number in Tiled
+        for (MapObject object: map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){ // TODO: change 1 to walls number in Tiled
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set((rect.getX()+rect.getWidth()/2)/TriggerTrap.pixelsMultiplier,(rect.getY()+rect.getHeight()/2)/TriggerTrap.pixelsMultiplier);
