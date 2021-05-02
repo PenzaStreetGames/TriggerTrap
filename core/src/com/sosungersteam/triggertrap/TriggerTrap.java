@@ -65,10 +65,10 @@ public class TriggerTrap extends ApplicationAdapter {
 		batch.draw(somov, somovRect.x, somovRect.y,
 				somovRect.width, somovRect.height, 0, 0,
 				somov.getWidth(), somov.getHeight(), false, false);
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) somovRect.y += 200 * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) somovRect.y -= 200 * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Input.Keys.UP)) somovRect.x += 200 * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) somovRect.x -= 200 * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) somovRect.y -= 200 * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) somovRect.y += 200 * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.UP)) somovRect.x -= 200 * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) somovRect.x += 200 * Gdx.graphics.getDeltaTime();
 
 		if(TimeUtils.nanoTime() - lastDropTime > 1000000000) spawnStudent();
 
