@@ -55,7 +55,7 @@ public class PlayScreen implements Screen {
         //create port
         gamePort = new FitViewport(game.virtual_width / TriggerTrap.pixelsMultiplier,game.virtual_height / TriggerTrap.pixelsMultiplier,camera);
         //camera.setToOrtho(false, game.virtual_width/TriggerTrap.pixelsMultiplier, game.virtual_height/TriggerTrap.pixelsMultiplier);
-        sound = Gdx.audio.newSound(Gdx.files.internal("wilhelm_scream.mp3"));
+        //sound = Gdx.audio.newSound(Gdx.files.internal("wilhelm_scream.mp3"));
         //createSomov();
         setMusic();
         //studentImage = new Texture("student.png");
@@ -194,7 +194,7 @@ public class PlayScreen implements Screen {
     }
     */
     private void setMusic(){
-        mainmenu = Gdx.audio.newMusic(Gdx.files.internal("Nitro Fun - Cheat Codes.mp3"));
+        mainmenu = Gdx.audio.newMusic(Gdx.files.internal("music/052. Uwa!! So HEATS!!.mp3"));
         mainmenu.play();
         mainmenu.setLooping(true);
         mainmenu.setVolume(0.1f);
