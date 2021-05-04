@@ -48,7 +48,7 @@ public class PlayScreen implements Screen {
         atlas = new TextureAtlas("somov_pack.pack");
         this.game=game;
         camera = new OrthographicCamera();
-        sound = Gdx.audio.newSound(Gdx.files.internal("wilhelm_scream.mp3"));
+        //sound = Gdx.audio.newSound(Gdx.files.internal("wilhelm_scream.mp3"));
         setMusic();
         maploader = new TmxMapLoader();
         map = maploader.load("memrea_hall.tmx");
@@ -73,6 +73,7 @@ public class PlayScreen implements Screen {
     public TextureAtlas getAtlas() {
         return atlas;
     }
+
     public void handleInput(float delta){ // testing camera moves
         float vx = 0, vy = 0;
         float velocity_scale = 32f;
@@ -100,7 +101,7 @@ public class PlayScreen implements Screen {
         camera.position.y=somov.b2body.getPosition().y;
         camera.update();
         renderer.setView(camera);
-        System.out.println(somov.b2body.getPosition());
+        //System.out.println(somov.b2body.getPosition());
     }
     @Override
     public void render(float delta) {
@@ -145,7 +146,7 @@ public class PlayScreen implements Screen {
     }
 
     private void setMusic(){
-        mainmenu = Gdx.audio.newMusic(Gdx.files.internal("Nitro Fun - Cheat Codes.mp3"));
+        mainmenu = Gdx.audio.newMusic(Gdx.files.internal("music/052. Uwa!! So HEATS!!.mp3"));
         mainmenu.play();
         mainmenu.setLooping(true);
         mainmenu.setVolume(0.1f);
