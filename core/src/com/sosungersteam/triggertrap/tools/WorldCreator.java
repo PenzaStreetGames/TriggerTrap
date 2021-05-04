@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.sosungersteam.triggertrap.TriggerTrap;
 
-public class WorldCreator {
+public class WorldCreator { //Как макет комнаты, будет главный класс Мирэа
     public WorldCreator(World world, TiledMap map){
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
@@ -24,9 +24,9 @@ public class WorldCreator {
         for (MapObject object: map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){ // TODO: change 1 to walls number in Tiled
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX()+rect.getWidth()/2)/1/16f,(rect.getY()+rect.getHeight()/2)/1/16f);
+            bdef.position.set((rect.getX()+rect.getWidth()/2),(rect.getY()+rect.getHeight()/2));
             body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2/1/16f,rect.getHeight()/2/1/16f);
+            shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2);
             fdef.shape=shape;
             body.createFixture(fdef); // Created Walls, same way for columns
         }

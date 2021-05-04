@@ -16,7 +16,7 @@ import com.sosungersteam.triggertrap.screens.PlayScreen;
 
 import java.awt.geom.RectangularShape;
 
-public class Somov extends Sprite {
+public class Somov extends Sprite { // создать человечка
     public World world;
     public Body b2body;
     private TextureRegion somovStand;
@@ -26,7 +26,7 @@ public class Somov extends Sprite {
         this.world=world;
         defineSomov();
         somovStand = new TextureRegion(getTexture(),0,0,23,35);
-        setBounds(0,0, 23 / 1/16f, 35 / 1/16f);
+        setBounds(0,0, 23 , 35 );
         setRegion(somovStand);
     }
 
@@ -36,15 +36,15 @@ public class Somov extends Sprite {
 
     public void defineSomov(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(100/ 1/16f,100/1/16f); // change position
+        bdef.position.set(100,100); // change position
         bdef.type=BodyDef.BodyType.DynamicBody; // Dynamic or kinetic???
         b2body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
 
         PolygonShape shape = new PolygonShape();
         Rectangle rect = new Rectangle(1, 1, 15, 25);
-        shape.setAsBox(rect.getWidth()/2/1/16f,rect.getHeight()/2/1/16f,
-                new Vector2(1/1/16f,-5/1/16f), 0);
+        shape.setAsBox(rect.getWidth()/2,rect.getHeight()/2,
+                new Vector2(1/1f,-5), 0);
         fdef.shape=shape;
         b2body.createFixture(fdef);
     }
