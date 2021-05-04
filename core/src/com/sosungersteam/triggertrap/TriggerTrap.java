@@ -20,9 +20,9 @@ import java.util.Iterator;
 
 public class TriggerTrap extends Game {
 	public SpriteBatch batch;
-	public static final int virtual_width = 800;
-	public static final int virtual_height= 480;
-	public static final float pixelsMultiplier = 100;
+	public static final float unitScale = 1/16f;
+	public static final int V_WIDTH=16;
+	public static final int V_HEIGHT=16;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();

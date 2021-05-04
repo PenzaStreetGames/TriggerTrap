@@ -41,7 +41,7 @@ public class PlayScreen implements Screen {
     private TextureAtlas atlas;
 
     private Somov somov;
-    //private FitViewport gamePort;
+    private FitViewport gamePort;
     Texture studentImage;
     Rectangle somovRect;
     Sound sound;
@@ -51,29 +51,13 @@ public class PlayScreen implements Screen {
     public PlayScreen(TriggerTrap game){
         atlas = new TextureAtlas("somov_pack.pack");
         this.game=game;
-        //create camera
         camera = new OrthographicCamera();
-        //create port
-        //gamePort = new FitViewport(game.virtual_width/TriggerTrap.pixelsMultiplier,game.virtual_height/TriggerTrap.pixelsMultiplier,camera);
-
         sound = Gdx.audio.newSound(Gdx.files.internal("wilhelm_scream.mp3"));
-        //createSomov();
         setMusic();
-        //studentImage = new Texture("student.png");
-        //students = new Array<Rectangle>();
-        //spawnStudent();
-         //Map loading
         maploader = new TmxMapLoader();
         map = maploader.load("memrea_hall.tmx");
-        MapProperties prop = map.getProperties();
-        int mapWidth = prop.get("width", Integer.class);
-        int mapHeight = prop.get("height", Integer.class);
-        int tilePixelWidth = prop.get("tilewidth", Integer.class);
-        int tilePixelHeight = prop.get("tileheight", Integer.class);
-        int mapPixelWidth = mapWidth * tilePixelWidth;
-        int mapPixelHeight = mapHeight * tilePixelHeight;
-        renderer = new OrthogonalTiledMapRenderer(map,1/100f);
-        camera.setToOrtho(false, 5,5);
+        renderer = new OrthogonalTiledMapRenderer(map,1/16f);
+        camera.setToOrtho(false,16,9);
 
 
         world = new World(new Vector2(0,0),true); // create World container and gravity
@@ -95,23 +79,20 @@ public class PlayScreen implements Screen {
     }
     public void handleInput(float delta){ // testing camera moves
         float vx = 0, vy = 0;
-        float velocity_scale = 0.5f;
+        float velocity_scale = 8*0.5f;
 
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && somov.b2body.getLinearVelocity().x<=2 ){
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             vx = velocity_scale;
-           //somov.b2body.applyLinearImpulse(new Vector2(0.1f,0),somov.b2body.getWorldCenter(),true); //TODO: add camera moves
+            //TODO: add camera moves
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)&& somov.b2body.getLinearVelocity().y<=2){
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)){
             vy = velocity_scale;
-            //somov.b2body.applyLinearImpulse(new Vector2(0,0.1f),somov.b2body.getWorldCenter(),true);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)&& somov.b2body.getLinearVelocity().y>=-2){
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
             vy = -velocity_scale;
-            //somov.b2body.applyLinearImpulse(new Vector2(0,-0.1f),somov.b2body.getWorldCenter(),true);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)&& somov.b2body.getLinearVelocity().x>=-2 ){
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             vx = -velocity_scale;
-            //somov.b2body.applyLinearImpulse(new Vector2(-0.1f,0),somov.b2body.getWorldCenter(),true);
         }
         somov.b2body.setLinearVelocity(vx, vy);
     }
@@ -123,16 +104,16 @@ public class PlayScreen implements Screen {
         camera.position.y=somov.b2body.getPosition().y;
         camera.update();
         renderer.setView(camera);
+        System.out.println(somov.b2body.getPosition());
     }
     @Override
     public void render(float delta) {
         update(delta); // updates map
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        b2dr.render(world,camera.combined); // render b2dr debug lines
         renderer.render(); // renders map
+        game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         somov.draw(game.batch);
         game.batch.end();

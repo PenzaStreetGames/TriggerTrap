@@ -26,7 +26,7 @@ public class Somov extends Sprite {
         this.world=world;
         defineSomov();
         somovStand = new TextureRegion(getTexture(),0,0,23,35);
-        setBounds(0,0, 23 / TriggerTrap.pixelsMultiplier, 35 / TriggerTrap.pixelsMultiplier);
+        setBounds(0,0, 23 / 1/16f, 35 / 1/16f);
         setRegion(somovStand);
     }
 
@@ -36,21 +36,16 @@ public class Somov extends Sprite {
 
     public void defineSomov(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(100/ TriggerTrap.pixelsMultiplier,100/TriggerTrap.pixelsMultiplier); // change position
+        bdef.position.set(100/ 1/16f,100/1/16f); // change position
         bdef.type=BodyDef.BodyType.DynamicBody; // Dynamic or kinetic???
         b2body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
 
         PolygonShape shape = new PolygonShape();
         Rectangle rect = new Rectangle(1, 1, 15, 25);
-        shape.setAsBox(rect.getWidth()/2/TriggerTrap.pixelsMultiplier,rect.getHeight()/2/TriggerTrap.pixelsMultiplier,
-                new Vector2(1/TriggerTrap.pixelsMultiplier,-5/TriggerTrap.pixelsMultiplier), 0);
+        shape.setAsBox(rect.getWidth()/2/1/16f,rect.getHeight()/2/1/16f,
+                new Vector2(1/1/16f,-5/1/16f), 0);
         fdef.shape=shape;
         b2body.createFixture(fdef);
-
-        /*CircleShape shape = new CircleShape();
-        shape.setRadius(5/TriggerTrap.pixelsMultiplier); // maybe change radius(need test)
-        fdef.shape = shape;
-        b2body.createFixture(fdef);*/
     }
 }
