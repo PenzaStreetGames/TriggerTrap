@@ -24,9 +24,9 @@ public class WorldCreator {
         for (MapObject object: map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){ // TODO: change 1 to walls number in Tiled
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX()+rect.getWidth()/2)/TriggerTrap.pixelsMultiplier,(rect.getY()+rect.getHeight()/2)/TriggerTrap.pixelsMultiplier);
+            bdef.position.set((rect.getX()+rect.getWidth()/2)/1/16f,(rect.getY()+rect.getHeight()/2)/1/16f);
             body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2/TriggerTrap.pixelsMultiplier,rect.getHeight()/2/TriggerTrap.pixelsMultiplier);
+            shape.setAsBox(rect.getWidth()/2/1/16f,rect.getHeight()/2/1/16f);
             fdef.shape=shape;
             body.createFixture(fdef); // Created Walls, same way for columns
         }
