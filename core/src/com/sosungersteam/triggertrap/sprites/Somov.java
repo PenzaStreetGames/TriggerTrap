@@ -25,7 +25,7 @@ public class Somov extends Sprite {
         super(screen.getAtlas().findRegion("somov"));
         this.world=world;
         defineSomov();
-        somovStand = new TextureRegion(getTexture(),0,0,23,35);
+        somovStand = new TextureRegion(getTexture(),0,66,23,35);
         setBounds(0,0, 23 / 1/16f, 35 / 1/16f);
         setRegion(somovStand);
     }
