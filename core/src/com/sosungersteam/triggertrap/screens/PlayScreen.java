@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -52,8 +53,8 @@ public class PlayScreen implements Screen {
         setMusic();
         maploader = new TmxMapLoader();
         map = maploader.load("memrea_hall.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map,1f);
-
+        renderer = new OrthogonalTiledMapRenderer(map,1/16f);
+        camera.setToOrtho(false,16,9);
 
 
         world = new World(new Vector2(0,0),true); // create World container and gravity
@@ -76,7 +77,7 @@ public class PlayScreen implements Screen {
 
     public void handleInput(float delta){ // testing camera moves
         float vx = 0, vy = 0;
-        float velocity_scale = 32f;
+        float velocity_scale = 8*0.5f;
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             vx = velocity_scale;
@@ -119,7 +120,7 @@ public class PlayScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-    camera.setToOrtho(false,width,height);
+    //camera.setToOrtho(false,width,height);
     }
 
     @Override
