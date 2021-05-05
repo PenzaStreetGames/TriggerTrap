@@ -1,5 +1,7 @@
 package com.sosungersteam.triggertrap.persons;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -16,6 +18,7 @@ import com.sosungersteam.triggertrap.TriggerTrap;
 import com.sosungersteam.triggertrap.screens.PlayScreen;
 
 import java.awt.geom.RectangularShape;
+import java.util.ArrayList;
 
 public class Somov extends Person { // создать человечка
     public enum State {STANDING, RUNNINGHOR, RUNNINGVERUP, RUNNINGVERDOWN}
@@ -48,36 +51,22 @@ public class Somov extends Person { // создать человечка
 
         stateTimer = 0;
         runningPosWay = true;
-        Array<TextureRegion> frames = new Array<TextureRegion>();
-        animations.add(getAnimation(0, 102, width, height, 8, 0.1f));
-        somovRunHor = animations.get(0);
 
-
-        for (int i = 0; i < 8; i++) { // TODO: сменить цифры
-            frames.add(new TextureRegion(getTexture(), i * WIDTH, 137, WIDTH, HEIGHT));
-        }
-        somovRunVerUP = new Animation(0.1f, frames);
-        frames.clear();
-        for (int i = 0; i < 8; i++) { // TODO: сменить цифры
-            frames.add(new TextureRegion(getTexture(), i * WIDTH, 172, WIDTH, HEIGHT));
-        }
-        somovStand = new Animation(0.2f, frames);
-        frames.clear();
-        for (int i = 0; i < 8; i++) {// TODO: сменить цифры
-            frames.add(new TextureRegion(getTexture(), i * WIDTH, 67, WIDTH, HEIGHT));
-        }
-        somovRunVerDOWN = new Animation(0.1f, frames);
+        somovRunHor=newAnimation(8,0.1f,WIDTH,102,WIDTH,HEIGHT);
+        somovRunVerUP=newAnimation(8,0.1f,WIDTH,137,WIDTH,HEIGHT);
+        somovRunVerDOWN=newAnimation(8,0.1f,WIDTH,67,WIDTH,HEIGHT);
+        somovStand=newAnimation(8,0.1f,WIDTH,172,WIDTH,HEIGHT);
         defineSomov();
-        setBounds(0, 0, WIDTH / 1 / 16f, HEIGHT / 1 / 16f);
-
+        setBounds(0,0, WIDTH / 1/16f, HEIGHT / 1/16f);
     }
 
-    public Animation<TextureRegion> getAnimation(int x, int y, int width, int height, int framesNumber, float duration) {
+
+    private Animation<TextureRegion> newAnimation(int countFrames, float timeDuration, int x, int y, int width, int height) {
         Array<TextureRegion> frames = new Array<TextureRegion>();
-        for (int i = 0; i < framesNumber; i++) { //TODO: сменить цифры
-            frames.add(new TextureRegion(getTexture(), x + width * i, y, width, height));
+        for (int i=0;i<countFrames;i++){
+            frames.add(new TextureRegion(getTexture(),i*x,y,width,height));
         }
-        return new Animation(duration, frames);
+        return new Animation(timeDuration,frames);
     }
 
     public void update(float dt) {

@@ -17,12 +17,16 @@ public class WorldCreator { //Как макет комнаты, будет гл�
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
-        createWalls(world,map,bdef,shape,fdef);
-        createDoors(world,map,bdef,shape,fdef);
+        AllStaticObject(world,map,bdef,shape,fdef);
     }
-    private void createWalls(World world, TiledMap map, BodyDef bdef, PolygonShape shape, FixtureDef fdef){
+    private void AllStaticObject(World world, TiledMap map, BodyDef bdef, PolygonShape shape, FixtureDef fdef){
+        for (int i=0;i<map.getLayers().size();i++){
+            createStaticObject(world,map,bdef,shape,fdef,i);
+        }
+    }
+    private void createStaticObject(World world, TiledMap map, BodyDef bdef, PolygonShape shape, FixtureDef fdef, int number){
         Body body;
-        for (MapObject object: map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){ // TODO: change 1 to walls number in Tiled
+        for (MapObject object: map.getLayers().get(number).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set((rect.getX()+rect.getWidth()/2)/1/16f,(rect.getY()+rect.getHeight()/2)/1/16f);
@@ -32,16 +36,5 @@ public class WorldCreator { //Как макет комнаты, будет гл�
             body.createFixture(fdef); // Created Walls, same way for columns
         }
     }
-    private void createDoors(World world, TiledMap map, BodyDef bdef, PolygonShape shape, FixtureDef fdef){
-        Body body;
-        for (MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){ // TODO: change 1 to walls number in Tiled
-            Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX()+rect.getWidth()/2)/1/16f,(rect.getY()+rect.getHeight()/2)/1/16f);
-            body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2/1/16f,rect.getHeight()/2/1/16f);
-            fdef.shape=shape;
-            body.createFixture(fdef); // Created Walls, same way for columns
-        }
-    }
+
 }
