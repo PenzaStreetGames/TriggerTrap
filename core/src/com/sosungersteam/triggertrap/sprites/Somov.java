@@ -43,24 +43,24 @@ public class Somov extends Sprite { // создать человечка
         runningPosWay=true;
         Array<TextureRegion> frames = new Array<TextureRegion>();
 
-       for (int i = 1;i<4;i++){ //TODO: сменить цифры
-           frames.add(new TextureRegion(getTexture(),i*WIDTH,0,WIDTH,HEIGHT));
+       for (int i = 0;i<8;i++){ //TODO: сменить цифры
+           frames.add(new TextureRegion(getTexture(),i*WIDTH,102,WIDTH,HEIGHT));
        }
        somovRunHor=new Animation(0.1f,frames);
        frames.clear();
 
-       for (int i=4;i<7;i++){ // TODO: сменить цифры
-           frames.add(new TextureRegion(getTexture(),i*WIDTH,0,WIDTH,HEIGHT));
+       for (int i=0;i<8;i++){ // TODO: сменить цифры
+           frames.add(new TextureRegion(getTexture(),i*WIDTH,137,WIDTH,HEIGHT));
        }
        somovRunVerUP=new Animation(0.1f,frames);
         frames.clear();
-       for (int i=7;i<11;i++){ // TODO: сменить цифры
-           frames.add(new TextureRegion(getTexture(),i*WIDTH,0,WIDTH,HEIGHT));
+       for (int i=0;i<2;i++){ // TODO: сменить цифры
+           frames.add(new TextureRegion(getTexture(),i*WIDTH,171,WIDTH,HEIGHT));
        }
        somovStand = new Animation(0.1f,frames);
         frames.clear();
-        for (int i=11;i<15;i++){// TODO: сменить цифры
-            frames.add(new TextureRegion(getTexture(),i*WIDTH,0,WIDTH,HEIGHT));
+        for (int i=0;i<8;i++){// TODO: сменить цифры
+            frames.add(new TextureRegion(getTexture(),i*WIDTH,67,WIDTH,HEIGHT));
         }
         somovRunVerDOWN=new Animation(0.1f,frames);
         defineSomov();
