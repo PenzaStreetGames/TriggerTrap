@@ -18,6 +18,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.sosungersteam.triggertrap.TriggerTrap;
@@ -29,6 +30,7 @@ public class PlayScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
 
+    private Stage stage;
     private TriggerTrap game;
     private Music mainmenu;
     private World world;
@@ -52,6 +54,8 @@ public class PlayScreen implements Screen {
         camera.setToOrtho(false,16,9);
 
 
+
+
         world = new World(new Vector2(0,0),true); // create World container and gravity
         b2dr=new Box2DDebugRenderer();
 
@@ -70,27 +74,8 @@ public class PlayScreen implements Screen {
         return atlas;
     }
 
-    public void handleInput(float delta){ // testing camera moves
-        float vx = 0, vy = 0;
-        float velocity_scale = 8*0.5f;
-
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
-            vx = velocity_scale;
-            //TODO: add camera moves
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)){
-            vy = velocity_scale;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
-            vy = -velocity_scale;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            vx = -velocity_scale;
-        }
-        somov.b2body.setLinearVelocity(vx, vy);
-    }
     public void update (float delta){
-        handleInput(delta);
+        somov.handleInput(delta);
         world.step(1/60f,6,2); // change later
         somov.update(delta);
         camera.position.x=somov.b2body.getPosition().x;
