@@ -55,7 +55,7 @@ public class PlayScreen implements Screen {
         //sound = Gdx.audio.newSound(Gdx.files.internal("wilhelm_scream.mp3"));
         setMusic();
         maploader = new TmxMapLoader();
-        map = maploader.load("memrea_hall.tmx");
+        map = maploader.load("maps/memrea_hall.tmx");
         renderer = new OrthogonalTiledMapRenderer(map,1/16f);
         camera.setToOrtho(false,16,9);
 
