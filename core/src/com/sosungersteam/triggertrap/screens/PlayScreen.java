@@ -46,13 +46,13 @@ public class PlayScreen implements Screen {
     Sound sound;
 
     public PlayScreen(TriggerTrap game){
-        atlas = new TextureAtlas("somov_pack.pack");
+        atlas = new TextureAtlas("sprites/texture_pack.pack");
         this.game=game;
         camera = new OrthographicCamera();
         //sound = Gdx.audio.newSound(Gdx.files.internal("wilhelm_scream.mp3"));
         setMusic();
         maploader = new TmxMapLoader();
-        map = maploader.load("memrea_hall.tmx");
+        map = maploader.load("maps/memrea_hall.tmx");
         renderer = new OrthogonalTiledMapRenderer(map,1/16f);
         camera.setToOrtho(false,16,9);
 
