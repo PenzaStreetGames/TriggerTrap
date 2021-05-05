@@ -1,12 +1,19 @@
 package com.sosungersteam.triggertrap.persons;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2D;
+import com.badlogic.gdx.utils.Array;
 
 public class Person {
     Texture texture;
-    Rectangle rect;
-    Box2D box2D;
-    int frameNumber = 0;
+    Body body;
+    Rectangle size;
+    private Array<Animation<TextureRegion>> animations;
+    public int animationNumber;
+    public int frameNumber;
+
 }

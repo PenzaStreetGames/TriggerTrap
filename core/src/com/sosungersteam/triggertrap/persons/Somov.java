@@ -19,7 +19,9 @@ import java.awt.geom.RectangularShape;
 public class Somov extends Sprite { // создать человечка
     public enum State {STANDING, RUNNINGHOR, RUNNINGVERUP, RUNNINGVERDOWN}
 
-    ;
+    public enum Moving {STANDING, MOVING}
+    public enum Direction {UP, DOWN, LEFT, RIGHT}
+
     public State currentState;
     public State previousState;
     private Animation<TextureRegion> somovRunHor;
