@@ -27,6 +27,7 @@ public class WorldCreator { //Как макет комнаты, будет гл�
     private void createStaticObject(World world, TiledMap map, BodyDef bdef, PolygonShape shape, FixtureDef fdef, int number){
         Body body;
         for (MapObject object: map.getLayers().get(number).getObjects().getByType(RectangleMapObject.class)){
+            System.out.println(object.getName());
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set((rect.getX()+rect.getWidth()/2)/1/16f,(rect.getY()+rect.getHeight()/2)/1/16f);

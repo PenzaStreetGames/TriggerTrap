@@ -6,8 +6,8 @@ repeat: none
 somov
   rotate: false
   xy: 1, 67
-  size: 256, 256
-  orig: 256, 256
+  size: 256, 512
+  orig: 256, 512
   offset: 0, 0
   index: -1
 student

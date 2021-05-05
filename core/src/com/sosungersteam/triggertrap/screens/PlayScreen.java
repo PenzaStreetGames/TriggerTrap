@@ -22,6 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.sosungersteam.triggertrap.TriggerTrap;
+import com.sosungersteam.triggertrap.controller.Player;
 import com.sosungersteam.triggertrap.persons.Somov;
 import com.sosungersteam.triggertrap.tools.WorldCreator;
 
@@ -40,6 +41,7 @@ public class PlayScreen implements Screen {
 
     private Somov somov;
     private FitViewport gamePort;
+    Player player;
     Sound sound;
 
     public PlayScreen(TriggerTrap game){
@@ -61,7 +63,7 @@ public class PlayScreen implements Screen {
 
         new WorldCreator(world,map);
         somov = new Somov(world,this);
-
+        player = new Player(somov);
 
 
     }
@@ -75,15 +77,16 @@ public class PlayScreen implements Screen {
     }
 
     public void update (float delta){
-        somov.handleInput(delta);
+        player.handleInput(delta);
         world.step(1/60f,6,2); // change later
         somov.update(delta);
-        camera.position.x=somov.b2body.getPosition().x;
-        camera.position.y=somov.b2body.getPosition().y;
+        camera.position.x = somov.body.getPosition().x;
+        camera.position.y = somov.body.getPosition().y;
         camera.update();
         renderer.setView(camera);
         //System.out.println(somov.b2body.getPosition());
     }
+
     @Override
     public void render(float delta) {
         update(delta); // updates map

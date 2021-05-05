@@ -8,18 +8,23 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2D;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Person extends Sprite {
     Texture texture;
-    Body body;
+    public Body body;
+    public World world;
     Rectangle size;
-    protected Array<Animation<TextureRegion>> animations = new Array<>();
     public int animationNumber;
     public int frameNumber;
     protected int width = 23;
     protected int height = 35;
+    protected HashMap<String, Animation<TextureRegion>> animations = new HashMap<>();
 
     public Person(TextureAtlas.AtlasRegion atlas) {
         super(atlas);

@@ -30,17 +30,9 @@ public class Somov extends Person { // создать человечка
     public Direction direction;
     public State currentState;
     public State previousState;
-    private Animation<TextureRegion> somovRunHor;
-    private Animation<TextureRegion> somovRunVerUP;
-    private Animation<TextureRegion> somovRunVerDOWN;
-    private Animation<TextureRegion> somovStand;
-    private boolean runningPosWay;
     private float stateTimer;
     private final int WIDTH = 23;
     private final int HEIGHT = 35;
-
-    public World world;
-    public Body b2body;
 
     public Somov(World world, PlayScreen screen) {
         super(screen.getAtlas().findRegion("somov"));
@@ -50,80 +42,102 @@ public class Somov extends Person { // создать человечка
         direction = Direction.DOWN;
 
         stateTimer = 0;
-        runningPosWay = true;
 
-        somovRunHor=newAnimation(8,0.1f,WIDTH,102,WIDTH,HEIGHT);
-        somovRunVerUP=newAnimation(8,0.1f,WIDTH,137,WIDTH,HEIGHT);
-        somovRunVerDOWN=newAnimation(8,0.1f,WIDTH,67,WIDTH,HEIGHT);
-        somovStand=newAnimation(8,0.1f,WIDTH,172,WIDTH,HEIGHT);
+        cutAnimations();
         defineSomov();
         setBounds(0,0, WIDTH / 1/16f, HEIGHT / 1/16f);
     }
 
+    protected void cutAnimations() {
+        animations.put("walkHor", cutAnimation(8,0.1f, 1,102, width, height));
+        animations.put("walkUp", cutAnimation(8,0.1f, 1,137, width, height));
+        animations.put("walkDown", cutAnimation(8,0.1f, 1,67, width, height));
+        animations.put("stayDown", cutAnimation(8,0.2f, 1,172, width, height));
+        animations.put("stayUp", cutAnimation(1, 0.2f, 1, 137, width, height));
+        animations.put("stayHor", cutAnimation(8, 0.2f, 1, 207, width, height));
+    }
 
-    private Animation<TextureRegion> newAnimation(int countFrames, float timeDuration, int x, int y, int width, int height) {
+    private Animation<TextureRegion> cutAnimation(int countFrames, float timeDuration, int x, int y, int width, int height) {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i=0;i<countFrames;i++){
-            frames.add(new TextureRegion(getTexture(),i*x,y,width,height));
+            frames.add(new TextureRegion(getTexture(),x + i * width, y, width, height));
         }
         return new Animation(timeDuration,frames);
     }
 
     public void update(float dt) {
-        setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
+        setPosition(body.getPosition().x - getWidth() / 2, body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(dt));
     }
 
     public TextureRegion getFrame(float dt) {
-        currentState = getState();
+        defineState();
 
-        TextureRegion region;
-        switch (currentState) {
-            case RUNNINGHOR:
-                region = somovRunHor.getKeyFrame(stateTimer, true);
-                break;
-            case RUNNINGVERDOWN:
-                region = somovRunVerDOWN.getKeyFrame(stateTimer, true);
-                break;
-            case RUNNINGVERUP:
-                region = somovRunVerUP.getKeyFrame(stateTimer, true);
-                break;
-            case STANDING:
-            default:
-                region = somovStand.getKeyFrame(stateTimer, true);
-                break;
+        TextureRegion region = null;
+        if (leisure == Leisure.MOVING) {
+            if (direction == Direction.LEFT || direction == Direction.RIGHT)
+                region = animations.get("walkHor").getKeyFrame(stateTimer, true);
+            else if (direction == Direction.DOWN)
+                region = animations.get("walkDown").getKeyFrame(stateTimer, true);
+            else if (direction == Direction.UP)
+                region = animations.get("walkUp").getKeyFrame(stateTimer, true);
         }
-        if ((b2body.getLinearVelocity().x < 0 || !runningPosWay) && !region.isFlipX()) {
+        else if (leisure == Leisure.STANDING) {
+            if (direction == Direction.UP) {
+                region = animations.get("stayUp").getKeyFrame(stateTimer, true);
+                System.out.println("stay up");
+            }
+            else if (direction == Direction.DOWN)
+                region = animations.get("stayDown").getKeyFrame(stateTimer, true);
+            else if (direction == Direction.LEFT || direction == Direction.RIGHT)
+                region = animations.get("stayHor").getKeyFrame(stateTimer, true);
+        }
+        else
+            region = animations.get("stayDown").getKeyFrame(stateTimer, true);
+
+        if (direction == Direction.LEFT && !region.isFlipX()) {
+            region.flip(true, false);
+        }
+        else if (direction == Direction.RIGHT && region.isFlipX()) {
+            region.flip(true, false);
+        }
+
+        /*if ((b2body.getLinearVelocity().x < 0 || !runningPosWay) && !region.isFlipX()) {
             region.flip(true, false);
             runningPosWay = false;
         } else if ((b2body.getLinearVelocity().x > 0 || runningPosWay) && region.isFlipX()) {
             region.flip(true, false);
             runningPosWay = true;
-        }
+        }*/
         stateTimer = currentState == previousState ? stateTimer + dt : 0;
         previousState = currentState;
         return region;
     }
 
-    public State getState() {
-        if (b2body.getLinearVelocity().y > 0) {
-            return State.RUNNINGVERUP;
+    public void defineState() {
+        if (body.getLinearVelocity().x != 0 || body.getLinearVelocity().y != 0)
+            leisure = Leisure.MOVING;
+        else
+            leisure = Leisure.STANDING;
+        if (body.getLinearVelocity().y > 0) {
+            direction = Direction.UP;
         }
-        if (b2body.getLinearVelocity().y < 0) {
-            return State.RUNNINGVERDOWN;
+        else if (body.getLinearVelocity().y < 0) {
+            direction = Direction.DOWN;
         }
-        if (b2body.getLinearVelocity().x != 0) {
-            return State.RUNNINGHOR;
-        } else
-            return State.STANDING;
-
+        else if (body.getLinearVelocity().x > 0) {
+            direction = Direction.RIGHT;
+        }
+        else if (body.getLinearVelocity().x < 0) {
+            direction = Direction.LEFT;
+        }
     }
 
     public void defineSomov() {
         BodyDef bdef = new BodyDef();
         bdef.position.set(100 / 1 / 16f, 100 / 1 / 16f); // change position
         bdef.type = BodyDef.BodyType.DynamicBody; // Dynamic or kinetic???
-        b2body = world.createBody(bdef);
+        body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
 
         PolygonShape shape = new PolygonShape();
@@ -131,6 +145,6 @@ public class Somov extends Person { // создать человечка
         shape.setAsBox(rect.getWidth() / 2 / 1 / 16f, rect.getHeight() / 2 / 1 / 16f,
                 new Vector2(1 / 1 / 16f, -5 / 1 / 16f), 0);
         fdef.shape = shape;
-        b2body.createFixture(fdef);
+        body.createFixture(fdef);
     }
 }
