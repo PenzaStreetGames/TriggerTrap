@@ -1,4 +1,4 @@
-package com.sosungersteam.triggertrap;
+package com.sosungersteam.triggertrap.persons;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;

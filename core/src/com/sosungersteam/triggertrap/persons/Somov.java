@@ -1,20 +1,15 @@
-package com.sosungersteam.triggertrap.sprites;
+package com.sosungersteam.triggertrap.persons;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.sosungersteam.triggertrap.TriggerTrap;
 import com.sosungersteam.triggertrap.screens.PlayScreen;
-
-import java.awt.geom.RectangularShape;
 
 public class Somov extends Sprite {
     public World world;
