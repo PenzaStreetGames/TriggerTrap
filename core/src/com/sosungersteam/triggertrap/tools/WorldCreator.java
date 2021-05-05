@@ -29,9 +29,9 @@ public class WorldCreator { //Как макет комнаты, будет гл�
         for (MapObject object: map.getLayers().get(number).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((rect.getX()+rect.getWidth()/2)/1/16f,(rect.getY()+rect.getHeight()/2)/1/16f);
+            bdef.position.set((rect.getX()+rect.getWidth()/2)/1/16f,(rect.getY()+rect.getHeight()/2)/1/16f);//
             body = world.createBody(bdef);
-            shape.setAsBox(rect.getWidth()/2/1/16f,rect.getHeight()/2/1/16f);
+            shape.setAsBox(rect.getWidth()/2/1/16f,rect.getHeight()/2/1/16f);///
             fdef.shape=shape;
             body.createFixture(fdef); // Created Walls, same way for columns
         }

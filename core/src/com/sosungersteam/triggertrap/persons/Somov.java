@@ -47,7 +47,7 @@ public class Somov extends Sprite { // создать человечка
         somovRunVerDOWN=newAnimation(8,0.1f,WIDTH,67,WIDTH,HEIGHT);
         somovStand=newAnimation(8,0.1f,WIDTH,172,WIDTH,HEIGHT);
         defineSomov();
-        setBounds(0,0, WIDTH / 1/16f, HEIGHT / 1/16f);
+        setBounds(0,0, WIDTH/1/16f , HEIGHT/1/16f );//
     }
 
 
@@ -63,6 +63,7 @@ public class Somov extends Sprite { // создать человечка
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(dt));
     }
+
     public TextureRegion getFrame(float dt){
         currentState=getState();
 
@@ -94,6 +95,7 @@ public class Somov extends Sprite { // создать человечка
         previousState=currentState;
         return region;
     }
+
     public State getState(){
         if (b2body.getLinearVelocity().y>0){
             return State.RUNNINGVERUP;
@@ -108,6 +110,7 @@ public class Somov extends Sprite { // создать человечка
             return State.STANDING;
 
     }
+
     public void handleInput(float delta){ // testing camera moves
         float vx = 0, vy = 0;
         float velocity_scale = 8*0.5f;
@@ -127,18 +130,20 @@ public class Somov extends Sprite { // создать человечка
         }
         b2body.setLinearVelocity(vx, vy);
     }
+
     public void defineSomov(){
         BodyDef bdef = new BodyDef();
-        bdef.position.set(100/ 1/16f,100/1/16f); // change position
+        bdef.position.set(100/1/16f,100/1/16f); // change position
         bdef.type=BodyDef.BodyType.DynamicBody; // Dynamic or kinetic???
         b2body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
 
         PolygonShape shape = new PolygonShape();
         Rectangle rect = new Rectangle(1, 1, 15, 25);
-        shape.setAsBox(rect.getWidth()/2/1/16f,rect.getHeight()/2/1/16f,
-                new Vector2(1/1/16f,-5/1/16f), 0);
+        shape.setAsBox(rect.getWidth()/2/1/16f,rect.getHeight()/2/1/16f,//
+                new Vector2(1/1/16f,-5/1/16f), 0);//
         fdef.shape=shape;
         b2body.createFixture(fdef);
     }
+
 }
