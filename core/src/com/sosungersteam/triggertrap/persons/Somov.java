@@ -52,7 +52,7 @@ public class Somov extends Sprite { // создать человечка
        }
        somovRunVerUP=new Animation(0.1f,frames);
         frames.clear();
-       for (int i=0;i<2;i++){ // TODO: сменить цифры
+       for (int i=0;i<8;i++){ // TODO: сменить цифры
            frames.add(new TextureRegion(getTexture(),i*WIDTH,171,WIDTH,HEIGHT));
        }
        somovStand = new Animation(0.1f,frames);
