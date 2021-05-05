@@ -12,7 +12,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.sosungersteam.triggertrap.TriggerTrap;
 
-public class WorldCreator {
+public class WorldCreator { //Как макет комнаты, будет главный класс Мирэа
     public WorldCreator(World world, TiledMap map){
         BodyDef bdef = new BodyDef();
         PolygonShape shape = new PolygonShape();

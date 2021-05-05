@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -36,11 +38,7 @@ public class PlayScreen implements Screen {
 
     private Somov somov;
     private FitViewport gamePort;
-    Texture studentImage;
-    Rectangle somovRect;
     Sound sound;
-    private Array<Rectangle> students;
-    private long lastDropTime;
 
     public PlayScreen(TriggerTrap game){
         atlas = new TextureAtlas("sprites/texture_pack.pack");
@@ -117,7 +115,7 @@ public class PlayScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+    //camera.setToOrtho(false,width,height);
     }
 
     @Override
