@@ -49,7 +49,7 @@ public class PlayScreen implements Screen {
     private long lastDropTime;
 
     public PlayScreen(TriggerTrap game){
-        atlas = new TextureAtlas("somov_pack.pack");
+        atlas = new TextureAtlas("sprites/texture_pack.pack");
         this.game=game;
         camera = new OrthographicCamera();
         //sound = Gdx.audio.newSound(Gdx.files.internal("wilhelm_scream.mp3"));
