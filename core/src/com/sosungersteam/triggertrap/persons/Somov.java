@@ -103,14 +103,6 @@ public class Somov extends Person { // создать человечка
         else if (direction == Direction.RIGHT && region.isFlipX()) {
             region.flip(true, false);
         }
-
-        /*if ((b2body.getLinearVelocity().x < 0 || !runningPosWay) && !region.isFlipX()) {
-            region.flip(true, false);
-            runningPosWay = false;
-        } else if ((b2body.getLinearVelocity().x > 0 || runningPosWay) && region.isFlipX()) {
-            region.flip(true, false);
-            runningPosWay = true;
-        }*/
         stateTimer = currentState == previousState ? stateTimer + dt : 0;
         previousState = currentState;
         return region;

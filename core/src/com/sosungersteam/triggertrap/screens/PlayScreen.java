@@ -34,37 +34,24 @@ public class PlayScreen implements Screen {
     private TmxMapLoader maploader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
-
-
     private TriggerTrap game;
     private Music mainmenu;
     private World world;
     private Box2DDebugRenderer b2dr;
     private OrthographicCamera camera;
     private TextureAtlas atlas;
-
     private Somov somov;
+    private String mapName;
     public Player player;
 
     Sound sound;
    //TODO сделать переход из комнаты в комнату, вынести комнаты в список, получать комнату по номеру двери, инициализировать комнаты, при этом сохранять персонажа в том же мире(постараться)
-    public PlayScreen(TriggerTrap game){
+    public PlayScreen(TriggerTrap game,String mapName){
         atlas = new TextureAtlas("sprites/texture_pack.pack");
         this.game=game;
-        //sound = Gdx.audio.newSound(Gdx.files.internal("wilhelm_scream.mp3"));
+        this.mapName = mapName;
         setMusic();
-        maploader = new TmxMapLoader();
-        map = maploader.load("maps/memrea_hall.tmx");
-        renderer = new OrthogonalTiledMapRenderer(map,1/16f);
-        camera = new OrthographicCamera(32,18);
-
-        world = new World(new Vector2(0,0),true); // create World container and gravity
-        b2dr=new Box2DDebugRenderer();
-        new WorldCreator(world,map);
-        world.setContactListener(new WorldContactListener()); //создание взаимодействия физических объектов мира
-
-        somov = new Somov(world,this);
-        player = new Player(somov);
+        loadMap(mapName);
     }
     @Override
     public void show() {
@@ -74,15 +61,26 @@ public class PlayScreen implements Screen {
     public TextureAtlas getAtlas() {
         return atlas;
     }
-
+    public void loadMap(String mapName){
+        maploader = new TmxMapLoader();
+        map = maploader.load(mapName);
+        renderer = new OrthogonalTiledMapRenderer(map,1/16f);
+        camera = new OrthographicCamera(32,18);
+        world = new World(new Vector2(0,0),true); // create World container and gravity
+        b2dr=new Box2DDebugRenderer();
+        world.setContactListener(new WorldContactListener()); //создание взаимодействия физических объектов мира
+        somov = new Somov(world,this); //TODO:делать так чтобы не создавался новый сомов и игрок, а просто передавался в другой мир.
+        player = new Player(somov);
+    }
     public void update (float delta){
         player.handleInput(delta);
         world.step(1/60f,6,2); // change later
-        somov.update(delta);
-        camera.position.x = somov.body.getPosition().x;
-        camera.position.y = somov.body.getPosition().y;
+        somov.update(delta); // абстрагировать от сомова к персон
+        camera.position.x = player.person.body.getPosition().x;
+        camera.position.y = player.person.body.getPosition().y;
         camera.update();
         renderer.setView(camera);
+        System.out.println(player.person.body.getPosition());
     }
 
     @Override

@@ -10,7 +10,7 @@ public class TriggerTrap extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		setScreen(new PlayScreen(this));
+		setScreen(new PlayScreen(this,"maps/memrea_hall.tmx"));
 	}
 	@Override
 	public void resize(int width,int height){
