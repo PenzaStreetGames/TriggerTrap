@@ -44,6 +44,7 @@ public class PlayScreen implements Screen {
     private TextureAtlas atlas;
 
     private Somov somov;
+    public Player player;
 
     Sound sound;
    //TODO сделать переход из комнаты в комнату, вынести комнаты в список, получать комнату по номеру двери, инициализировать комнаты, при этом сохранять персонажа в том же мире(постараться)
@@ -57,21 +58,13 @@ public class PlayScreen implements Screen {
         renderer = new OrthogonalTiledMapRenderer(map,1/16f);
         camera = new OrthographicCamera(32,18);
 
-
-
-
-
-
         world = new World(new Vector2(0,0),true); // create World container and gravity
         b2dr=new Box2DDebugRenderer();
         new WorldCreator(world,map);
         world.setContactListener(new WorldContactListener()); //создание взаимодействия физических объектов мира
 
-
         somov = new Somov(world,this);
         player = new Player(somov);
-
-
     }
     @Override
     public void show() {
