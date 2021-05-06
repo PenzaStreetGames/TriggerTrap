@@ -26,12 +26,14 @@ public class TriggerTrap extends Game {
 
 		batch = new SpriteBatch();
 		gameController.player = new Player(null);
-		gameController.player.setSpawnPoint(SpawnPointManager.get().getById(1));
+
+		// выбор точки спавна
+		gameController.player.setSpawnPoint(SpawnPointManager.get().getById(4));
+		//
 
 		renderer = Renderer.get();
 		renderer.setPlayScreen(new PlayScreen(this));
 		setScreen(Renderer.get().playScreen);
-
 		Renderer.get().createNewWorld(GameController.get().getTargetRoom().tiledMap);
 
 		Somov somov = new Somov(Renderer.get().world, Renderer.get().playScreen);

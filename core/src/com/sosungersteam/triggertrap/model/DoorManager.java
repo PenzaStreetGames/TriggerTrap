@@ -22,6 +22,10 @@ public class DoorManager implements MapObjectManager<Door> {
         doors.add(new Door(1, 1));
         doors.add(new Door(2, 1));
         doors.add(new Door(3, 2));
+        doors.add(new Door(4, 2));
+        doors.add(new Door(5, 2));
+        doors.add(new Door(6, 2));
+        doors.add(new Door(7, 2));
     }
 
     @Override
@@ -31,9 +35,5 @@ public class DoorManager implements MapObjectManager<Door> {
                 return door;
         }
         return null;
-    }
-
-    public void setSpawnPositions() {
-
     }
 }

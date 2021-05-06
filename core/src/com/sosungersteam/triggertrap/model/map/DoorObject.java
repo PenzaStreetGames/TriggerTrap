@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 
 public class DoorObject extends InteractiveObjects {
+    public Door door;
     public String name;
 
     public DoorObject(World world, TiledMap map, Rectangle rect, String name) {
@@ -16,6 +17,7 @@ public class DoorObject extends InteractiveObjects {
 
     @Override
     public void onUse() {
-        System.out.println(name);
+
+        //door.edge.doorInto.spawnPoint
     }
 }

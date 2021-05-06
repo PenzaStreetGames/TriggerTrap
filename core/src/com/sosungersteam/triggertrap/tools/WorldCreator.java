@@ -24,7 +24,7 @@ public class WorldCreator { //Как макет комнаты, будет гл�
         createWalls(world,map,bdef,shape,fdef);
         createDoors(world,map);
     }
-    private void createDoors(World world,TiledMap map){
+    private void createDoors(World world, TiledMap map){
         for (MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             DoorObject doorObject = new DoorObject(world, map, rect, object.getName());

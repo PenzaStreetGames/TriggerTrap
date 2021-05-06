@@ -40,6 +40,7 @@ public class Player {
             vx = -velocity_scale;
         }
         person.body.setLinearVelocity(vx, vy);
+        System.out.println(person.body.getPosition());
     }
 
     public void setSpawnPoint(SpawnPoint spawnPoint) {

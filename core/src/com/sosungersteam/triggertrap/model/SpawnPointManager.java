@@ -45,7 +45,7 @@ public class SpawnPointManager implements MapObjectManager<SpawnPoint> {
         spawnCoordinates.put(1, new Vector2(16, 12));
         spawnCoordinates.put(2, new Vector2(16, 5));
         spawnCoordinates.put(3, new Vector2(16, 22));
-        spawnCoordinates.put(4, new Vector2(49, 56));
+        spawnCoordinates.put(4, new Vector2(49, 44));
 
         for (int key : spawnCoordinates.keySet()) {
             getById(key).setPoint(spawnCoordinates.get(key));

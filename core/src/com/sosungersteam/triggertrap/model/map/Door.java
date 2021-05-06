@@ -30,6 +30,7 @@ public class Door {
     public void attachDoorObject(DoorObject object) {
         doorObject = object;
         this.name = name;
+        doorObject.door = this;
     }
 
     public void setEdgeId(int edgeId) {
