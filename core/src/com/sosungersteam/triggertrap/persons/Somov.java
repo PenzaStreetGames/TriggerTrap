@@ -88,7 +88,6 @@ public class Somov extends Person { // создать человечка
         else if (leisure == Leisure.STANDING) {
             if (direction == Direction.UP) {
                 region = animations.get("stayUp").getKeyFrame(stateTimer, true);
-                System.out.println("stay up");
             }
             else if (direction == Direction.DOWN)
                 region = animations.get("stayDown").getKeyFrame(stateTimer, true);
