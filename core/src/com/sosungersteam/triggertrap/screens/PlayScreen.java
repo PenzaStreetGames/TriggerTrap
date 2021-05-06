@@ -81,7 +81,7 @@ public class PlayScreen implements Screen {
         Renderer.get().orthogonalRenderer.render(); // renders map
         drawLvl();
         game.hud.stage.draw();
-        Renderer.get().box2DDebugRenderer.render(Renderer.get().world, camera.combined);
+        //Renderer.get().box2DDebugRenderer.render(Renderer.get().world, camera.combined);
     }
     private void drawLvl(){
         game.batch.setProjectionMatrix(camera.combined);
