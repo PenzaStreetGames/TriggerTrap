@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-up" width="34" height="25" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="45">
- <tileset firstgid="1" source="tiles\hall_tiles.tsx"/>
+ <tileset firstgid="1" source="tiles/hall_tiles.tsx"/>
  <layer id="1" name="background" width="34" height="25">
   <data encoding="csv">
 0,17,17,17,17,17,17,17,18,18,16,16,17,16,16,16,61,62,16,16,16,18,16,16,17,17,17,17,17,17,17,18,18,0,
@@ -54,7 +54,7 @@
   <object id="42" x="480" y="31.5" width="16" height="32.5"/>
  </objectgroup>
  <objectgroup id="3" name="doors">
-  <object id="43" name="door2" x="223.5" y="32.25" width="96.25" height="32"/>
-  <object id="44" name="door1" x="240" y="375.5" width="64" height="24.25"/>
+  <object id="43" name="2" x="223.5" y="32.25" width="96.25" height="32"/>
+  <object id="44" name="1" x="240" y="375.5" width="64" height="24.25"/>
  </objectgroup>
 </map>

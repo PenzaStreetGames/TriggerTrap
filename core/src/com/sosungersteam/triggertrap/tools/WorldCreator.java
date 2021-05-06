@@ -11,7 +11,10 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.sosungersteam.triggertrap.TriggerTrap;
+import com.sosungersteam.triggertrap.model.DoorManager;
 import com.sosungersteam.triggertrap.model.map.Door;
+import com.sosungersteam.triggertrap.model.map.DoorObject;
+import com.sosungersteam.triggertrap.model.map.InteractiveObjects;
 
 public class WorldCreator { //Как макет комнаты, будет главный класс Мирэа
     public WorldCreator(World world, TiledMap map){
@@ -24,7 +27,12 @@ public class WorldCreator { //Как макет комнаты, будет гл�
     private void createDoors(World world,TiledMap map){
         for (MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-            new Door(world, map, rect,object.getName());
+            DoorObject doorObject = new DoorObject(world, map, rect, object.getName());
+
+            DoorManager manager = DoorManager.get();
+            int number = Integer.parseInt(doorObject.name);
+            Door door = manager.getById(number);
+            door.attachDoorObject(doorObject);
         }
     }
     private void createWalls(World world, TiledMap map, BodyDef bdef, PolygonShape shape, FixtureDef fdef){

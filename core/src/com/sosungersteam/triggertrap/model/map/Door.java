@@ -5,25 +5,38 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.sosungersteam.triggertrap.model.DoorManager;
 
-public class Door extends InteractiveObjects {
-    //public int id;
-   // public Room room;
-   // public Edge edge;
+public class Door {
+    public int id;
+    public int roomId;
+    public int edgeId;
+    public Room room;
+    public Edge edge;
     private String name;
+    public DoorObject doorObject;
+    public Vector2 spawnPoint;
 
-    public Door(World world, TiledMap map, Rectangle bounds,String name) {
-        super(world, map, bounds);
-        this.name = name;
-        fixture.setUserData(this);
+    public Door(int id, int roomId) {
+        this.id = id;
+
     }
 
-    @Override
-    public void onUse() {
-        System.out.println(this.name);
+    public void attachDoorObject(DoorObject object) {
+        doorObject = object;
+        this.name = name;
+    }
+
+    public void setEdgeId(int edgeId) {
+        this.edgeId = edgeId;
+    }
+
+    public void setSpawnPoint(int x, int y) {
+        spawnPoint = new Vector2(x, y);
     }
 }
