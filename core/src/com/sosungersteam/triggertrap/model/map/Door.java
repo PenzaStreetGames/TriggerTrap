@@ -14,14 +14,16 @@ public class Door extends InteractiveObjects {
     //public int id;
    // public Room room;
    // public Edge edge;
+    private String name;
 
-    public Door(World world, TiledMap map, Rectangle bounds) {
+    public Door(World world, TiledMap map, Rectangle bounds,String name) {
         super(world, map, bounds);
+        this.name = name;
         fixture.setUserData(this);
     }
 
     @Override
     public void onUse() {
-        System.out.println(map.getLayers().get(2).getName());
+        System.out.println(this.name);
     }
 }
