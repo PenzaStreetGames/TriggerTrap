@@ -1,11 +1,14 @@
 package com.sosungersteam.triggertrap.view;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sosungersteam.triggertrap.model.GameController;
 import com.sosungersteam.triggertrap.screens.PlayScreen;
 import com.sosungersteam.triggertrap.tools.WorldContactListener;
@@ -17,7 +20,8 @@ public class Renderer {
     public World world;
     public Box2DDebugRenderer box2DDebugRenderer;
     public OrthogonalTiledMapRenderer orthogonalRenderer;
-
+    private Viewport gameport;
+    private OrthographicCamera gamecam;
     private Renderer() {
 
     }
@@ -37,8 +41,10 @@ public class Renderer {
     }
 
     public void createNewWorld(TiledMap map) {
-        if (orthogonalRenderer == null)
-            orthogonalRenderer = new OrthogonalTiledMapRenderer(map, 1/16f);
+        if (orthogonalRenderer == null) {
+            orthogonalRenderer = new OrthogonalTiledMapRenderer(map, 1 / 16f);
+            gameport=new FitViewport(32,18,gamecam);
+        }
         orthogonalRenderer.setMap(map);
         box2DDebugRenderer = new Box2DDebugRenderer();
         world = new World(new Vector2(0,0),true); // create World container and gravity

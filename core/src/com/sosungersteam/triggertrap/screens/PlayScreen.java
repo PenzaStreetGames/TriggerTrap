@@ -77,8 +77,10 @@ public class PlayScreen implements Screen {
         camera.update();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        game.batch.setProjectionMatrix(game.hud.stage.getCamera().combined);
         Renderer.get().orthogonalRenderer.render(); // renders map
         drawLvl();
+        game.hud.stage.draw();
         Renderer.get().box2DDebugRenderer.render(Renderer.get().world, camera.combined);
     }
     private void drawLvl(){
