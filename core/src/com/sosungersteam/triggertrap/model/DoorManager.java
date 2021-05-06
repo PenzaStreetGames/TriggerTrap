@@ -21,6 +21,7 @@ public class DoorManager implements MapObjectManager<Door> {
     public void load() {
         doors.add(new Door(1, 1));
         doors.add(new Door(2, 1));
+        doors.add(new Door(3, 2));
     }
 
     @Override

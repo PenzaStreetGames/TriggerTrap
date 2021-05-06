@@ -20,7 +20,7 @@ public class Door {
     public Edge edge;
     private String name;
     public DoorObject doorObject;
-    public Vector2 spawnPoint;
+    public SpawnPoint spawnPoint;
 
     public Door(int id, int roomId) {
         this.id = id;
@@ -36,7 +36,7 @@ public class Door {
         this.edgeId = edgeId;
     }
 
-    public void setSpawnPoint(int x, int y) {
-        spawnPoint = new Vector2(x, y);
+    public void setSpawnPoint(SpawnPoint spawnPoint) {
+        this.spawnPoint = spawnPoint;
     }
 }

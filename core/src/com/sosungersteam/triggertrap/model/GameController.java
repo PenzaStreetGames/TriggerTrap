@@ -7,6 +7,7 @@ import com.sosungersteam.triggertrap.model.map.Edge;
 import com.sosungersteam.triggertrap.model.map.Room;
 import com.sosungersteam.triggertrap.model.map.SpawnPoint;
 import com.sosungersteam.triggertrap.persons.Person;
+import com.sosungersteam.triggertrap.view.DJ;
 import com.sosungersteam.triggertrap.view.Renderer;
 
 public class GameController {
@@ -20,9 +21,9 @@ public class GameController {
     public MapObjectManager<Room> roomManager;
     public MapObjectManager<Edge> edgeManager;
     public MapObjectManager<SpawnPoint> spawnPointManager;
-    public Array<Door> doors;
-    public Array<Edge> edges;
-    public Array<Room> rooms;
+
+    public DJ dj;
+
     public Array<Person> people;
 
     private GameController() {
@@ -30,6 +31,7 @@ public class GameController {
         roomManager = RoomManager.get();
         edgeManager = EdgeManager.get();
         spawnPointManager = SpawnPointManager.get();
+        dj = DJ.get();
     }
 
     public static GameController get() {
@@ -39,6 +41,7 @@ public class GameController {
     }
 
     public void loadResources() {
+        dj.load();
         roomManager.load();
         doorManager.load();
         edgeManager.load();
@@ -46,6 +49,10 @@ public class GameController {
     }
 
     public void spawnOnStartPosition() {
+        player.teleport(player.spawnPoint);
+    }
 
+    public Room getTargetRoom() {
+        return RoomManager.get().getById(GameController.get().player.targetRoomId);
     }
 }

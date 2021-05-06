@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.World;
@@ -30,6 +31,10 @@ public class Person extends Sprite {
         super(atlas);
         width = 23;
         height = 35;
+    }
+
+    public void setPersonPosition(float x, float y) {
+        body.setTransform(x, y, 0);
     }
 
 
