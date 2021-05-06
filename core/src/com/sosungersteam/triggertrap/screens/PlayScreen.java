@@ -37,7 +37,7 @@ import com.sosungersteam.triggertrap.view.Renderer;
 
 public class PlayScreen implements Screen {
 
-    private OrthogonalTiledMapRenderer renderer;
+
     private TriggerTrap game;
     private OrthographicCamera camera;
     private TextureAtlas atlas;
@@ -48,7 +48,6 @@ public class PlayScreen implements Screen {
         this.game=game;
 
         Room targetRoom = GameController.get().getTargetRoom();
-        renderer = new OrthogonalTiledMapRenderer(targetRoom.tiledMap,1/16f);
         camera = new OrthographicCamera(32,18);
 
     }
@@ -69,7 +68,7 @@ public class PlayScreen implements Screen {
         camera.position.x = somov.body.getPosition().x;
         camera.position.y = somov.body.getPosition().y;
         camera.update();
-        renderer.setView(camera);
+        Renderer.get().orthogonalRenderer.setView(camera);
     }
 
     @Override
@@ -78,7 +77,7 @@ public class PlayScreen implements Screen {
         camera.update();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        renderer.render(); // renders map
+        Renderer.get().orthogonalRenderer.render(); // renders map
         drawLvl();
         Renderer.get().box2DDebugRenderer.render(Renderer.get().world, camera.combined);
     }
@@ -112,10 +111,6 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-        RoomManager.get().getById(GameController.get().player.targetRoomId).tiledMap.dispose();
-        renderer.dispose();
-        Renderer.get().world.dispose();
-        Renderer.get().box2DDebugRenderer.dispose();
     }
 
 }

@@ -2,6 +2,7 @@ package com.sosungersteam.triggertrap.view;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -15,6 +16,7 @@ public class Renderer {
     public PlayScreen playScreen;
     public World world;
     public Box2DDebugRenderer box2DDebugRenderer;
+    public OrthogonalTiledMapRenderer orthogonalRenderer;
 
     private Renderer() {
 
@@ -35,6 +37,9 @@ public class Renderer {
     }
 
     public void createNewWorld(TiledMap map) {
+        if (orthogonalRenderer == null)
+            orthogonalRenderer = new OrthogonalTiledMapRenderer(map, 1/16f);
+        orthogonalRenderer.setMap(map);
         box2DDebugRenderer = new Box2DDebugRenderer();
         world = new World(new Vector2(0,0),true); // create World container and gravity
         new WorldCreator(world, map);

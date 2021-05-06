@@ -3,6 +3,8 @@ package com.sosungersteam.triggertrap.model.map;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
+import com.sosungersteam.triggertrap.TriggerTrap;
+import com.sosungersteam.triggertrap.model.GameController;
 
 
 public class DoorObject extends InteractiveObjects {
@@ -17,7 +19,9 @@ public class DoorObject extends InteractiveObjects {
 
     @Override
     public void onUse() {
-
-        //door.edge.doorInto.spawnPoint
+        if (door.edge != null) {
+            GameController.get().player.setSpawnPoint(door.edge.doorInto.spawnPoint);
+            TriggerTrap.triggerTrap.entryToRoom();
+        }
     }
 }

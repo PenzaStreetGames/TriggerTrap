@@ -11,6 +11,7 @@ import com.sosungersteam.triggertrap.screens.PlayScreen;
 import com.sosungersteam.triggertrap.view.Renderer;
 
 public class TriggerTrap extends Game {
+	public static TriggerTrap triggerTrap;
 	public SpriteBatch batch;
 	public final int PPM=100;
 	public GameController gameController;
@@ -18,6 +19,8 @@ public class TriggerTrap extends Game {
 
 	@Override
 	public void create () {
+		triggerTrap = this;
+
 		gameController = GameController.get();
 		gameController.loadResources();
 
@@ -28,9 +31,15 @@ public class TriggerTrap extends Game {
 		gameController.player = new Player(null);
 
 		// выбор точки спавна
-		gameController.player.setSpawnPoint(SpawnPointManager.get().getById(4));
+		gameController.player.setSpawnPoint(SpawnPointManager.get().getById(1));
 		//
 
+		entryToRoom();
+	}
+
+	public void entryToRoom() {
+		if (Renderer.get().playScreen != null)
+			Renderer.get().playScreen.dispose();
 		renderer = Renderer.get();
 		renderer.setPlayScreen(new PlayScreen(this));
 		setScreen(Renderer.get().playScreen);
