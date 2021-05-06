@@ -68,6 +68,7 @@ public class PlayScreen implements Screen {
         camera = new OrthographicCamera(32,18);
         world = new World(new Vector2(0,0),true); // create World container and gravity
         b2dr=new Box2DDebugRenderer();
+        //new WorldCreator(world,map);
         world.setContactListener(new WorldContactListener()); //создание взаимодействия физических объектов мира
         somov = new Somov(world,this); //TODO:делать так чтобы не создавался новый сомов и игрок, а просто передавался в другой мир.
         player = new Player(somov);
@@ -79,7 +80,7 @@ public class PlayScreen implements Screen {
         camera.position.x = player.person.body.getPosition().x;
         camera.position.y = player.person.body.getPosition().y;
         camera.update();
-        renderer.setView(camera);
+        //renderer.setView(camera);
         System.out.println(player.person.body.getPosition());
     }
 

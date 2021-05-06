@@ -129,7 +129,7 @@ public class Somov extends Person { // создать человечка
 
     public void defineSomov() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(100 / 1 / 16f, 100 / 1 / 16f); // change position
+        bdef.position.set(17, 4); // change position
         bdef.type = BodyDef.BodyType.DynamicBody; // Dynamic or kinetic???
         body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
