@@ -35,4 +35,8 @@ public class Player {
         }
         person.body.setLinearVelocity(vx, vy);
     }
+
+    public void teleport(int x, int y) {
+
+    }
 }

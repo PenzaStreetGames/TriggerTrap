@@ -6,6 +6,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.sosungersteam.triggertrap.model.map.DoorObject;
 import com.sosungersteam.triggertrap.model.map.InteractiveObjects;
 
 public class WorldContactListener implements ContactListener { // Метод отвечающий за взаимодействие объектов в мире
@@ -16,8 +17,8 @@ public class WorldContactListener implements ContactListener { // Метод о�
         if (fixA.getUserData() == "bodyTouch" || fixB.getUserData()=="bodyTouch"){
             Fixture bodyTouch = (fixA.getUserData()=="bodyTouch")?fixA:fixB;
             Fixture object = bodyTouch==fixA?fixB:fixA;
-            if (object.getUserData()!=null && InteractiveObjects.class.isAssignableFrom(object.getUserData().getClass())){
-                ((InteractiveObjects) object.getUserData()).onUse();
+            if (object.getUserData()!=null && DoorObject.class.isAssignableFrom(object.getUserData().getClass())){
+                ((DoorObject) object.getUserData()).onUse();
             }
         }
     }
