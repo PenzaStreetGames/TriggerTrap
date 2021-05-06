@@ -24,8 +24,12 @@ public class SpawnPointManager implements MapObjectManager<SpawnPoint> {
 
     @Override
     public void load() {
-        spawnPoints.add(new SpawnPoint(1, 1));
+        spawnPoints.add(new SpawnPoint(1, 1, 0));
+        spawnPoints.add(new SpawnPoint(2, 1, 1));
+        spawnPoints.add(new SpawnPoint(3, 1, 2));
+        spawnPoints.add(new SpawnPoint(4, 2, 3));
 
+        setSpawnCoordinates();
     }
 
     @Override
@@ -39,9 +43,16 @@ public class SpawnPointManager implements MapObjectManager<SpawnPoint> {
 
     public void setSpawnCoordinates() {
         spawnCoordinates.put(1, new Vector2(16, 12));
+        spawnCoordinates.put(2, new Vector2(16, 5));
+        spawnCoordinates.put(3, new Vector2(16, 19));
+        spawnCoordinates.put(4, new Vector2(14, 4));
 
         for (int key : spawnCoordinates.keySet()) {
             getById(key).setPoint(spawnCoordinates.get(key));
         }
+    }
+
+    public void attachSpawnPointsToDoors() {
+
     }
 }

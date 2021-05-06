@@ -26,32 +26,30 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.sosungersteam.triggertrap.TriggerTrap;
 import com.sosungersteam.triggertrap.controller.Player;
+import com.sosungersteam.triggertrap.model.GameController;
+import com.sosungersteam.triggertrap.model.RoomManager;
+import com.sosungersteam.triggertrap.model.map.Room;
+import com.sosungersteam.triggertrap.persons.Person;
 import com.sosungersteam.triggertrap.persons.Somov;
 import com.sosungersteam.triggertrap.tools.WorldContactListener;
 import com.sosungersteam.triggertrap.tools.WorldCreator;
+import com.sosungersteam.triggertrap.view.Renderer;
 
 public class PlayScreen implements Screen {
-    private TmxMapLoader maploader;
-    private TiledMap map;
-    private OrthogonalTiledMapRenderer renderer;
+
+
     private TriggerTrap game;
-    private Music mainmenu;
-    private World world;
-    private Box2DDebugRenderer b2dr;
     private OrthographicCamera camera;
     private TextureAtlas atlas;
-    private Somov somov;
-    private String mapName;
-    public Player player;
 
-    Sound sound;
    //TODO сделать переход из комнаты в комнату, вынести комнаты в список, получать комнату по номеру двери, инициализировать комнаты, при этом сохранять персонажа в том же мире(постараться)
-    public PlayScreen(TriggerTrap game,String mapName){
+    public PlayScreen(TriggerTrap game){
         atlas = new TextureAtlas("sprites/texture_pack.pack");
         this.game=game;
-        this.mapName = mapName;
-        setMusic();
-        loadMap(mapName);
+
+        Room targetRoom = GameController.get().getTargetRoom();
+        camera = new OrthographicCamera(32,18);
+
     }
     @Override
     public void show() {
@@ -61,27 +59,16 @@ public class PlayScreen implements Screen {
     public TextureAtlas getAtlas() {
         return atlas;
     }
-    public void loadMap(String mapName){
-        maploader = new TmxMapLoader();
-        map = maploader.load(mapName);
-        renderer = new OrthogonalTiledMapRenderer(map,1/16f);
-        camera = new OrthographicCamera(32,18);
-        world = new World(new Vector2(0,0),true); // create World container and gravity
-        b2dr=new Box2DDebugRenderer();
-        //new WorldCreator(world,map);
-        world.setContactListener(new WorldContactListener()); //создание взаимодействия физических объектов мира
-        somov = new Somov(world,this); //TODO:делать так чтобы не создавался новый сомов и игрок, а просто передавался в другой мир.
-        player = new Player(somov);
-    }
+
     public void update (float delta){
-        player.handleInput(delta);
-        world.step(1/60f,6,2); // change later
-        somov.update(delta); // абстрагировать от сомова к персон
-        camera.position.x = player.person.body.getPosition().x;
-        camera.position.y = player.person.body.getPosition().y;
+        GameController.get().player.handleInput(delta);
+        Renderer.get().world.step(1/60f,6,2); // change later
+        Somov somov = (Somov)GameController.get().player.person;
+        somov.update(delta);
+        camera.position.x = somov.body.getPosition().x;
+        camera.position.y = somov.body.getPosition().y;
         camera.update();
-        //renderer.setView(camera);
-        System.out.println(player.person.body.getPosition());
+        Renderer.get().orthogonalRenderer.setView(camera);
     }
 
     @Override
@@ -90,13 +77,14 @@ public class PlayScreen implements Screen {
         camera.update();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        renderer.render(); // renders map
+        Renderer.get().orthogonalRenderer.render(); // renders map
         drawLvl();
-        b2dr.render(world,camera.combined);
+        Renderer.get().box2DDebugRenderer.render(Renderer.get().world, camera.combined);
     }
     private void drawLvl(){
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
+        Somov somov = (Somov)GameController.get().player.person;
         somov.draw(game.batch);
         game.batch.end();
 
@@ -123,17 +111,6 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-        map.dispose();
-        renderer.dispose();
-        world.dispose();
-        b2dr.dispose();
-    }
-
-    private void setMusic(){
-        mainmenu = Gdx.audio.newMusic(Gdx.files.internal("music/052. Uwa!! So HEATS!!.mp3"));
-        mainmenu.play();
-        mainmenu.setLooping(true);
-        mainmenu.setVolume(0.1f);
     }
 
 }

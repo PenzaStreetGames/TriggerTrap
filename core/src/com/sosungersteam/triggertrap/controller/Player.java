@@ -3,14 +3,20 @@ package com.sosungersteam.triggertrap.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.sosungersteam.triggertrap.model.map.Room;
+import com.sosungersteam.triggertrap.model.map.SpawnPoint;
 import com.sosungersteam.triggertrap.model.player.GameProgress;
 import com.sosungersteam.triggertrap.persons.Person;
+
+import static com.sosungersteam.triggertrap.model.GameController.SCALE;
 
 public class Player {
     public Person person;
     public Room room;
     public GameProgress gameProgress;
     public float x, y;
+    public int targetRoomId;
+    public Room targetRoom;
+    public SpawnPoint spawnPoint;
 
     public Player(Person person) {
         this.person = person;
@@ -34,9 +40,20 @@ public class Player {
             vx = -velocity_scale;
         }
         person.body.setLinearVelocity(vx, vy);
+        System.out.println(person.body.getPosition());
     }
 
-    public void teleport(int x, int y) {
+    public void setSpawnPoint(SpawnPoint spawnPoint) {
+        targetRoomId = spawnPoint.roomId;
+        targetRoom = spawnPoint.room;
+        this.spawnPoint = spawnPoint;
+    }
 
+    public void setPerson (Person person) {
+        this.person = person;
+    }
+
+    public void teleport(SpawnPoint spawnPoint) {
+        person.setPersonPosition(spawnPoint.point.x, spawnPoint.point.y);
     }
 }
