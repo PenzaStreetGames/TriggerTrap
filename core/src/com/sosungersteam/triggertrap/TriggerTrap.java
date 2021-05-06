@@ -6,15 +6,16 @@ import com.sosungersteam.triggertrap.screens.PlayScreen;
 
 public class TriggerTrap extends Game {
 	public SpriteBatch batch;
-	public static final float unitScale = 1/16f;
-	public static final int V_WIDTH=16;
-	public static final int V_HEIGHT=16;
+	public final int PPM=100;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		setScreen(new PlayScreen(this));
 	}
-
+	@Override
+	public void resize(int width,int height){
+		super.resize(width, height);
+	}
 	@Override
 	public void render () {
 		super.render();

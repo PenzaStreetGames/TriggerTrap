@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.ChainShape;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -47,6 +49,7 @@ public class Somov extends Person { // создать человечка
         defineSomov();
         setBounds(0,0, WIDTH / 1/16f, HEIGHT / 1/16f);
     }
+
 
     protected void cutAnimations() {
         animations.put("walkHor", cutAnimation(8,0.1f, 1,102, width, height));
@@ -142,9 +145,25 @@ public class Somov extends Person { // создать человечка
 
         PolygonShape shape = new PolygonShape();
         Rectangle rect = new Rectangle(1, 1, 15, 25);
-        shape.setAsBox(rect.getWidth() / 2 / 1 / 16f, rect.getHeight() / 2 / 1 / 16f,
-                new Vector2(1 / 1 / 16f, -5 / 1 / 16f), 0);
-        fdef.shape = shape;
+        shape.setAsBox(rect.getWidth()/2/1/16f,rect.getHeight()/2/1/16f,//
+                new Vector2(1/1/16f,-5/1/16f), 0);//
+        fdef.shape=shape;
         body.createFixture(fdef);
+        createSensor(fdef,rect);
     }
+
+    private void createSensor(FixtureDef fdef,Rectangle rect){
+        ChainShape bodyTouch = new ChainShape();
+        float width = rect.getWidth()/2;
+        float height = rect.getHeight()/2;
+        Vector2[] chain = new Vector2[] {new Vector2((-2-width)/1/16f,(-6-height)/1/16f),new Vector2((-2-width)/1/16f,(2+height)/1/16f)
+                ,new Vector2((3+width)/1/16f,(2+height)/1/16f),new Vector2((3+width)/1/16f,(-6-height)/1/16f),new Vector2((-2-width)/1/16f,(-6-height)/1/16f)};
+        bodyTouch.createChain(chain);
+        fdef.shape = bodyTouch;
+        fdef.isSensor=true;
+        body.createFixture(fdef).setUserData("bodyTouch");
+    }
+
+
+
 }
