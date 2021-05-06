@@ -16,10 +16,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.sosungersteam.triggertrap.controller.Player;
+import com.sosungersteam.triggertrap.model.GameController;
 
 public class HUD {
     public Stage stage;
-    private Viewport viewport;
+    public Viewport viewport;
     private Skin mySkin;
     private Texture texture;
     private ImageButton buttonUp;
@@ -27,7 +29,7 @@ public class HUD {
     private ImageButton buttonLeft;
     private ImageButton buttonRight;
     public HUD(SpriteBatch sb){
-        viewport = new FitViewport(32,18,new OrthographicCamera());
+        viewport = new FitViewport(32,18, new OrthographicCamera());
         stage = new Stage(viewport,sb);
         Color buttonColor = new Color(1,1,1,0.45f);
         texture = new Texture("HUD/Arrow_Down.png");
@@ -36,8 +38,13 @@ public class HUD {
         buttonDown.setSize(2,2);
         buttonDown.addListener(new ClickListener(){
             @Override
-            public void clicked (InputEvent event, float x, float y) {
-                    // смещается вниз
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                GameController.get().player.handleButtons(Player.Buttons.DOWN, false);
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                GameController.get().player.handleButtons(Player.Buttons.DOWN, true);
+                return true;
             }
         });
         buttonDown.setColor(buttonColor);
@@ -45,12 +52,18 @@ public class HUD {
 
         texture=new Texture("HUD/Arrow_Up.png");
         ImageButton buttonUp = new ImageButton(new SpriteDrawable(new Sprite(texture)));
+
         buttonUp.setPosition(5,5);
         buttonUp.setSize(2,2);
-        buttonUp.addListener(new ClickListener(){
+        buttonUp.addListener(new ClickListener() {
             @Override
-            public void clicked (InputEvent event, float x, float y) {
-                // смещается вверх
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                GameController.get().player.handleButtons(Player.Buttons.UP, false);
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                GameController.get().player.handleButtons(Player.Buttons.UP, true);
+                return true;
             }
         });
         buttonUp.setColor(buttonColor);
@@ -60,8 +73,13 @@ public class HUD {
         buttonLeft.setSize(2,2);
         buttonLeft.addListener(new ClickListener(){
             @Override
-            public void clicked (InputEvent event, float x, float y) {
-                // смещается влево
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                GameController.get().player.handleButtons(Player.Buttons.LEFT, false);
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                GameController.get().player.handleButtons(Player.Buttons.LEFT, true);
+                return true;
             }
         });
         buttonLeft.setColor(buttonColor);
@@ -71,8 +89,13 @@ public class HUD {
         buttonRight.setSize(2,2);
         buttonRight.addListener(new ClickListener(){
             @Override
-            public void clicked (InputEvent event, float x, float y) {
-                // смещается влево
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                GameController.get().player.handleButtons(Player.Buttons.RIGHT, false);
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                GameController.get().player.handleButtons(Player.Buttons.RIGHT, true);
+                return true;
             }
         });
         buttonRight.setColor(buttonColor);
