@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.ChainShape;
+import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -144,6 +146,21 @@ public class Somov extends Sprite { // создать человечка
                 new Vector2(1/1/16f,-5/1/16f), 0);//
         fdef.shape=shape;
         b2body.createFixture(fdef);
+        createSensor(fdef,rect);
     }
+
+    private void createSensor(FixtureDef fdef,Rectangle rect){
+        ChainShape bodyTouch = new ChainShape();
+        float width = rect.getWidth()/2;
+        float height = rect.getHeight()/2;
+        Vector2[] chain = new Vector2[] {new Vector2((-2-width)/1/16f,(-6-height)/1/16f),new Vector2((-2-width)/1/16f,(2+height)/1/16f)
+                ,new Vector2((3+width)/1/16f,(2+height)/1/16f),new Vector2((3+width)/1/16f,(-6-height)/1/16f),new Vector2((-2-width)/1/16f,(-6-height)/1/16f)};
+        bodyTouch.createChain(chain);
+        fdef.shape = bodyTouch;
+        fdef.isSensor=true;
+        b2body.createFixture(fdef).setUserData("bodyTouch");
+    }
+
+
 
 }

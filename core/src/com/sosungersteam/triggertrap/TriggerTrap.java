@@ -6,8 +6,7 @@ import com.sosungersteam.triggertrap.screens.PlayScreen;
 
 public class TriggerTrap extends Game {
 	public SpriteBatch batch;
-	public final float WORLD_WIDTH = 800;
-	public final float WORLD_HEIGHT = 480;
+	public final int PPM=100;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();

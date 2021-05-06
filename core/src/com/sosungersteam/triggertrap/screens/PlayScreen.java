@@ -18,6 +18,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
@@ -25,6 +26,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.sosungersteam.triggertrap.TriggerTrap;
 import com.sosungersteam.triggertrap.persons.Somov;
+import com.sosungersteam.triggertrap.tools.WorldContactListener;
 import com.sosungersteam.triggertrap.tools.WorldCreator;
 
 public class PlayScreen implements Screen {
@@ -32,18 +34,18 @@ public class PlayScreen implements Screen {
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
 
-    private Stage stage;
+
     private TriggerTrap game;
     private Music mainmenu;
     private World world;
     private Box2DDebugRenderer b2dr;
     private OrthographicCamera camera;
     private TextureAtlas atlas;
-    private ExtendViewport extendViewport;
-    private Somov somov;
-    private FitViewport gamePort;
-    Sound sound;
 
+    private Somov somov;
+
+    Sound sound;
+   //TODO сделать переход из комнаты в комнату, вынести комнаты в список, получать комнату по номеру двери, инициализировать комнаты, при этом сохранять персонажа в том же мире(постараться)
     public PlayScreen(TriggerTrap game){
         atlas = new TextureAtlas("sprites/texture_pack.pack");
         this.game=game;
@@ -61,8 +63,10 @@ public class PlayScreen implements Screen {
 
         world = new World(new Vector2(0,0),true); // create World container and gravity
         b2dr=new Box2DDebugRenderer();
-
         new WorldCreator(world,map);
+        world.setContactListener(new WorldContactListener()); //создание взаимодействия физических объектов мира
+
+
         somov = new Somov(world,this);
 
 
@@ -85,7 +89,6 @@ public class PlayScreen implements Screen {
         camera.position.y=somov.b2body.getPosition().y;
         camera.update();
         renderer.setView(camera);
-
     }
     @Override
     public void render(float delta) {
@@ -95,13 +98,14 @@ public class PlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         renderer.render(); // renders map
         drawLvl();
-        //b2dr.render(world,camera.combined);
+        b2dr.render(world,camera.combined);
     }
     private void drawLvl(){
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         somov.draw(game.batch);
         game.batch.end();
+
     }
     @Override
     public void resize(int width, int height) {
