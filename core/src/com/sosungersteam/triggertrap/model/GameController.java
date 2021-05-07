@@ -2,6 +2,11 @@ package com.sosungersteam.triggertrap.model;
 
 import com.badlogic.gdx.utils.Array;
 import com.sosungersteam.triggertrap.controller.Player;
+import com.sosungersteam.triggertrap.model.managers.DoorManager;
+import com.sosungersteam.triggertrap.model.managers.EdgeManager;
+import com.sosungersteam.triggertrap.model.managers.MapObjectManager;
+import com.sosungersteam.triggertrap.model.managers.RoomManager;
+import com.sosungersteam.triggertrap.model.managers.SpawnPointManager;
 import com.sosungersteam.triggertrap.model.map.Door;
 import com.sosungersteam.triggertrap.model.map.Edge;
 import com.sosungersteam.triggertrap.model.map.Room;

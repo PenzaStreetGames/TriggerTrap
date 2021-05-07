@@ -1,4 +1,4 @@
-package com.sosungersteam.triggertrap.model;
+package com.sosungersteam.triggertrap.model.managers;
 
 import com.badlogic.gdx.utils.Array;
 import com.sosungersteam.triggertrap.model.map.Door;

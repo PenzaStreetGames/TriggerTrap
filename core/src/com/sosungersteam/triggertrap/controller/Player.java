@@ -7,14 +7,11 @@ import com.sosungersteam.triggertrap.model.map.Room;
 import com.sosungersteam.triggertrap.model.map.SpawnPoint;
 import com.sosungersteam.triggertrap.model.player.GameProgress;
 import com.sosungersteam.triggertrap.persons.Person;
-import com.sosungersteam.triggertrap.persons.Somov;
 
 import java.util.HashMap;
 
-import static com.sosungersteam.triggertrap.model.GameController.SCALE;
-
 public class Player {
-    public static enum Buttons {UP, DOWN, LEFT, RIGHT};
+    public static enum Buttons {UP, DOWN, LEFT, RIGHT, ACT};
     public Person person;
     public Room room;
     public GameProgress gameProgress;
@@ -38,19 +35,15 @@ public class Player {
 
         if (isPressed.get(Buttons.UP)) {
             vy = velocity_scale;
-            System.out.println("up");
         }
         else if (isPressed.get(Buttons.RIGHT)) {
             vx = velocity_scale;
-            System.out.println("right");
         }
         else if (isPressed.get(Buttons.DOWN)) {
             vy = -velocity_scale;
-            System.out.println("down");
         }
         else if (isPressed.get(Buttons.LEFT)) {
             vx = -velocity_scale;
-            System.out.println("left");
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){

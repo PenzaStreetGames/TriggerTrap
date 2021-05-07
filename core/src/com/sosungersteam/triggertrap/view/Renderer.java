@@ -1,7 +1,7 @@
 package com.sosungersteam.triggertrap.view;
 
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -9,8 +9,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.sosungersteam.triggertrap.model.GameController;
-import com.sosungersteam.triggertrap.screens.PlayScreen;
+import com.sosungersteam.triggertrap.view.screens.PlayScreen;
 import com.sosungersteam.triggertrap.tools.WorldContactListener;
 import com.sosungersteam.triggertrap.tools.WorldCreator;
 
@@ -22,8 +21,11 @@ public class Renderer {
     public OrthogonalTiledMapRenderer orthogonalRenderer;
     private Viewport gameport;
     private OrthographicCamera gamecam;
-    private Renderer() {
 
+    public TextureAtlas atlas;
+
+    private Renderer() {
+        atlas = new TextureAtlas("sprites/texture_pack.pack");
     }
 
     public static Renderer get() {

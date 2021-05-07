@@ -1,4 +1,4 @@
-package com.sosungersteam.triggertrap.model;
+package com.sosungersteam.triggertrap.model.managers;
 
 public interface MapObjectManager<T> {
     public void load();

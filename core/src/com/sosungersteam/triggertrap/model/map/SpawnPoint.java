@@ -1,8 +1,8 @@
 package com.sosungersteam.triggertrap.model.map;
 
 import com.badlogic.gdx.math.Vector2;
-import com.sosungersteam.triggertrap.model.DoorManager;
-import com.sosungersteam.triggertrap.model.RoomManager;
+import com.sosungersteam.triggertrap.model.managers.DoorManager;
+import com.sosungersteam.triggertrap.model.managers.RoomManager;
 
 public class SpawnPoint {
     public Vector2 point;

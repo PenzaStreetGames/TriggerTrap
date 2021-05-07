@@ -1,11 +1,10 @@
-package com.sosungersteam.triggertrap.model;
+package com.sosungersteam.triggertrap.model.managers;
 
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.utils.Array;
 import com.sosungersteam.triggertrap.model.map.Room;
 
 import java.util.HashMap;
-import java.util.TreeMap;
 
 public class RoomManager implements MapObjectManager<Room> {
     private static RoomManager roomManager;
