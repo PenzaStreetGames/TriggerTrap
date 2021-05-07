@@ -1,4 +1,4 @@
-package com.sosungersteam.triggertrap.view;
+package com.sosungersteam.triggertrap.view.screens;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,10 +18,11 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sosungersteam.triggertrap.controller.Player;
 import com.sosungersteam.triggertrap.model.GameController;
+import com.sosungersteam.triggertrap.view.Renderer;
 
 import java.util.HashMap;
 
-public class HUD {
+public class UI {
     public Stage stage;
     public Viewport viewport;
     private Skin mySkin;
@@ -35,7 +36,7 @@ public class HUD {
     public static int buttonHeight = 16;
     public TextureAtlas.AtlasRegion region;
 
-    public HUD(SpriteBatch sb){
+    public UI(SpriteBatch sb){
         viewport = new FitViewport(32,18, new OrthographicCamera());
         stage = new Stage(viewport,sb);
 
@@ -51,6 +52,7 @@ public class HUD {
     }
 
     public void createButton(int number, float x, float y, float width, float height, final Player.Buttons signal) {
+        // Todo: сделать нормальные кнопки
         Color buttonColor = new Color(1,1,1,0.45f);
         TextureRegion texture = new TextureRegion(this.texture,  region.getRegionX() + buttonWidth * number, region.getRegionY(), buttonWidth, buttonHeight);
         ImageButton button = new ImageButton(new SpriteDrawable(new Sprite(texture)));

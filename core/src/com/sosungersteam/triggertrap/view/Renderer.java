@@ -10,8 +10,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sosungersteam.triggertrap.view.screens.PlayScreen;
-import com.sosungersteam.triggertrap.tools.WorldContactListener;
-import com.sosungersteam.triggertrap.tools.WorldCreator;
+import com.sosungersteam.triggertrap.model.physics.WorldContactListener;
+import com.sosungersteam.triggertrap.model.physics.WorldCreator;
+import com.sosungersteam.triggertrap.view.screens.UI;
 
 public class Renderer {
     private static Renderer renderer = null;
@@ -21,6 +22,7 @@ public class Renderer {
     public OrthogonalTiledMapRenderer orthogonalRenderer;
     private Viewport gameport;
     private OrthographicCamera gamecam;
+    public com.sosungersteam.triggertrap.view.screens.UI UI;
 
     public TextureAtlas atlas;
 
@@ -36,6 +38,10 @@ public class Renderer {
 
     public void setPlayScreen(PlayScreen playScreen) {
         this.playScreen = playScreen;
+    }
+
+    public void setUI(UI UI) {
+        this.UI = UI;
     }
 
     public void setWorld(World world) {

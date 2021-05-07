@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.sosungersteam.triggertrap.model.map.Room;
 import com.sosungersteam.triggertrap.model.map.SpawnPoint;
 import com.sosungersteam.triggertrap.model.player.GameProgress;
-import com.sosungersteam.triggertrap.persons.Person;
+import com.sosungersteam.triggertrap.model.persons.Person;
 
 import java.util.HashMap;
 
@@ -48,7 +48,6 @@ public class Player {
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             vx = velocity_scale;
-            //TODO: add camera moves
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)){
             vy = velocity_scale;

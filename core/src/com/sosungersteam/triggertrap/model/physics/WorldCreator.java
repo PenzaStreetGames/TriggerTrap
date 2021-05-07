@@ -1,4 +1,4 @@
-package com.sosungersteam.triggertrap.tools;
+package com.sosungersteam.triggertrap.model.physics;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;

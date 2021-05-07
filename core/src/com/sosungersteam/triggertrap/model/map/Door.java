@@ -12,7 +12,6 @@ public class Door {
 
     public Door(int id, int roomId) {
         this.id = id;
-
     }
 
     public void attachDoorObject(DoorObject object) {

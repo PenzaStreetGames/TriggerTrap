@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.sosungersteam.triggertrap.TriggerTrap;
 import com.sosungersteam.triggertrap.model.GameController;
 import com.sosungersteam.triggertrap.model.map.Room;
-import com.sosungersteam.triggertrap.persons.Somov;
+import com.sosungersteam.triggertrap.model.persons.Somov;
 import com.sosungersteam.triggertrap.view.Renderer;
 
 public class PlayScreen implements Screen {
@@ -17,7 +17,6 @@ public class PlayScreen implements Screen {
     private OrthographicCamera camera;
     private TextureAtlas atlas;
 
-   //TODO сделать переход из комнаты в комнату, вынести комнаты в список, получать комнату по номеру двери, инициализировать комнаты, при этом сохранять персонажа в том же мире(постараться)
     public PlayScreen(TriggerTrap game){
         atlas = new TextureAtlas("sprites/texture_pack.pack");
         this.game=game;
@@ -52,11 +51,11 @@ public class PlayScreen implements Screen {
         camera.update();
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        game.batch.setProjectionMatrix(game.hud.stage.getCamera().combined);
+        game.batch.setProjectionMatrix(game.renderer.UI.stage.getCamera().combined);
         Renderer.get().orthogonalRenderer.render(); // renders map
         drawLvl();
-        game.hud.stage.draw();
-        //Renderer.get().box2DDebugRenderer.render(Renderer.get().world, camera.combined);
+        game.renderer.UI.stage.draw();
+        Renderer.get().box2DDebugRenderer.render(Renderer.get().world, camera.combined);
     }
     private void drawLvl(){
         game.batch.setProjectionMatrix(camera.combined);
@@ -68,7 +67,7 @@ public class PlayScreen implements Screen {
     }
     @Override
     public void resize(int width, int height) {
-        game.hud.viewport.setScreenSize(width, height);
+        game.renderer.UI.viewport.setScreenSize(width, height);
     }
 
     @Override

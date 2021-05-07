@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.sosungersteam.triggertrap.controller.Player;
 import com.sosungersteam.triggertrap.model.GameController;
 import com.sosungersteam.triggertrap.model.managers.SpawnPointManager;
-import com.sosungersteam.triggertrap.persons.Somov;
+import com.sosungersteam.triggertrap.model.persons.Somov;
 import com.sosungersteam.triggertrap.view.screens.PlayScreen;
-import com.sosungersteam.triggertrap.view.HUD;
+import com.sosungersteam.triggertrap.view.screens.UI;
 import com.sosungersteam.triggertrap.view.Renderer;
 
 public class TriggerTrap extends Game {
@@ -17,7 +17,6 @@ public class TriggerTrap extends Game {
 	public final int PPM=100;
 	public GameController gameController;
 	public Renderer renderer;
-	public HUD hud;
 	@Override
 	public void create () {
 		triggerTrap = this;
@@ -30,9 +29,9 @@ public class TriggerTrap extends Game {
 
 		renderer = Renderer.get();
 		batch = new SpriteBatch();
-		hud = new HUD(batch);
+		renderer.setUI(new UI(batch));
 		gameController.player = new Player(null);
-		Gdx.input.setInputProcessor(hud.stage);
+		Gdx.input.setInputProcessor(renderer.UI.stage);
 		// выбор точки спавна
 		gameController.player.setSpawnPoint(SpawnPointManager.get().getById(1));
 		//

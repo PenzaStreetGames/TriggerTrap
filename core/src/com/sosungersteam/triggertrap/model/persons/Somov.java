@@ -1,4 +1,4 @@
-package com.sosungersteam.triggertrap.persons;
+package com.sosungersteam.triggertrap.model.persons;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.sosungersteam.triggertrap.model.physics.PhysicsBodyCreator;
 import com.sosungersteam.triggertrap.view.screens.PlayScreen;
 
 public class Somov extends Person { // создать человечка
@@ -118,6 +119,7 @@ public class Somov extends Person { // создать человечка
     }
 
     public void defineSomov() {
+
         BodyDef bdef = new BodyDef();
         bdef.position.set(17, 4); // change position
         bdef.type = BodyDef.BodyType.DynamicBody; // Dynamic or kinetic???
@@ -126,10 +128,11 @@ public class Somov extends Person { // создать человечка
 
         PolygonShape shape = new PolygonShape();
         Rectangle rect = new Rectangle(1, 1, 15, 25);
-        shape.setAsBox(rect.getWidth()/2/1/16f,rect.getHeight()/2/1/16f,//
-                new Vector2(1/1/16f,-5/1/16f), 0);//
-        fdef.shape=shape;
+        shape.setAsBox(rect.getWidth() / 2 / 1 / 16f,rect.getHeight() / 2 / 1 / 16f,//
+                new Vector2(0 / 1 / 16f,-5/1/16f), 0);//
+        fdef.shape = shape;
         body.createFixture(fdef);
+
         createSensor(fdef,rect);
     }
 
@@ -137,7 +140,7 @@ public class Somov extends Person { // создать человечка
         ChainShape bodyTouch = new ChainShape();
         float width = rect.getWidth()/2;
         float height = rect.getHeight()/2;
-        Vector2[] chain = new Vector2[] {new Vector2((-2-width)/1/16f,(-6-height)/1/16f),new Vector2((-2-width)/1/16f,(2+height)/1/16f)
+        Vector2[] chain = new Vector2[] {new Vector2((-3-width)/1/16f,(-6-height)/1/16f),new Vector2((-3-width)/1/16f,(2+height)/1/16f)
                 ,new Vector2((3+width)/1/16f,(2+height)/1/16f),new Vector2((3+width)/1/16f,(-6-height)/1/16f),new Vector2((-2-width)/1/16f,(-6-height)/1/16f)};
         bodyTouch.createChain(chain);
         fdef.shape = bodyTouch;
