@@ -7,7 +7,7 @@ import com.sosungersteam.triggertrap.TriggerTrap;
 import com.sosungersteam.triggertrap.model.GameController;
 
 
-public class DoorObject extends InteractiveObjects {
+public class DoorObject extends InteractiveObject {
     public Door door;
     public String name;
 

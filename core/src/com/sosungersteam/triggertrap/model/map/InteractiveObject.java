@@ -10,14 +10,15 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
-public abstract class InteractiveObjects {
+public abstract class InteractiveObject {
     protected World world;
     protected TiledMap map;
     protected TiledMapTile tile;
     protected Rectangle bounds;
     protected Body body;
     protected Fixture fixture;
-    public InteractiveObjects(World world,TiledMap map, Rectangle bounds){
+    public String name;
+    public InteractiveObject(World world, TiledMap map, Rectangle bounds){
         this.world = world;
         this.map=map;
         this.bounds=bounds;
