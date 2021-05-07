@@ -55,6 +55,7 @@ public abstract class InteractiveObject {
         fixture = body.createFixture(fdef);
     }
         */
+    //TODO: поправить, пропадает при переходе туда-обратно
     public void setSensor(Rectangle rect) {
         FixtureDef fdef = new FixtureDef();
         PolygonShape polygonShape = new PolygonShape();
