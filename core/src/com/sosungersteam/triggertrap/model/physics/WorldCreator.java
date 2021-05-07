@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.sosungersteam.triggertrap.model.managers.DoorManager;
+import com.sosungersteam.triggertrap.model.map.Bin;
 import com.sosungersteam.triggertrap.model.map.Door;
 import com.sosungersteam.triggertrap.model.map.DoorObject;
 
@@ -20,6 +21,7 @@ public class WorldCreator { //Как макет комнаты, будет гл�
         FixtureDef fdef = new FixtureDef();
         createWalls(world,map,bdef,shape,fdef);
         createDoors(world,map);
+        createOtherObjects(world,map);
     }
     private void createDoors(World world, TiledMap map){
         for (MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
@@ -42,6 +44,12 @@ public class WorldCreator { //Как макет комнаты, будет гл�
             shape.setAsBox(rect.getWidth()/2/1/16f,rect.getHeight()/2/1/16f);///
             fdef.shape=shape;
             body.createFixture(fdef); // Created Walls, same way for columns
+        }
+    }
+    private void createOtherObjects(World world, TiledMap map){
+        for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject) object).getRectangle();
+            Bin bin = new Bin(world,map,rect);
         }
     }
 

@@ -31,5 +31,6 @@ public abstract class InteractiveObjects {
         fdef.shape=shape;
         fixture = body.createFixture(fdef);
     }
-    public abstract void onUse();
+    public abstract void onAttach();
+    public abstract void onDetach();
 }
