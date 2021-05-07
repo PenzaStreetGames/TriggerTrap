@@ -28,4 +28,9 @@ public class DoorObject extends InteractiveObject {
     public void onDetach(){
         return;
     }
+
+    @Override
+    public void act() {
+
+    }
 }

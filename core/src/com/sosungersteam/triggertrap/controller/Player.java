@@ -3,6 +3,7 @@ package com.sosungersteam.triggertrap.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.sosungersteam.triggertrap.model.map.InteractiveObject;
 import com.sosungersteam.triggertrap.model.map.Room;
 import com.sosungersteam.triggertrap.model.map.SpawnPoint;
 import com.sosungersteam.triggertrap.model.player.GameProgress;
@@ -21,10 +22,13 @@ public class Player {
     public SpawnPoint spawnPoint;
     public ClickListener listener;
     public HashMap<Buttons, Boolean> isPressed = new HashMap<>();
+    public HashMap<Buttons, Boolean> isClicked = new HashMap<>();
+    public InteractiveObject targetObject;
 
     public Player(Person person) {
         for (Buttons button : Buttons.values()) {
             isPressed.put(button, false);
+            isClicked.put(button, false);
         }
         this.person = person;
     }
@@ -45,6 +49,11 @@ public class Player {
         else if (isPressed.get(Buttons.LEFT)) {
             vx = -velocity_scale;
         }
+        if (isClicked.get(Buttons.ACT)) {
+            doAction();
+            isClicked.put(Buttons.ACT, false);
+        }
+
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
             vx = velocity_scale;
@@ -66,10 +75,18 @@ public class Player {
         isPressed.put(button, touched);
     }
 
+    public void singleHandleButtons(Buttons button) {
+        isClicked.put(button, true);
+    }
+
     public void setSpawnPoint(SpawnPoint spawnPoint) {
         targetRoomId = spawnPoint.roomId;
         targetRoom = spawnPoint.room;
         this.spawnPoint = spawnPoint;
+    }
+
+    public void setTargetObject(InteractiveObject targetObject) {
+        this.targetObject = targetObject;
     }
 
     public void setPerson (Person person) {
@@ -78,5 +95,10 @@ public class Player {
 
     public void teleport(SpawnPoint spawnPoint) {
         person.setPersonPosition(spawnPoint.point.x, spawnPoint.point.y);
+    }
+
+    public void doAction() {
+        if (targetObject != null)
+            targetObject.act();
     }
 }

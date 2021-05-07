@@ -55,13 +55,14 @@ public class UI {
         // Todo: сделать нормальные кнопки
         Color buttonColor = new Color(1,1,1,0.45f);
         TextureRegion texture = new TextureRegion(this.texture,  region.getRegionX() + buttonWidth * number, region.getRegionY(), buttonWidth, buttonHeight);
-        ImageButton button = new ImageButton(new SpriteDrawable(new Sprite(texture)));
+        final ImageButton button = new ImageButton(new SpriteDrawable(new Sprite(texture)));
         button.setPosition(x, y);
         button.setSize(width, height);
         button.addListener(new ClickListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 GameController.get().player.handleButtons(signal, false);
+                GameController.get().player.singleHandleButtons(signal);
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
