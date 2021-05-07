@@ -5,7 +5,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import com.sosungersteam.triggertrap.model.map.InteractiveObjects;
+import com.sosungersteam.triggertrap.model.map.InteractiveObject;
 
 public class WorldContactListener implements ContactListener { // Метод отвечающий за взаимодействие объектов в мире
     @Override
@@ -15,8 +15,8 @@ public class WorldContactListener implements ContactListener { // Метод о�
         if (fixA.getUserData() == "bodyTouch" || fixB.getUserData()=="bodyTouch"){
             Fixture bodyTouch = (fixA.getUserData()=="bodyTouch")?fixA:fixB;
             Fixture object = bodyTouch==fixA?fixB:fixA;
-            if (object.getUserData()!=null && InteractiveObjects.class.isAssignableFrom(object.getUserData().getClass())){
-                ((InteractiveObjects) object.getUserData()).onAttach();
+            if (object.getUserData()!=null && InteractiveObject.class.isAssignableFrom(object.getUserData().getClass())){
+                ((InteractiveObject) object.getUserData()).onAttach();
             }
         }
     }
@@ -28,8 +28,8 @@ public class WorldContactListener implements ContactListener { // Метод о�
         if (fixA.getUserData() == "bodyTouch" || fixB.getUserData()=="bodyTouch"){
             Fixture bodyTouch = (fixA.getUserData()=="bodyTouch")?fixA:fixB;
             Fixture object = bodyTouch==fixA?fixB:fixA;
-            if (object.getUserData()!=null && InteractiveObjects.class.isAssignableFrom(object.getUserData().getClass())){
-                ((InteractiveObjects) object.getUserData()).onDetach();
+            if (object.getUserData()!=null && InteractiveObject.class.isAssignableFrom(object.getUserData().getClass())){
+                ((InteractiveObject) object.getUserData()).onDetach();
             }
         }
     }

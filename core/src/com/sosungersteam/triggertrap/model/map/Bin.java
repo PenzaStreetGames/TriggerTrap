@@ -7,7 +7,7 @@ import com.sosungersteam.triggertrap.controller.Player;
 import com.sosungersteam.triggertrap.model.GameController;
 import com.sosungersteam.triggertrap.view.Renderer;
 
-public class Bin extends InteractiveObjects {
+public class Bin extends InteractiveObject {
     public Bin(World world, TiledMap map, Rectangle bounds) {
         super(world, map, bounds);
         fixture.setUserData(this);
