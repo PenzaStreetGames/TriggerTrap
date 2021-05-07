@@ -57,6 +57,7 @@ public class WorldCreator { //Как макет комнаты, будет гл�
         }
     }
 
+    // Todo: досоздать сенсоры
     private void createInteractiveObjects(World world, TiledMap map) {
         for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
