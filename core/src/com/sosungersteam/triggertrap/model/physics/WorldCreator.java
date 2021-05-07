@@ -15,6 +15,7 @@ import com.sosungersteam.triggertrap.model.managers.InteractiveObjectManager;
 import com.sosungersteam.triggertrap.model.map.Bin;
 import com.sosungersteam.triggertrap.model.map.Door;
 import com.sosungersteam.triggertrap.model.map.DoorObject;
+import com.sosungersteam.triggertrap.model.map.InteractiveObject;
 
 public class WorldCreator { //Как макет комнаты, будет главный класс Мирэа
     public WorldCreator(World world, TiledMap map){
@@ -24,6 +25,7 @@ public class WorldCreator { //Как макет комнаты, будет гл�
         createWalls(world,map,bdef,shape,fdef);
         createDoors(world,map);
         createOtherObjects(world,map);
+        createInteractiveObjects(world,map);
     }
     private void createDoors(World world, TiledMap map){
         for (MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
@@ -60,8 +62,7 @@ public class WorldCreator { //Как макет комнаты, будет гл�
     private void createInteractiveObjects(World world, TiledMap map) {
         for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
-
-            InteractiveObjectManager.get().getByName(object.getName());
+            InteractiveObjectManager.get().getByName(object.getName()).setSensor(rect);
         }
     }
 
