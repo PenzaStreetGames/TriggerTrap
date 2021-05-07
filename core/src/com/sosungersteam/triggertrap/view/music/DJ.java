@@ -1,6 +1,5 @@
-package com.sosungersteam.triggertrap.view;
+package com.sosungersteam.triggertrap.view.music;
 
-import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;

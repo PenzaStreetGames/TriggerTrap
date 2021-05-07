@@ -11,8 +11,8 @@ import com.sosungersteam.triggertrap.model.map.Door;
 import com.sosungersteam.triggertrap.model.map.Edge;
 import com.sosungersteam.triggertrap.model.map.Room;
 import com.sosungersteam.triggertrap.model.map.SpawnPoint;
-import com.sosungersteam.triggertrap.persons.Person;
-import com.sosungersteam.triggertrap.view.DJ;
+import com.sosungersteam.triggertrap.model.persons.Person;
+import com.sosungersteam.triggertrap.view.music.DJ;
 import com.sosungersteam.triggertrap.view.Renderer;
 
 public class GameController {
