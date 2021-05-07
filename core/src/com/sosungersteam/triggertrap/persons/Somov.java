@@ -1,26 +1,16 @@
 package com.sosungersteam.triggertrap.persons;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.sosungersteam.triggertrap.TriggerTrap;
-import com.sosungersteam.triggertrap.screens.PlayScreen;
-
-import java.awt.geom.RectangularShape;
-import java.util.ArrayList;
+import com.sosungersteam.triggertrap.view.screens.PlayScreen;
 
 public class Somov extends Person { // создать человечка
     public enum State {STANDING, RUNNINGHOR, RUNNINGVERUP, RUNNINGVERDOWN}
@@ -52,12 +42,12 @@ public class Somov extends Person { // создать человечка
 
 
     protected void cutAnimations() {
-        animations.put("walkHor", cutAnimation(8,0.1f, 1,102, width, height));
-        animations.put("walkUp", cutAnimation(8,0.1f, 1,137, width, height));
-        animations.put("walkDown", cutAnimation(8,0.1f, 1,67, width, height));
-        animations.put("stayDown", cutAnimation(8,0.2f, 1,172, width, height));
-        animations.put("stayUp", cutAnimation(1, 0.2f, 1, 137, width, height));
-        animations.put("stayHor", cutAnimation(8, 0.2f, 1, 207, width, height));
+        animations.put("walkHor", cutAnimation(8,0.1f, super.getRegionX(),super.getRegionY() + height, width, height));
+        animations.put("walkUp", cutAnimation(8,0.1f, super.getRegionX(),super.getRegionY() + height * 2, width, height));
+        animations.put("walkDown", cutAnimation(8,0.1f, super.getRegionX(), super.getRegionY(), width, height));
+        animations.put("stayDown", cutAnimation(8,0.2f, super.getRegionX(),super.getRegionY() + height * 3, width, height));
+        animations.put("stayUp", cutAnimation(1, 0.2f, super.getRegionX(), super.getRegionY() + height * 2, width, height));
+        animations.put("stayHor", cutAnimation(8, 0.2f, super.getRegionX(), super.getRegionY() + height * 4, width, height));
     }
 
     private Animation<TextureRegion> cutAnimation(int countFrames, float timeDuration, int x, int y, int width, int height) {

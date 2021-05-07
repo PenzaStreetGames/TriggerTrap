@@ -6,15 +6,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.sosungersteam.triggertrap.TriggerTrap;
-import com.sosungersteam.triggertrap.model.DoorManager;
+import com.sosungersteam.triggertrap.model.managers.DoorManager;
 import com.sosungersteam.triggertrap.model.map.Door;
 import com.sosungersteam.triggertrap.model.map.DoorObject;
-import com.sosungersteam.triggertrap.model.map.InteractiveObjects;
 
 public class WorldCreator { //Как макет комнаты, будет главный класс Мирэа
     public WorldCreator(World world, TiledMap map){

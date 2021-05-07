@@ -5,14 +5,21 @@ filter: Nearest,Nearest
 repeat: none
 somov
   rotate: false
-  xy: 1, 67
+  xy: 1, 131
   size: 256, 512
   orig: 256, 512
   offset: 0, 0
   index: -1
-student
+interface
   rotate: false
   xy: 1, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+student
+  rotate: false
+  xy: 259, 579
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

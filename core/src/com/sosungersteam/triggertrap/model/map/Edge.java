@@ -1,6 +1,6 @@
 package com.sosungersteam.triggertrap.model.map;
 
-import com.sosungersteam.triggertrap.model.DoorManager;
+import com.sosungersteam.triggertrap.model.managers.DoorManager;
 
 public class Edge {
     public int id;
