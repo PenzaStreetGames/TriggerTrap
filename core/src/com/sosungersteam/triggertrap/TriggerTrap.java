@@ -6,9 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.sosungersteam.triggertrap.controller.Player;
 import com.sosungersteam.triggertrap.model.GameController;
 import com.sosungersteam.triggertrap.model.managers.SpawnPointManager;
-import com.sosungersteam.triggertrap.model.persons.Somov;
-import com.sosungersteam.triggertrap.view.screens.MainMenu;
-import com.sosungersteam.triggertrap.view.screens.PlayScreen;
+import com.sosungersteam.triggertrap.view.screens.MenuScreen;
 import com.sosungersteam.triggertrap.view.screens.UI;
 import com.sosungersteam.triggertrap.view.Renderer;
 
@@ -38,11 +36,12 @@ public class TriggerTrap extends Game {
 		*/
 		triggerTrap=this;
 		batch=new SpriteBatch();
-		setScreen(new MainMenu(batch));
 		gameController = GameController.get();
 		gameController.loadResources();
 		GameController.get().dj.playMusic("menu");
 		renderer = Renderer.get();
+		renderer.setMenuScreen(new MenuScreen(batch));
+		setScreen(renderer.menuScreen);
 	}
 	public void gameBegin(){
 		GameController.get().currentMode= GameController.GameMode.PLAYING;

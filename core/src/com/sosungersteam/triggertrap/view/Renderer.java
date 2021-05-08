@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.sosungersteam.triggertrap.view.screens.MenuScreen;
 import com.sosungersteam.triggertrap.view.screens.PlayScreen;
 import com.sosungersteam.triggertrap.model.physics.WorldContactListener;
 import com.sosungersteam.triggertrap.model.physics.WorldCreator;
@@ -17,6 +18,7 @@ import com.sosungersteam.triggertrap.view.screens.UI;
 public class Renderer {
     private static Renderer renderer = null;
     public PlayScreen playScreen;
+    public MenuScreen menuScreen;
     public World world;
     public Box2DDebugRenderer box2DDebugRenderer;
     public OrthogonalTiledMapRenderer orthogonalRenderer;
@@ -42,6 +44,10 @@ public class Renderer {
 
     public void setUI(UI UI) {
         this.UI = UI;
+    }
+
+    public void setMenuScreen(MenuScreen menuScreen) {
+        this.menuScreen = menuScreen;
     }
 
     public void setWorld(World world) {
