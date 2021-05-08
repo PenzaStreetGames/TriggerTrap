@@ -20,8 +20,8 @@ import com.sosungersteam.triggertrap.view.screens.PlayScreen;
 
 public class GameController {
     private static GameController gameController = null;
-    public enum GameMode{MENU,PLAYING,DIALOG};
-    public GameMode currentMode;
+    public static enum GameMode{MENU, PLAYING, DIALOG};
+    public GameMode gameMode;
     public static float SCALE = 1/16f;
 
     public Renderer renderer;
@@ -41,7 +41,7 @@ public class GameController {
         edgeManager = EdgeManager.get();
         spawnPointManager = SpawnPointManager.get();
         dj = DJ.get();
-        currentMode = GameMode.MENU;
+        gameMode = GameMode.MENU;
     }
 
     public static GameController get() {
@@ -65,8 +65,8 @@ public class GameController {
         TriggerTrap.triggerTrap.setScreen(Renderer.get().playScreen);
         Renderer.get().createNewWorld(getTargetRoom().tiledMap);
 
-        Somov somov = new Somov(Renderer.get().world, Renderer.get().playScreen);
-        player.setPerson(somov);
+        Person person = new Person(Renderer.get().world, Renderer.get().playScreen, "somov");
+        player.setPerson(person);
 
         spawnOnStartPosition();
     }
@@ -77,5 +77,13 @@ public class GameController {
 
     public Room getTargetRoom() {
         return RoomManager.get().getById(GameController.get().player.targetRoomId);
+    }
+
+    public void setGameMode(GameMode gameMode) {
+        this.gameMode = gameMode;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
     }
 }

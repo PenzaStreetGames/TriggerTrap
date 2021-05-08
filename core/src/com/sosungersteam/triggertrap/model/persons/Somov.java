@@ -13,7 +13,8 @@ import com.badlogic.gdx.utils.Array;
 import com.sosungersteam.triggertrap.model.physics.PhysicsBodyCreator;
 import com.sosungersteam.triggertrap.view.screens.PlayScreen;
 
-public class Somov extends Person { // создать человечка
+public class Somov { // создать человечка
+    /*
     public enum State {STANDING, RUNNINGHOR, RUNNINGVERUP, RUNNINGVERDOWN}
 
     public enum Leisure {STANDING, MOVING, TALKING}
@@ -42,14 +43,7 @@ public class Somov extends Person { // создать человечка
     }
 
 
-    protected void cutAnimations() {
-        animations.put("walkHor", cutAnimation(8,0.1f, super.getRegionX(),super.getRegionY() + height, width, height));
-        animations.put("walkUp", cutAnimation(8,0.1f, super.getRegionX(),super.getRegionY() + height * 2, width, height));
-        animations.put("walkDown", cutAnimation(8,0.1f, super.getRegionX(), super.getRegionY(), width, height));
-        animations.put("stayDown", cutAnimation(8,0.2f, super.getRegionX(),super.getRegionY() + height * 3, width, height));
-        animations.put("stayUp", cutAnimation(1, 0.2f, super.getRegionX(), super.getRegionY() + height * 2, width, height));
-        animations.put("stayHor", cutAnimation(8, 0.2f, super.getRegionX(), super.getRegionY() + height * 4, width, height));
-    }
+
 
     private Animation<TextureRegion> cutAnimation(int countFrames, float timeDuration, int x, int y, int width, int height) {
         Array<TextureRegion> frames = new Array<TextureRegion>();
@@ -148,6 +142,6 @@ public class Somov extends Person { // создать человечка
         body.createFixture(fdef).setUserData("bodyTouch");
     }
 
-
+    */
 
 }

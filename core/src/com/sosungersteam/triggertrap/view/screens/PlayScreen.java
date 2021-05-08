@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.sosungersteam.triggertrap.TriggerTrap;
 import com.sosungersteam.triggertrap.model.GameController;
 import com.sosungersteam.triggertrap.model.map.Room;
+import com.sosungersteam.triggertrap.model.persons.Person;
 import com.sosungersteam.triggertrap.model.persons.Somov;
 import com.sosungersteam.triggertrap.view.Renderer;
 
@@ -35,10 +36,10 @@ public class PlayScreen implements Screen {
     public void update (float delta){
         GameController.get().player.handleInput(delta);
         Renderer.get().world.step(1/60f,6,2); // change later
-        Somov somov = (Somov)GameController.get().player.person;
-        somov.update(delta);
-        camera.position.x = somov.body.getPosition().x;
-        camera.position.y = somov.body.getPosition().y;
+        Person person = GameController.get().player.person;
+        person.update(delta);
+        camera.position.x = person.body.getPosition().x;
+        camera.position.y = person.body.getPosition().y;
         camera.update();
         Renderer.get().orthogonalRenderer.setView(camera);
     }
@@ -58,8 +59,8 @@ public class PlayScreen implements Screen {
     private void drawLvl(){
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
-        Somov somov = (Somov)GameController.get().player.person;
-        somov.draw(game.batch);
+        Person person = GameController.get().player.person;
+        person.draw(game.batch);
         game.batch.end();
 
     }
