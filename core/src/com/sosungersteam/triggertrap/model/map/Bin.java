@@ -10,7 +10,7 @@ import com.sosungersteam.triggertrap.view.Renderer;
 public class Bin extends InteractiveObject {
     public Bin(World world, TiledMap map, Rectangle bounds, String name) {
         super(world, map, bounds);
-        fixture.setUserData(this);
+        // fixture.setUserData(this);
         this.name = name;
     }
 

@@ -36,9 +36,11 @@ public class TriggerTrap extends Game {
 		//
 		gameController.entryToRoom();
 		*/
-		 triggerTrap=this;
-		 batch=new SpriteBatch();
-		 setScreen(new MainMenu(batch));
+		triggerTrap=this;
+		batch=new SpriteBatch();
+		setScreen(new MainMenu(batch));
+		gameController = GameController.get();
+		renderer = Renderer.get();
 	}
 	public void gameBegin(){
 		GameController.get().currentMode= GameController.GameMode.PLAYING;
