@@ -31,6 +31,8 @@ public class DJ {
     }
 
     public void playMusic(String musicName) {
+        if (playingMusic != null)
+            playingMusic.pause();
         if (musicMap.containsKey(musicName)) {
             playingMusic = musicMap.get(musicName);
             playingMusic.play();

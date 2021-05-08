@@ -40,12 +40,14 @@ public class TriggerTrap extends Game {
 		batch=new SpriteBatch();
 		setScreen(new MainMenu(batch));
 		gameController = GameController.get();
+		gameController.loadResources();
+		GameController.get().dj.playMusic("menu");
 		renderer = Renderer.get();
 	}
 	public void gameBegin(){
 		GameController.get().currentMode= GameController.GameMode.PLAYING;
 		gameController = GameController.get();
-		gameController.loadResources();
+
 		gameController.dj.playMusic("gameChill");
 		gameController.dj.setMusicVolume(0.1f);
 		renderer = Renderer.get();
