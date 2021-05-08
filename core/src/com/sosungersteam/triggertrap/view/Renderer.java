@@ -7,7 +7,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sosungersteam.triggertrap.view.screens.MenuScreen;
 import com.sosungersteam.triggertrap.view.screens.PlayScreen;
@@ -57,7 +59,7 @@ public class Renderer {
     public void createNewWorld(TiledMap map) {
         if (orthogonalRenderer == null) {
             orthogonalRenderer = new OrthogonalTiledMapRenderer(map, 1 / 16f);
-            gameport=new FitViewport(32,18,gamecam);
+            gameport=new StretchViewport(32,18,gamecam); //TODO
         }
         orthogonalRenderer.setMap(map);
         box2DDebugRenderer = new Box2DDebugRenderer();

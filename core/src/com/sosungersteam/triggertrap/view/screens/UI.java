@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sosungersteam.triggertrap.controller.Player;
 import com.sosungersteam.triggertrap.model.GameController;
@@ -37,7 +38,7 @@ public class UI {
     public TextureAtlas.AtlasRegion region;
 
     public UI(SpriteBatch sb){
-        viewport = new FitViewport(32,18, new OrthographicCamera());
+        viewport = new StretchViewport(32,18, new OrthographicCamera());
         stage = new Stage(viewport,sb);
 
         region = Renderer.get().atlas.findRegion("interface");
