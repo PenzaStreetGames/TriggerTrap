@@ -50,6 +50,8 @@ public class UI {
         createButton(2, 7.2f,2.75f, 2,2, Player.Buttons.RIGHT);
         createButton(3, 5,0.5f, 2,2, Player.Buttons.DOWN);
         createButton(4, 25, 2.75f, 2, 2, Player.Buttons.ACT);
+
+        createDialogWindow();
     }
 
     public void createButton(int number, float x, float y, float width, float height, final Player.Buttons signal) {
@@ -75,4 +77,8 @@ public class UI {
         stage.addActor(button);
         buttonMap.put(signal, button);
     }
+
+    public void createDialogWindow() {
+
+    };
 }

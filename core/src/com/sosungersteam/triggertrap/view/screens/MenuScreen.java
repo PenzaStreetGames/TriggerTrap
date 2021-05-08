@@ -82,7 +82,6 @@ public class MenuScreen implements Screen {
         createButton(buttonsX, 150, screenButtonWidth, screenButtonHeight, Buttons.CREDITS, "credits", texture);
         createButton(buttonsX, 100, screenButtonWidth, screenButtonHeight, Buttons.EXIT, "exit", texture);
 
-
         mainTable.add(title);
         mainTable.row();
         /*

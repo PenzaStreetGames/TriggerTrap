@@ -44,7 +44,7 @@ public class TriggerTrap extends Game {
 		setScreen(renderer.menuScreen);
 	}
 	public void gameBegin(){
-		GameController.get().currentMode= GameController.GameMode.PLAYING;
+		GameController.get().setGameMode(GameController.GameMode.PLAYING);
 		gameController = GameController.get();
 
 		gameController.dj.playMusic("gameChill");
