@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -36,6 +37,11 @@ public class MainMenu implements Screen {
     private ImageTextButton creditsButton;
     private ImageTextButton exitButton;
     private Label title;
+    private Texture texture;
+    private TextureRegion region;
+    public static int buttonWidth = 64;
+    public static int buttonHeight = 16;
+
     public MainMenu(SpriteBatch sb){
         viewport = new FitViewport(1000,1000,new OrthographicCamera());
         viewport.apply();//???
@@ -44,6 +50,7 @@ public class MainMenu implements Screen {
     }
     @Override
     public void show() {
+
         Gdx.input.setInputProcessor(stage);
         Table mainTable = new Table();
         mainTable.top();
@@ -51,7 +58,11 @@ public class MainMenu implements Screen {
         BitmapFont font = createFont();
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font=font;
-        Texture texture = new Texture("sprites/play.png");
+
+        region = Renderer.get().atlas.findRegion("interface");
+        this.texture = region.getTexture();
+
+        TextureRegion texture = new TextureRegion(this.texture,  region.getRegionX(), region.getRegionY() + 16, buttonWidth, buttonHeight);
         title = new Label("Trigger Trap", labelStyle);
         mainTable.add(title);
         mainTable.row();
