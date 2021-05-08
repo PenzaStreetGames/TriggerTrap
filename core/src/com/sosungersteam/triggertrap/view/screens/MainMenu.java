@@ -3,30 +3,39 @@ package com.sosungersteam.triggertrap.view.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sosungersteam.triggertrap.TriggerTrap;
 import com.sosungersteam.triggertrap.model.GameController;
 import com.sosungersteam.triggertrap.view.Renderer;
 
+
 public class MainMenu implements Screen {
     protected Stage stage;
     private Viewport viewport;
-    private ImageButton playButton;
-    private ImageButton creditsButton;
-    private ImageButton exitButton;
+    private ImageTextButton playButton;
+    private ImageTextButton creditsButton;
+    private ImageTextButton exitButton;
+    private Label title;
     public MainMenu(SpriteBatch sb){
         viewport = new FitViewport(1000,1000,new OrthographicCamera());
         viewport.apply();//???
@@ -37,9 +46,19 @@ public class MainMenu implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
         Table mainTable = new Table();
+        mainTable.top();
         mainTable.setFillParent(true);
+        BitmapFont font = createFont();
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font=font;
         Texture texture = new Texture("sprites/play.png");
-        playButton = new ImageButton(new SpriteDrawable(new Sprite(texture)));
+        title = new Label("Trigger Trap", labelStyle);
+        mainTable.add(title);
+        mainTable.row();
+        ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(new TextureRegionDrawable(texture),
+                new TextureRegionDrawable(texture),new TextureRegionDrawable(texture),font);
+
+        playButton = new ImageTextButton("play",style);
         playButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -47,14 +66,14 @@ public class MainMenu implements Screen {
                 TriggerTrap.triggerTrap.gameBegin();
             }
         });
-        exitButton = new ImageButton(new SpriteDrawable(new Sprite(texture)));
+        exitButton = new ImageTextButton("exit",style);
         exitButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 Gdx.app.exit();
             }
         });
-        creditsButton = new ImageButton(new SpriteDrawable(new Sprite(texture)));
+        creditsButton = new ImageTextButton("credits",style);
         creditsButton.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
@@ -67,10 +86,23 @@ public class MainMenu implements Screen {
         stage.addActor(mainTable);
     }
 
-    public void addButtons(Table table,ImageButton button){
+    public void addButtons(Table table,ImageTextButton button){
         table.add(button);
         table.row();
 
+    }
+    public BitmapFont createFont(){
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/psg-font.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size=30;
+        parameter.borderWidth=1;
+        parameter.color=Color.WHITE;
+        parameter.shadowOffsetX=3;
+        parameter.shadowOffsetY=3;
+        parameter.shadowColor = new Color(0,0.5f,0,0.75f);
+        BitmapFont font24 = generator.generateFont(parameter);
+        generator.dispose();
+        return  font24;
     }
     @Override
     public void render(float delta) {

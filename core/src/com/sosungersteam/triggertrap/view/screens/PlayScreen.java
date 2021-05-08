@@ -20,8 +20,6 @@ public class PlayScreen implements Screen {
     public PlayScreen(TriggerTrap game){
         atlas = new TextureAtlas("sprites/texture_pack.pack");
         this.game=game;
-
-        Room targetRoom = GameController.get().getTargetRoom();
         camera = new OrthographicCamera(32,18);
 
     }
