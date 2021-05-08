@@ -21,7 +21,7 @@ public class DoorObject extends InteractiveObject {
     public void onAttach() {
         if (door.edge != null) {
             GameController.get().player.setSpawnPoint(door.edge.doorInto.spawnPoint);
-            TriggerTrap.triggerTrap.entryToRoom();
+            TriggerTrap.triggerTrap.gameController.entryToRoom();
         }
     }
     @Override
