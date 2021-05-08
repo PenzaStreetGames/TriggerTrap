@@ -41,11 +41,11 @@ public class MenuScreen implements Screen {
     private ImageTextButton playButton;
     private ImageTextButton creditsButton;
     private ImageTextButton exitButton;
-    private Label title;
-    private Label.LabelStyle labelStyle;
+    public static Label title;
+    public static Label.LabelStyle labelStyle;
     private Texture texture;
     private TextureRegion region;
-    public BitmapFont font;
+    public static BitmapFont font;
     public HashMap<Buttons, ImageTextButton> buttonMap = new HashMap<>();
     public static int buttonWidth = 64;
     public static int buttonHeight = 16;
