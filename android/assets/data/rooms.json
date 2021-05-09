@@ -1,6 +1,7 @@
 {
   "rooms" : [
     {"id": 1, "name": "memrea_hall"},
-    {"id": 2, "name": "memrea_under_pants"}
+    {"id": 2, "name": "memrea_under_pants"},
+    {"id": 3, "name": "memrea_alley"}
   ]
 }

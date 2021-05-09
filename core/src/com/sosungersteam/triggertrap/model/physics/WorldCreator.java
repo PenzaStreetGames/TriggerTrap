@@ -28,7 +28,7 @@ public class WorldCreator { //Как макет комнаты, будет гл�
         createInteractiveObjects(world,map);
     }
     private void createDoors(World world, TiledMap map){
-        for (MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             DoorObject doorObject = new DoorObject(world, map, rect, object.getName());
 
@@ -40,7 +40,7 @@ public class WorldCreator { //Как макет комнаты, будет гл�
     }
     private void createWalls(World world, TiledMap map, BodyDef bdef, PolygonShape shape, FixtureDef fdef){
         Body body;
-        for (MapObject object: map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             bdef.type = BodyDef.BodyType.StaticBody;
             bdef.position.set((rect.getX()+rect.getWidth()/2)/1/16f,(rect.getY()+rect.getHeight()/2)/1/16f);//
@@ -52,7 +52,7 @@ public class WorldCreator { //Как макет комнаты, будет гл�
     }
 
     private void createOtherObjects(World world, TiledMap map){
-        for (MapObject object : map.getLayers().get(4).getObjects().getByType(RectangleMapObject.class)){
+        for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             Bin bin = new Bin(world,map,rect, object.getName());
             InteractiveObjectManager.get().addObject(bin);
@@ -61,7 +61,7 @@ public class WorldCreator { //Как макет комнаты, будет гл�
 
     // Todo: досоздать сенсоры
     private void createInteractiveObjects(World world, TiledMap map) {
-        for (MapObject object : map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)) {
+        for (MapObject object : map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             InteractiveObjectManager.get().getByName(object.getName()).setSensor(world, rect);
         }
