@@ -3,24 +3,38 @@ texture_pack.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+interfacex32
+  rotate: false
+  xy: 1, 2565
+  size: 4096, 4096
+  orig: 4096, 4096
+  offset: 0, 0
+  index: -1
+interfacex16
+  rotate: false
+  xy: 1, 515
+  size: 2048, 2048
+  orig: 2048, 2048
+  offset: 0, 0
+  index: -1
 somov
   rotate: false
-  xy: 1, 131
+  xy: 4099, 6149
+  size: 256, 512
+  orig: 256, 512
+  offset: 0, 0
+  index: -1
+student
+  rotate: false
+  xy: 1, 1
   size: 256, 512
   orig: 256, 512
   offset: 0, 0
   index: -1
 interface
   rotate: false
-  xy: 1, 1
+  xy: 2051, 2435
   size: 128, 128
   orig: 128, 128
-  offset: 0, 0
-  index: -1
-student
-  rotate: false
-  xy: 259, 579
-  size: 64, 64
-  orig: 64, 64
   offset: 0, 0
   index: -1
