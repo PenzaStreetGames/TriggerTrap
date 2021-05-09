@@ -104,15 +104,6 @@ public class UI {
         Dialog dialog = new Dialog("",windowStyle);
         dialog.setPosition(11*8*2,1.25f*8*2);
         dialog.setSize(12*8*2,4*8*2);
-        //Label.LabelStyle labelStyle= new Label.LabelStyle();
-        //labelStyle.font=font;
-        //Label DialogText = new Label(questText,labelStyle);
-        //Table t = new Table();
-
-        //DialogText.setPosition(11*8*2,1.25f*8*2);
-        //DialogText.setSize(12*8*2,4*8*2);
-        //stage.addActor(DialogWindow);
-        //stage.addActor(DialogText);
         createDialogButtons(dialog,"Да","Нет","Далее","Сомов ждёт рыбки \nочень долго...");
         stage.addActor(dialog);
     }
