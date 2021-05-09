@@ -39,8 +39,6 @@ public class PlayScreen implements Screen {
         Person person = GameController.get().player.person;
         person.update(delta);
         correctView(person);
-        System.out.println(person.body.getPosition());
-        System.out.println(camera.position);
         Renderer.get().orthogonalRenderer.setView(camera);
     }
     public void entryView(Person person){
@@ -59,15 +57,15 @@ public class PlayScreen implements Screen {
             camera.position.x-=(camera.position.x+camera.viewportWidth/2)-mapPixelWidth/1/16f; // work
         }
         if (negX){
-            System.out.println("NEGATIVE");
-            camera.position.x=Math.abs(camera.viewportWidth/2+0f);
+
+            camera.position.x=Math.abs(camera.viewportWidth/2);
         }
         if (posY){
             camera.position.y-=(camera.position.y+camera.viewportHeight/2)-mapPixelHeight/1/16f;//work
         }
         if (negY){
-            System.out.println("NEGATIVE Y");
-            camera.position.y=Math.abs(camera.viewportHeight/2+0f);;
+
+            camera.position.y=Math.abs(camera.viewportHeight/2);;
         }
     }
     public void correctView(Person person){
