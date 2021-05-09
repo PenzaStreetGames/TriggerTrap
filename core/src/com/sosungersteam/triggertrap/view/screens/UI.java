@@ -43,10 +43,13 @@ public class UI {
     private Image DialogWindow;
     private Label DialogText;
     private Dialog dialog;
+    public static enum Buttons{LEFT,RIGHT,NEXT};
     private ImageTextButton DialogBtn1;
     private ImageTextButton DialogBtn2;
     private  ImageTextButton DialogBtn3;
     public HashMap<Player.Buttons, Button> buttonMap = new HashMap<>();
+    public HashMap<Buttons,Button> DialogButtonMap = new HashMap<>();
+    public HashMap<Buttons,String> buttonText = new HashMap<>();
     public static int buttonWidth = 16;
     public static int buttonHeight = 16;
     public TextureAtlas.AtlasRegion region;
@@ -63,9 +66,17 @@ public class UI {
         createButton(2, 7.2f*32,2.75f*32, 2*32,2*32, Player.Buttons.RIGHT);//
         createButton(3, 5*32,0.5f*32, 2*32,2*32, Player.Buttons.DOWN);//
         createButton(4, 25*32, 2.75f*32, 2*32, 2*32, Player.Buttons.ACT);//
+        loadDialogButtonMap();
+        for (Buttons buttons: Buttons.values()){
+            buttonText.put(buttons,"");
+        }
         switchUI(GameController.get().gameMode);
     }
-
+    public void loadDialogButtonMap(){
+        DialogButtonMap.put(Buttons.LEFT,DialogBtn1);
+        DialogButtonMap.put(Buttons.RIGHT,DialogBtn2);
+        DialogButtonMap.put(Buttons.NEXT,DialogBtn3);
+    }
     public void createButton(int number, float x, float y, float width, float height, final Player.Buttons signal) {
         // Todo: сделать нормальные кнопки
         Color buttonColor = new Color(1,1,1,0.45f);
@@ -92,7 +103,6 @@ public class UI {
     }
 
     public Dialog createDialogWindow(String questText,String btnText1,String btnText2,String btnText3, String DialogText) {
-
         TextureRegion textureRegion = new TextureRegion(this.texture,region.getRegionX(),region.getRegionY()+32*32,64*32,32*32);
         Window.WindowStyle windowStyle = new Window.WindowStyle();
         windowStyle.background=new SpriteDrawable(new Sprite(textureRegion));
@@ -105,28 +115,30 @@ public class UI {
         return dialog;
     }
     public void createDialogButtonsAndText(Dialog dialog,String text1,String text2,String text3,String textDialog){
-        Color buttonColor = new Color(1,1,1,0.45f);
         Texture texture = new Texture(Gdx.files.internal("sprites/dialog_button.png"));
         Label.LabelStyle labelStyle= new Label.LabelStyle();
         labelStyle.font=font;
         DialogText = new Label(textDialog,labelStyle);
         ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(new TextureRegionDrawable(texture),
                 new TextureRegionDrawable(texture),new TextureRegionDrawable(texture), font);
-        DialogBtn1 = new ImageTextButton(text1,style);
-        DialogBtn2 = new ImageTextButton(text2,style);
-        DialogBtn3 = new ImageTextButton(text3,style);
+        for (Buttons buttons: Buttons.values()){
+            createDialogButton(dialog,style,buttons);
+        }
         dialog.text(DialogText);
-        dialog.row();
-        dialog.button(DialogBtn1);
-        dialog.button(DialogBtn2);
-        dialog.button(DialogBtn3);
-
-        //btn1.setVisible(false);
-        //btn2.setVisible(false);
-
+    }
+    public void createDialogButton(Dialog dialog, ImageTextButton.ImageTextButtonStyle style,UI.Buttons buttons){
+        ImageTextButton button = new ImageTextButton(buttonText.get(buttons),style);
+        dialog.button(button);
+        DialogButtonMap.put(buttons,button);
+    }
+    public void setButtonsText(String text1, String text2, String text3){
+        buttonText.put(Buttons.LEFT,text1);
+        buttonText.put(Buttons.RIGHT,text2);
+        buttonText.put(Buttons.NEXT,text3);
     }
     public void switchUI(GameController.GameMode mode){
         if (mode== GameController.GameMode.DIALOG){
+            setButtonsText("Да","Нет","Далее");
             dialog = createDialogWindow("Glory Ukraine","Да","Нет","Далее","Каво,Чаво");
             for(Button button:buttonMap.values()){
                 button.setVisible(false);
