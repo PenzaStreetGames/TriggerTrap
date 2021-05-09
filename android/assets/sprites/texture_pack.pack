@@ -38,3 +38,10 @@ interface
   orig: 128, 128
   offset: 0, 0
   index: -1
+dialog_button
+  rotate: false
+  xy: 4099, 6115
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
