@@ -75,7 +75,9 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
-        
+        compile ('junit:junit:4.13.2'){
+            exclude group: 'org.hamcrest', module:'hamcrest-core'
+        }
     }
 }
 
