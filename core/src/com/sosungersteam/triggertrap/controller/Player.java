@@ -38,6 +38,7 @@ public class Player {
     public void handleInput(float delta){ // testing camera moves
         float vx = 0, vy = 0;
         float velocity_scale = 8*0.5f;
+
         if (GameController.get().gameMode == GameController.GameMode.PLAYING) {
             if (isPressed.get(Buttons.UP)) {
                 person.direction = Person.Direction.UP;

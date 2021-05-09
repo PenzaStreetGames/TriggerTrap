@@ -82,6 +82,9 @@ public class GameController {
 
     public void setGameMode(GameMode gameMode) {
         this.gameMode = gameMode;
+        if (Renderer.get().UI!= null){
+            Renderer.get().UI.switchUI(gameMode);
+        }
     }
 
     public GameMode getGameMode() {

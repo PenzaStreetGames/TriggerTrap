@@ -67,7 +67,7 @@ public class MenuScreen implements Screen {
         Table mainTable = new Table();
         mainTable.top();
         mainTable.setFillParent(true);
-        font = createFont();
+        font = createFont(20,1,Color.WHITE,3,3,new Color(0,0.5f,0,0.75f));
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font=font;
 
@@ -78,42 +78,12 @@ public class MenuScreen implements Screen {
         title = new Label("Trigger Trap", labelStyle);
 
         int buttonsX = screenWidth / 2 - screenButtonWidth / 2;
-        createButton(buttonsX, 200, screenButtonWidth, screenButtonHeight, Buttons.START, "play", texture);
-        createButton(buttonsX, 150, screenButtonWidth, screenButtonHeight, Buttons.CREDITS, "credits", texture);
-        createButton(buttonsX, 100, screenButtonWidth, screenButtonHeight, Buttons.EXIT, "exit", texture);
+        createButton(buttonsX, 200, screenButtonWidth, screenButtonHeight, Buttons.START, "Играть", texture);
+        createButton(buttonsX, 150, screenButtonWidth, screenButtonHeight, Buttons.CREDITS, "Титры", texture);
+        createButton(buttonsX, 100, screenButtonWidth, screenButtonHeight, Buttons.EXIT, "Выход", texture);
 
         mainTable.add(title);
         mainTable.row();
-        /*
-        ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(new TextureRegionDrawable(texture),
-                new TextureRegionDrawable(texture),new TextureRegionDrawable(texture),font);
-
-        playButton = new ImageTextButton("play",style);
-        playButton.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                Renderer.get().setPlayScreen(new PlayScreen(TriggerTrap.triggerTrap));// test
-                TriggerTrap.triggerTrap.gameBegin();
-            }
-        });
-        exitButton = new ImageTextButton("exit",style);
-        exitButton.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                Gdx.app.exit();
-            }
-        });
-        creditsButton = new ImageTextButton("credits",style);
-        creditsButton.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                System.out.println("credits");
-            }
-        });
-        addButtons(mainTable,playButton);
-        addButtons(mainTable,creditsButton);
-        addButtons(mainTable,exitButton);
-        */
         stage.addActor(mainTable);
     }
 
@@ -152,15 +122,16 @@ public class MenuScreen implements Screen {
         table.row();
 
     }
-    public BitmapFont createFont(){
+    public static BitmapFont createFont(int size,float borderWidth,Color color, int shadowOffsetX,int shadowOffsetY, Color shadowColor){//20 1 white 3 3 0,0.5f,0,0.75f
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/psg-rounded.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size=20;
-        parameter.borderWidth=1;
-        parameter.color=Color.WHITE;
-        parameter.shadowOffsetX=3;
-        parameter.shadowOffsetY=3;
-        parameter.shadowColor = new Color(0,0.5f,0,0.75f);
+        parameter.characters=TriggerTrap.bitmapTTF;
+        parameter.size=size;
+        parameter.borderWidth=borderWidth;
+        parameter.color=color;
+        parameter.shadowOffsetX=shadowOffsetX;
+        parameter.shadowOffsetY=shadowOffsetY;
+        parameter.shadowColor = shadowColor;
         BitmapFont font24 = generator.generateFont(parameter);
         generator.dispose();
         return  font24;
