@@ -40,12 +40,12 @@ public class UI {
     public Stage stage;
     public Viewport viewport;
     private Texture texture;
-    private ImageButton buttonUp;
-    private ImageButton buttonDown;
-    private ImageButton buttonLeft;
-    private ImageButton buttonRight;
     private Image DialogWindow;
     private Label DialogText;
+    private Dialog dialog;
+    private ImageTextButton DialogBtn1;
+    private ImageTextButton DialogBtn2;
+    private  ImageTextButton DialogBtn3;
     public HashMap<Player.Buttons, Button> buttonMap = new HashMap<>();
     public static int buttonWidth = 16;
     public static int buttonHeight = 16;
@@ -58,15 +58,12 @@ public class UI {
         font =MenuScreen.createFont(8,1f,Color.WHITE,0,0,Color.WHITE);
         region = Renderer.get().atlas.findRegion("interfacex32");
         texture = region.getTexture();
-        Color buttonColor = new Color(1,1,1,0.45f);
-        createDialogWindow("Glory Ukraine");
         createButton(0, 5*32, 5*32, 2*32, 2*32, Player.Buttons.UP);//
         createButton(1, 2.8f*32,2.75f*32, 2*32,2*32, Player.Buttons.LEFT);//
         createButton(2, 7.2f*32,2.75f*32, 2*32,2*32, Player.Buttons.RIGHT);//
         createButton(3, 5*32,0.5f*32, 2*32,2*32, Player.Buttons.DOWN);//
         createButton(4, 25*32, 2.75f*32, 2*32, 2*32, Player.Buttons.ACT);//
-
-
+        switchUI(GameController.get().gameMode);
     }
 
     public void createButton(int number, float x, float y, float width, float height, final Player.Buttons signal) {
@@ -91,40 +88,57 @@ public class UI {
         button.setColor(buttonColor);
         stage.addActor(button);
         buttonMap.put(signal, button);
-        //stage.setDebugAll(true);
+        stage.setDebugAll(true);
     }
 
-    public void createDialogWindow(String questText) {
+    public Dialog createDialogWindow(String questText,String btnText1,String btnText2,String btnText3, String DialogText) {
 
         TextureRegion textureRegion = new TextureRegion(this.texture,region.getRegionX(),region.getRegionY()+32*32,64*32,32*32);
         Window.WindowStyle windowStyle = new Window.WindowStyle();
         windowStyle.background=new SpriteDrawable(new Sprite(textureRegion));
         windowStyle.titleFont=font;
-        Dialog dialog = new Dialog("",windowStyle);
+        Dialog dialog = new Dialog(questText,windowStyle);
         dialog.setPosition(10.5f*32,1.25f*32);
         dialog.setSize(13*32,4*32);
-        createDialogButtons(dialog,"Да","Нет","Далее","Сомов ждёт рыбки \nочень долго...");
+        createDialogButtonsAndText(dialog,btnText1,btnText2,btnText3,DialogText);
         stage.addActor(dialog);
+        return dialog;
     }
-    public void createDialogButtons(Dialog dialog,String text1,String text2,String text3,String textDialog){
+    public void createDialogButtonsAndText(Dialog dialog,String text1,String text2,String text3,String textDialog){
         Color buttonColor = new Color(1,1,1,0.45f);
         Texture texture = new Texture(Gdx.files.internal("sprites/dialog_button.png"));
         Label.LabelStyle labelStyle= new Label.LabelStyle();
         labelStyle.font=font;
-        Label label1 = new Label(textDialog,labelStyle);
+        DialogText = new Label(textDialog,labelStyle);
         ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(new TextureRegionDrawable(texture),
                 new TextureRegionDrawable(texture),new TextureRegionDrawable(texture), font);
-        final ImageTextButton btn1 = new ImageTextButton(text1,style);
-        final ImageTextButton btn2 = new ImageTextButton(text2,style);
-        final ImageTextButton btn3 = new ImageTextButton(text3,style);
-        dialog.text(label1);
+        DialogBtn1 = new ImageTextButton(text1,style);
+        DialogBtn2 = new ImageTextButton(text2,style);
+        DialogBtn3 = new ImageTextButton(text3,style);
+        dialog.text(DialogText);
         dialog.row();
-        dialog.button(btn1);
-        dialog.button(btn2);
-        dialog.button(btn3);
+        dialog.button(DialogBtn1);
+        dialog.button(DialogBtn2);
+        dialog.button(DialogBtn3);
 
         //btn1.setVisible(false);
         //btn2.setVisible(false);
 
+    }
+    public void switchUI(GameController.GameMode mode){
+        if (mode== GameController.GameMode.DIALOG){
+            dialog = createDialogWindow("Glory Ukraine","Да","Нет","Далее","Каво,Чаво");
+            for(Button button:buttonMap.values()){
+                button.setVisible(false);
+            }
+        }
+        if (mode == GameController.GameMode.PLAYING){
+            if (dialog!=null) {
+                dialog.remove();
+            }
+            for (Button button:buttonMap.values()){
+                button.setVisible(true);
+            }
+        }
     }
 }
