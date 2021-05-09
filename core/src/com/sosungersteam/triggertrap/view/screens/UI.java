@@ -15,7 +15,9 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -42,6 +44,8 @@ public class UI {
     private ImageButton buttonDown;
     private ImageButton buttonLeft;
     private ImageButton buttonRight;
+    private Image DialogWindow;
+    private Label DialogText;
     public HashMap<Player.Buttons, Button> buttonMap = new HashMap<>();
     public static int buttonWidth = 16;
     public static int buttonHeight = 16;
@@ -56,13 +60,14 @@ public class UI {
         texture = region.getTexture();
 
         Color buttonColor = new Color(1,1,1,0.45f);
+        createDialogWindow();
         createButton(0, 5, 5, 2, 2, Player.Buttons.UP);
         createButton(1, 2.8f,2.75f, 2,2, Player.Buttons.LEFT);
         createButton(2, 7.2f,2.75f, 2,2, Player.Buttons.RIGHT);
         createButton(3, 5,0.5f, 2,2, Player.Buttons.DOWN);
         createButton(4, 25, 2.75f, 2, 2, Player.Buttons.ACT);
 
-        //createDialogWindow();
+
     }
 
     public void createButton(int number, float x, float y, float width, float height, final Player.Buttons signal) {
@@ -91,60 +96,16 @@ public class UI {
     }
 
     public void createDialogWindow() {
-        font = createFont();
-        Texture texture = this.texture;
-        TextButton.TextButtonStyle textButtonStyle = new TextButton.TextButtonStyle(new TextureRegionDrawable(texture),new TextureRegionDrawable(texture),
-                new TextureRegionDrawable(texture),font);
-        //TextButton btnYes = new TextButton("Yes",textButtonStyle);
-        //TextButton btnNo = new TextButton("No",textButtonStyle);
-        Window.WindowStyle windowStyle = new Window.WindowStyle(font, new Color(1,1,1,1), new TextureRegionDrawable(texture));
-
-        final Dialog dialog = new Dialog("First Dialog",windowStyle){
-            @Override
-            public float getPrefWidth(){
-                return 10f;
-            }
-            @Override
-            public float getPrefHeight(){
-                return 4f;
-            }
-        };
-        dialog.setResizable(false);
-        dialog.setMovable(false);
-        dialog.setModal(true);
-        /*
-        btnYes.addListener(new InputListener(){
-           @Override
-           public boolean touchDown(InputEvent event, float x, float y,
-                                    int pointer, int button) {
-               System.out.println("YES");
-               dialog.hide();
-               dialog.cancel();
-               dialog.remove();
-               return true;
-           }
-        });
-        btnNo.addListener(new InputListener(){
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y,
-                                     int pointer, int button) {
-                System.out.println("NO");
-                dialog.hide();
-                dialog.cancel();
-                dialog.remove();
-                return true;
-            }
-        });
-        */
-        //Table t = new Table();
-
-        dialog.show(stage).setPosition(
-                (10f),
-                (5f));
-       //stage.addActor(dialog);
-
-
+        System.out.println(region.getRegionX()+" "+ (region.getRegionY()+32));
+        TextureRegion textureRegion = new TextureRegion(this.texture,region.getRegionX(),region.getRegionY()+32,64,32);
+        DialogWindow = new Image(new SpriteDrawable(new Sprite(textureRegion)));
+        DialogWindow.setPosition(11,1.25f);
+        DialogWindow.setSize(12,4);
+        stage.addActor(DialogWindow);
     }
+
+
+
     public BitmapFont createFont(){
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/psg-rounded.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
