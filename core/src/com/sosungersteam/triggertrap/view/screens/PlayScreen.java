@@ -23,8 +23,6 @@ public class PlayScreen implements Screen {
         atlas = new TextureAtlas("sprites/texture_pack.pack");
         this.game=game;
         camera = new OrthographicCamera(32,18);
-        camera.position.x=camera.viewportWidth/2;
-        camera.position.y= camera.viewportHeight/2;
     }
     @Override
     public void show() {
@@ -41,11 +39,36 @@ public class PlayScreen implements Screen {
         Person person = GameController.get().player.person;
         person.update(delta);
         correctView(person);
+        System.out.println(person.body.getPosition());
+        System.out.println(camera.position);
         Renderer.get().orthogonalRenderer.setView(camera);
     }
     public void entryView(Person person){
-        camera.position.x=camera.viewportWidth/2;
-        camera.position.y= camera.viewportHeight/2;
+        MapProperties prop = GameController.get().getTargetRoom().tiledMap.getProperties();
+        int mapWidth = prop.get("width", Integer.class);
+        int mapHeight = prop.get("height", Integer.class);
+        int tilePixelWidth = prop.get("tilewidth", Integer.class);
+        int tilePixelHeight = prop.get("tileheight", Integer.class);
+        int mapPixelWidth = mapWidth * tilePixelWidth;
+        int mapPixelHeight = mapHeight * tilePixelHeight;
+        boolean negX = (person.body.getPosition().x-camera.viewportWidth/2)<0;
+        boolean posX = (person.body.getPosition().x+camera.viewportWidth/2)>mapPixelWidth/1/16f;
+        boolean negY=(person.body.getPosition().y-camera.viewportHeight/2)<0;
+        boolean posY = (person.body.getPosition().y+camera.viewportHeight/2)>mapPixelHeight/1/16f;
+        if (posX){
+            camera.position.x-=(camera.position.x+camera.viewportWidth/2)-mapPixelWidth/1/16f; // work
+        }
+        if (negX){
+            System.out.println("NEGATIVE");
+            camera.position.x=Math.abs(camera.viewportWidth/2+0f);
+        }
+        if (posY){
+            camera.position.y-=(camera.position.y+camera.viewportHeight/2)-mapPixelHeight/1/16f;//work
+        }
+        if (negY){
+            System.out.println("NEGATIVE Y");
+            camera.position.y=Math.abs(camera.viewportHeight/2+0f);;
+        }
     }
     public void correctView(Person person){
         MapProperties prop = GameController.get().getTargetRoom().tiledMap.getProperties();
@@ -55,10 +78,10 @@ public class PlayScreen implements Screen {
         int tilePixelHeight = prop.get("tileheight", Integer.class);
         int mapPixelWidth = mapWidth * tilePixelWidth;
         int mapPixelHeight = mapHeight * tilePixelHeight;
-        boolean negX = (camera.position.x-camera.viewportWidth/2)<=0;
-        boolean posX = (camera.position.x+camera.viewportWidth/2)>=mapPixelWidth/1/16f;
-        boolean negY=(camera.position.y-camera.viewportHeight/2)<=0;
-        boolean posY = (camera.position.y+camera.viewportHeight/2)>=mapPixelHeight/1/16f;
+        boolean negX = (person.body.getPosition().x-camera.viewportWidth/2)<=0;
+        boolean posX = (person.body.getPosition().x+camera.viewportWidth/2)>=mapPixelWidth/1/16f;
+        boolean negY=(person.body.getPosition().y-camera.viewportHeight/2)<=0;
+        boolean posY = (person.body.getPosition().y+camera.viewportHeight/2)>=mapPixelHeight/1/16f;
         if (posX){
             if (camera.position.x>=person.body.getPosition().x)
                 camera.position.x=person.body.getPosition().x;

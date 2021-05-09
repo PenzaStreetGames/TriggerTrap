@@ -67,9 +67,9 @@ public class GameController {
 
         Person person = new Person(Renderer.get().world, Renderer.get().playScreen, "somov");
         player.setPerson(person);
+        spawnOnStartPosition();
         Renderer.get().playScreen.entryView(person);
 
-        spawnOnStartPosition();
     }
 
     public void spawnOnStartPosition() {
