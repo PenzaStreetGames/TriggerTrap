@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -53,19 +54,18 @@ public class UI {
     BitmapFont font;
 
     public UI(SpriteBatch sb){
-        viewport = new StretchViewport(32,18, new OrthographicCamera());
+        viewport = new StretchViewport(512,288, new OrthographicCamera());//
         stage = new Stage(viewport,sb);
-
+        font =MenuScreen.createFont(8,1f,Color.WHITE,0,0,Color.WHITE);
         region = Renderer.get().atlas.findRegion("interface");
         texture = region.getTexture();
-
         Color buttonColor = new Color(1,1,1,0.45f);
-        createDialogWindow();
-        createButton(0, 5, 5, 2, 2, Player.Buttons.UP);
-        createButton(1, 2.8f,2.75f, 2,2, Player.Buttons.LEFT);
-        createButton(2, 7.2f,2.75f, 2,2, Player.Buttons.RIGHT);
-        createButton(3, 5,0.5f, 2,2, Player.Buttons.DOWN);
-        createButton(4, 25, 2.75f, 2, 2, Player.Buttons.ACT);
+        createDialogWindow("Glory Ukraine");
+        createButton(0, 40*2, 40*2, 2, 2, Player.Buttons.UP);//
+        createButton(1, 2.8f*8*2,2.75f*8*2, 2,2, Player.Buttons.LEFT);//
+        createButton(2, 7.2f*8*2,2.75f*8*2, 2,2, Player.Buttons.RIGHT);//
+        createButton(3, 5*8*2,0.5f*8*2, 2,2, Player.Buttons.DOWN);//
+        createButton(4, 25*8*2, 2.75f*8*2, 2, 2, Player.Buttons.ACT);//
 
 
     }
@@ -76,7 +76,7 @@ public class UI {
         TextureRegion texture = new TextureRegion(this.texture,  region.getRegionX() + buttonWidth * number, region.getRegionY(), buttonWidth, buttonHeight);
         final ImageButton button = new ImageButton(new SpriteDrawable(new Sprite(texture)));
         button.setPosition(x, y);
-        button.setSize(width, height);
+        button.setSize(width*16, height*16);
         button.addListener(new ClickListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -92,31 +92,49 @@ public class UI {
         button.setColor(buttonColor);
         stage.addActor(button);
         buttonMap.put(signal, button);
-        stage.setDebugAll(true);
+        //stage.setDebugAll(true);
     }
 
-    public void createDialogWindow() {
+    public void createDialogWindow(String questText) {
         System.out.println(region.getRegionX()+" "+ (region.getRegionY()+32));
         TextureRegion textureRegion = new TextureRegion(this.texture,region.getRegionX(),region.getRegionY()+32,64,32);
-        DialogWindow = new Image(new SpriteDrawable(new Sprite(textureRegion)));
-        DialogWindow.setPosition(11,1.25f);
-        DialogWindow.setSize(12,4);
-        stage.addActor(DialogWindow);
+        Window.WindowStyle windowStyle = new Window.WindowStyle();
+        windowStyle.background=new SpriteDrawable(new Sprite(textureRegion));
+        windowStyle.titleFont=font;
+        Dialog dialog = new Dialog("",windowStyle);
+        dialog.setPosition(11*8*2,1.25f*8*2);
+        dialog.setSize(12*8*2,4*8*2);
+        //Label.LabelStyle labelStyle= new Label.LabelStyle();
+        //labelStyle.font=font;
+        //Label DialogText = new Label(questText,labelStyle);
+        //Table t = new Table();
+
+        //DialogText.setPosition(11*8*2,1.25f*8*2);
+        //DialogText.setSize(12*8*2,4*8*2);
+        //stage.addActor(DialogWindow);
+        //stage.addActor(DialogText);
+        createDialogButtons(dialog,"Да","Нет","Далее","Сомов ждёт рыбки \nочень долго...");
+        stage.addActor(dialog);
     }
+    public void createDialogButtons(Dialog dialog,String text1,String text2,String text3,String textDialog){
+        Color buttonColor = new Color(1,1,1,0.45f);
+        TextureRegion textureRegion = new TextureRegion(this.texture,region.getRegionX(),region.getRegionY()+16,64,16);
+        Label.LabelStyle labelStyle= new Label.LabelStyle();
+        labelStyle.font=font;
+        Label label1 = new Label(textDialog,labelStyle);
+        //Label label2 = new Label(text2,labelStyle);
+        ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(new TextureRegionDrawable(textureRegion),
+                new TextureRegionDrawable(textureRegion),new TextureRegionDrawable(textureRegion), font);
+        final ImageTextButton btn1 = new ImageTextButton(text1,style);
+        final ImageTextButton btn2 = new ImageTextButton(text2,style);
+        final ImageTextButton btn3 = new ImageTextButton(text3,style);
+        dialog.text(label1);
+        dialog.row();
+        dialog.button(btn1);
+        dialog.button(btn2);
+        dialog.button(btn3);
+        //btn1.setVisible(false);
+        //btn2.setVisible(false);
 
-
-
-    public BitmapFont createFont(){
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/psg-rounded.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size=1;
-        parameter.borderWidth=1;
-        parameter.color=Color.WHITE;
-        parameter.shadowOffsetX=0;
-        parameter.shadowOffsetY=0;
-        parameter.shadowColor = new Color(1,1,1,1f);
-        BitmapFont font24 = generator.generateFont(parameter);
-        generator.dispose();
-        return  font24;
     }
 }

@@ -16,6 +16,8 @@ public class TriggerTrap extends Game {
 	public final int PPM=100;
 	public GameController gameController;
 	public Renderer renderer;
+	public static final String bitmapTTF = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\\\/?-+=()*&.;,{}\\\"´`'<>АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+
 	@Override
 	public void create () {
 		/*
