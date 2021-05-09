@@ -65,7 +65,7 @@ public class GameController {
         TriggerTrap.triggerTrap.setScreen(Renderer.get().playScreen);
         Renderer.get().createNewWorld(getTargetRoom().tiledMap);
 
-        Person person = new Person(Renderer.get().world, Renderer.get().playScreen, "somov");
+        Person person = new Person(Renderer.get().world, Renderer.get().playScreen, "student");
         player.setPerson(person);
         spawnOnStartPosition();
         Renderer.get().playScreen.entryView(person);

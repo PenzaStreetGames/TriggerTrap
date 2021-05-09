@@ -47,9 +47,10 @@ public class UI {
     public static int buttonHeight = 16;
     public TextureAtlas.AtlasRegion region;
     BitmapFont font;
+    public static float scale = 16;
 
     public UI(SpriteBatch sb){
-        viewport = new StretchViewport(32,18, new OrthographicCamera());
+        viewport = new StretchViewport(500,288, new OrthographicCamera());
         stage = new Stage(viewport,sb);
 
         region = Renderer.get().atlas.findRegion("interface");
@@ -59,7 +60,7 @@ public class UI {
         createButton(0, 5, 5, 2, 2, Player.Buttons.UP);
         createButton(1, 2.8f,2.75f, 2,2, Player.Buttons.LEFT);
         createButton(2, 7.2f,2.75f, 2,2, Player.Buttons.RIGHT);
-        createButton(3, 5,0.5f, 2,2, Player.Buttons.DOWN);
+        createButton(3, 5,0.5f, 8,8, Player.Buttons.DOWN);
         createButton(4, 25, 2.75f, 2, 2, Player.Buttons.ACT);
 
         //createDialogWindow();
@@ -72,6 +73,7 @@ public class UI {
         final ImageButton button = new ImageButton(new SpriteDrawable(new Sprite(texture)));
         button.setPosition(x, y);
         button.setSize(width, height);
+        button.setScaleX(2);
         button.addListener(new ClickListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
