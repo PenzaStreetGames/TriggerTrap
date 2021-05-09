@@ -91,7 +91,7 @@ public class UI {
         button.setColor(buttonColor);
         stage.addActor(button);
         buttonMap.put(signal, button);
-        stage.setDebugAll(true);
+        //stage.setDebugAll(true);
     }
 
     public void createDialogWindow(String questText) {
@@ -101,14 +101,14 @@ public class UI {
         windowStyle.background=new SpriteDrawable(new Sprite(textureRegion));
         windowStyle.titleFont=font;
         Dialog dialog = new Dialog("",windowStyle);
-        dialog.setPosition(11*32,1.25f*32);
-        dialog.setSize(12*32,4*32);
+        dialog.setPosition(10.5f*32,1.25f*32);
+        dialog.setSize(13*32,4*32);
         createDialogButtons(dialog,"Да","Нет","Далее","Сомов ждёт рыбки \nочень долго...");
         stage.addActor(dialog);
     }
     public void createDialogButtons(Dialog dialog,String text1,String text2,String text3,String textDialog){
         Color buttonColor = new Color(1,1,1,0.45f);
-        Texture texture = new Texture(Gdx.files.internal(""));
+        Texture texture = new Texture(Gdx.files.internal("sprites/dialog_button.png"));
         Label.LabelStyle labelStyle= new Label.LabelStyle();
         labelStyle.font=font;
         Label label1 = new Label(textDialog,labelStyle);
