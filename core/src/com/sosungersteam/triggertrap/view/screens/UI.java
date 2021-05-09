@@ -39,7 +39,6 @@ import java.util.HashMap;
 public class UI {
     public Stage stage;
     public Viewport viewport;
-    private Skin mySkin;
     private Texture texture;
     private ImageButton buttonUp;
     private ImageButton buttonDown;
@@ -54,18 +53,18 @@ public class UI {
     BitmapFont font;
 
     public UI(SpriteBatch sb){
-        viewport = new StretchViewport(512,288, new OrthographicCamera());//
+        viewport = new StretchViewport(1024,576, new OrthographicCamera());//
         stage = new Stage(viewport,sb);
         font =MenuScreen.createFont(8,1f,Color.WHITE,0,0,Color.WHITE);
-        region = Renderer.get().atlas.findRegion("interface");
+        region = Renderer.get().atlas.findRegion("interfacex32");
         texture = region.getTexture();
         Color buttonColor = new Color(1,1,1,0.45f);
         createDialogWindow("Glory Ukraine");
-        createButton(0, 40*2, 40*2, 2, 2, Player.Buttons.UP);//
-        createButton(1, 2.8f*8*2,2.75f*8*2, 2,2, Player.Buttons.LEFT);//
-        createButton(2, 7.2f*8*2,2.75f*8*2, 2,2, Player.Buttons.RIGHT);//
-        createButton(3, 5*8*2,0.5f*8*2, 2,2, Player.Buttons.DOWN);//
-        createButton(4, 25*8*2, 2.75f*8*2, 2, 2, Player.Buttons.ACT);//
+        createButton(0, 5*32, 5*32, 2*32, 2*32, Player.Buttons.UP);//
+        createButton(1, 2.8f*32,2.75f*32, 2*32,2*32, Player.Buttons.LEFT);//
+        createButton(2, 7.2f*32,2.75f*32, 2*32,2*32, Player.Buttons.RIGHT);//
+        createButton(3, 5*32,0.5f*32, 2*32,2*32, Player.Buttons.DOWN);//
+        createButton(4, 25*32, 2.75f*32, 2*32, 2*32, Player.Buttons.ACT);//
 
 
     }
@@ -73,10 +72,10 @@ public class UI {
     public void createButton(int number, float x, float y, float width, float height, final Player.Buttons signal) {
         // Todo: сделать нормальные кнопки
         Color buttonColor = new Color(1,1,1,0.45f);
-        TextureRegion texture = new TextureRegion(this.texture,  region.getRegionX() + buttonWidth * number, region.getRegionY(), buttonWidth, buttonHeight);
+        TextureRegion texture = new TextureRegion(this.texture,  region.getRegionX() + 32*buttonWidth * number, region.getRegionY(), 32*buttonWidth, 32*buttonHeight);
         final ImageButton button = new ImageButton(new SpriteDrawable(new Sprite(texture)));
         button.setPosition(x, y);
-        button.setSize(width*16, height*16);
+        button.setSize(width, height);
         button.addListener(new ClickListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
@@ -92,30 +91,29 @@ public class UI {
         button.setColor(buttonColor);
         stage.addActor(button);
         buttonMap.put(signal, button);
-        //stage.setDebugAll(true);
+        stage.setDebugAll(true);
     }
 
     public void createDialogWindow(String questText) {
-        System.out.println(region.getRegionX()+" "+ (region.getRegionY()+32));
-        TextureRegion textureRegion = new TextureRegion(this.texture,region.getRegionX(),region.getRegionY()+32,64,32);
+
+        TextureRegion textureRegion = new TextureRegion(this.texture,region.getRegionX(),region.getRegionY()+32*32,64*32,32*32);
         Window.WindowStyle windowStyle = new Window.WindowStyle();
         windowStyle.background=new SpriteDrawable(new Sprite(textureRegion));
         windowStyle.titleFont=font;
         Dialog dialog = new Dialog("",windowStyle);
-        dialog.setPosition(11*8*2,1.25f*8*2);
-        dialog.setSize(12*8*2,4*8*2);
+        dialog.setPosition(11*32,1.25f*32);
+        dialog.setSize(12*32,4*32);
         createDialogButtons(dialog,"Да","Нет","Далее","Сомов ждёт рыбки \nочень долго...");
         stage.addActor(dialog);
     }
     public void createDialogButtons(Dialog dialog,String text1,String text2,String text3,String textDialog){
         Color buttonColor = new Color(1,1,1,0.45f);
-        TextureRegion textureRegion = new TextureRegion(this.texture,region.getRegionX(),region.getRegionY()+16,64,16);
+        Texture texture = new Texture(Gdx.files.internal(""));
         Label.LabelStyle labelStyle= new Label.LabelStyle();
         labelStyle.font=font;
         Label label1 = new Label(textDialog,labelStyle);
-        //Label label2 = new Label(text2,labelStyle);
-        ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(new TextureRegionDrawable(textureRegion),
-                new TextureRegionDrawable(textureRegion),new TextureRegionDrawable(textureRegion), font);
+        ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(new TextureRegionDrawable(texture),
+                new TextureRegionDrawable(texture),new TextureRegionDrawable(texture), font);
         final ImageTextButton btn1 = new ImageTextButton(text1,style);
         final ImageTextButton btn2 = new ImageTextButton(text2,style);
         final ImageTextButton btn3 = new ImageTextButton(text3,style);
@@ -124,6 +122,7 @@ public class UI {
         dialog.button(btn1);
         dialog.button(btn2);
         dialog.button(btn3);
+
         //btn1.setVisible(false);
         //btn2.setVisible(false);
 
