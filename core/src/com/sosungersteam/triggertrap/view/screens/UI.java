@@ -139,9 +139,10 @@ public class UI {
     public void switchUI(GameController.GameMode mode){
         if (mode== GameController.GameMode.DIALOG){
             setButtonsText("Да","Нет","Далее");
-            dialog = createDialogWindow("Glory Ukraine","Да","Нет","Далее","Каво,Чаво");
+            dialog = createDialogWindow("Студент","Да","Нет","Далее","Вкусная пересдача у Сомова сегодня будет...");
             for(Button button:buttonMap.values()){
                 button.setVisible(false);
+                button.setDisabled(true);
             }
         }
         if (mode == GameController.GameMode.PLAYING){
@@ -150,6 +151,7 @@ public class UI {
             }
             for (Button button:buttonMap.values()){
                 button.setVisible(true);
+                button.setDisabled(false);
             }
         }
     }
