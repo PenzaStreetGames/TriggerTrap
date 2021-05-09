@@ -1,0 +1,11 @@
+{
+  "edges" : [
+    {"id": 1, "doorFromId": 2, "doorIntoId": 3},
+    {"id": 2, "doorFromId": 3, "doorIntoId": 2},
+    {"id": 3, "doorFromId": 1, "doorIntoId": 2},
+    {"id": 4, "doorFromId": 4, "doorIntoId": 5},
+    {"id": 5, "doorFromId": 5, "doorIntoId": 4},
+    {"id": 6, "doorFromId": 6, "doorIntoId": 1},
+    {"id": 7, "doorFromId": 7, "doorIntoId": 1}
+  ]
+}

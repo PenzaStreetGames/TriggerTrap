@@ -1,0 +1,11 @@
+{
+  "doors": [
+    {"id":  1, "roomId": 1},
+    {"id":  2, "roomId": 1},
+    {"id":  3, "roomId": 2},
+    {"id":  4, "roomId": 2},
+    {"id":  5, "roomId": 2},
+    {"id":  6, "roomId": 2},
+    {"id":  7, "roomId": 2}
+  ]
+}
