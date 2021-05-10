@@ -109,9 +109,9 @@
   <object id="4" x="0" y="112" width="16" height="624"/>
   <object id="5" x="464" y="112" width="16" height="624"/>
   <object id="6" x="16" y="736" width="448" height="16"/>
-  <object id="7" x="14.6667" y="654" width="128" height="16"/>
-  <object id="8" x="160" y="656" width="160" height="16"/>
-  <object id="9" x="334" y="656" width="128" height="16"/>
+  <object id="7" x="14.6667" y="656" width="128" height="15.6667"/>
+  <object id="8" x="160" y="656" width="158" height="16"/>
+  <object id="9" x="337.667" y="656" width="124.333" height="16"/>
   <object id="11" x="48" y="528" width="16" height="48"/>
   <object id="12" x="416" y="464" width="16" height="48"/>
   <object id="13" x="48" y="287.333" width="16" height="48"/>
