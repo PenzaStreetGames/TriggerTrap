@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
@@ -34,7 +35,7 @@ public class UI {
     public Viewport viewport;
     private Texture texture;
     private Label DialogText;
-    private Dialog dialog;
+    public Dialog dialog;
     public static enum Buttons{LEFT,RIGHT,NEXT};
     private ImageTextButton DialogBtn1;
     private ImageTextButton DialogBtn2;
@@ -93,20 +94,30 @@ public class UI {
         buttonMap.put(signal, button);
         stage.setDebugAll(true);
     }
-
+/*
     public Dialog createDialogWindow(String questText,String btnText1,String btnText2,String btnText3, String DialogText) {
         TextureRegion textureRegion = new TextureRegion(this.texture,region.getRegionX(),region.getRegionY()+32*32,64*32,32*32);
         Window.WindowStyle windowStyle = new Window.WindowStyle();
         windowStyle.background=new SpriteDrawable(new Sprite(textureRegion));
         windowStyle.titleFont=font;
-        Dialog dialog = new Dialog(questText,windowStyle);
-        dialog.setPosition(10.5f*32,1.25f*32);
-        dialog.setSize(13*32,4*32);
-        createDialogButtonsAndText(dialog,btnText1,btnText2,btnText3,DialogText);
-        stage.addActor(dialog);
-        return dialog;
+        Dialog dialogNew = new Dialog(questText,windowStyle){
+            @Override
+            protected void result(Object object){
+                if ((Boolean) object){
+                    System.out.println("DADADADA");
+                    hide();
+                }
+            }
+        }.show(stage);
+        dialogNew.setMovable(false);
+        dialogNew.setModal(true);
+        dialogNew.setResizable(false);
+        createDialogButtonsAndText(dialogNew,btnText1,btnText2,btnText3,DialogText);
+        dialogNew.setPosition(10.5f*32,1.25f*32);
+        dialogNew.setSize(13*32,4*32);
+        return dialogNew;
     }
-    public void createDialogButtonsAndText(final Dialog dialog, String text1, String text2, String text3, final String textDialog){
+    public void createDialogButtonsAndText(Dialog dialog, String text1, String text2, String text3, final String textDialog){
         Texture texture = new Texture(Gdx.files.internal("sprites/dialog_button.png"));
         Label.LabelStyle labelStyle= new Label.LabelStyle();
         labelStyle.font=font;
@@ -116,28 +127,36 @@ public class UI {
         for (Buttons buttons: Buttons.values()){
             createDialogButton(dialog,style,buttons);
         }
+        DialogButtonMap.get(Buttons.NEXT).addListener(new ClickListener(){
+           @Override
+           public void clicked(InputEvent event, float x,float y){
+               //GameController.get().setGameMode(GameController.GameMode.PLAYING);
+           }
+        });
         dialog.text(DialogText);
     }
     public void createDialogButton(Dialog dialog, ImageTextButton.ImageTextButtonStyle style,UI.Buttons buttons){
         ImageTextButton button = new ImageTextButton(buttonText.get(buttons),style);
         DialogButtonMap.put(buttons,button);
-        dialog.button(button);
+        dialog.button(button,true);
 
     }
     public void setButtonsText(String text1, String text2, String text3){
         buttonText.put(Buttons.LEFT,text1);
         buttonText.put(Buttons.RIGHT,text2);
         buttonText.put(Buttons.NEXT,text3);
-    }
+    }*/
+
     public void switchUI(GameController.GameMode mode){
         if (mode== GameController.GameMode.DIALOG){
-            setButtonsText("Да","Нет","Далее");
-            dialog = createDialogWindow("Студент","Да","Нет","КОНЕЧНО","Может быть поискать там еду?");
+           //setButtonsText("Да","Нет","Далее");
+            //dialog = createDialogWindow("Студент","Да","Нет","КОНЕЧНО","Может быть поискать там еду?");
             for(Button button:buttonMap.values()){
                 button.setVisible(false);
                 button.setDisabled(true);
             }
         }
+
         if (mode == GameController.GameMode.PLAYING){
             if (dialog!=null) {
                 dialog.remove();
@@ -148,5 +167,7 @@ public class UI {
             }
         }
     }
+
+
 
 }
