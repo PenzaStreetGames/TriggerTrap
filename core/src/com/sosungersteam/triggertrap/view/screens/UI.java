@@ -9,25 +9,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sosungersteam.triggertrap.controller.Player;
@@ -40,7 +33,6 @@ public class UI {
     public Stage stage;
     public Viewport viewport;
     private Texture texture;
-    private Image DialogWindow;
     private Label DialogText;
     private Dialog dialog;
     public static enum Buttons{LEFT,RIGHT,NEXT};
@@ -58,7 +50,7 @@ public class UI {
     public UI(SpriteBatch sb){
         viewport = new StretchViewport(1024,576, new OrthographicCamera());//
         stage = new Stage(viewport,sb);
-        font =MenuScreen.createFont(8,1f,Color.WHITE,0,0,Color.WHITE);
+        font =MenuScreen.createFont(12,1f,Color.WHITE,0,0,Color.WHITE);
         region = Renderer.get().atlas.findRegion("interfacex32");
         texture = region.getTexture();
         createButton(0, 5*32, 5*32, 2*32, 2*32, Player.Buttons.UP);//
@@ -114,12 +106,12 @@ public class UI {
         stage.addActor(dialog);
         return dialog;
     }
-    public void createDialogButtonsAndText(Dialog dialog,String text1,String text2,String text3,String textDialog){
+    public void createDialogButtonsAndText(final Dialog dialog, String text1, String text2, String text3, final String textDialog){
         Texture texture = new Texture(Gdx.files.internal("sprites/dialog_button.png"));
         Label.LabelStyle labelStyle= new Label.LabelStyle();
         labelStyle.font=font;
         DialogText = new Label(textDialog,labelStyle);
-        ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(new TextureRegionDrawable(texture),
+        final ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(new TextureRegionDrawable(texture),
                 new TextureRegionDrawable(texture),new TextureRegionDrawable(texture), font);
         for (Buttons buttons: Buttons.values()){
             createDialogButton(dialog,style,buttons);
@@ -128,8 +120,9 @@ public class UI {
     }
     public void createDialogButton(Dialog dialog, ImageTextButton.ImageTextButtonStyle style,UI.Buttons buttons){
         ImageTextButton button = new ImageTextButton(buttonText.get(buttons),style);
-        dialog.button(button);
         DialogButtonMap.put(buttons,button);
+        dialog.button(button);
+
     }
     public void setButtonsText(String text1, String text2, String text3){
         buttonText.put(Buttons.LEFT,text1);
@@ -139,7 +132,7 @@ public class UI {
     public void switchUI(GameController.GameMode mode){
         if (mode== GameController.GameMode.DIALOG){
             setButtonsText("Да","Нет","Далее");
-            dialog = createDialogWindow("Студент","Да","Нет","Далее","Вкусная пересдача у Сомова сегодня будет...");
+            dialog = createDialogWindow("Студент","Да","Нет","КОНЕЧНО","Может быть поискать там еду?");
             for(Button button:buttonMap.values()){
                 button.setVisible(false);
                 button.setDisabled(true);
@@ -155,4 +148,5 @@ public class UI {
             }
         }
     }
+
 }
