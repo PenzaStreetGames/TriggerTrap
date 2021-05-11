@@ -115,6 +115,10 @@ public class PlayScreen implements Screen {
         drawLvl();
         game.renderer.UI.stage.draw();
         Renderer.get().box2DDebugRenderer.render(Renderer.get().world, camera.combined);
+        if (GameController.get().gameMode== GameController.GameMode.DIALOG){
+            Renderer.get().UI.dialogue.render();
+        }
+
     }
     private void drawLvl(){
         game.batch.setProjectionMatrix(camera.combined);
@@ -146,6 +150,9 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
+        //if (GameController.get().gameMode== GameController.GameMode.PLAYING && Renderer.get().UI!=null && Renderer.get().UI.dialogue!=null){
+           // Renderer.get().UI.dialogue.dispose();
+        //}
     }
 
 }
