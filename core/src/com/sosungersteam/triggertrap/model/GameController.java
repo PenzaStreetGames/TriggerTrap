@@ -67,7 +67,7 @@ public class GameController {
         Renderer.get().createNewWorld(getTargetRoom().tiledMap);
 
         Person person = new Person(Renderer.get().world, Renderer.get().playScreen, "student");
-        personage = new Person(Renderer.get().world,Renderer.get().playScreen,"student");
+        personage = new Person(Renderer.get().world,Renderer.get().playScreen,"single_somov");
         player.setPerson(person);
         spawnOnStartPosition();
         Renderer.get().playScreen.entryView(person);
