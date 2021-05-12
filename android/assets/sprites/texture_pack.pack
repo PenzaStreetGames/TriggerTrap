@@ -45,3 +45,10 @@ interface
   orig: 96, 64
   offset: 0, 0
   index: -1
+single_somov
+  rotate: false
+  xy: 3333, 3554
+  size: 23, 35
+  orig: 23, 35
+  offset: 0, 0
+  index: -1
