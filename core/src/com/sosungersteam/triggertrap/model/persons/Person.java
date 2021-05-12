@@ -39,8 +39,8 @@ public class Person extends Sprite {
     public Person.State currentState;
     public Person.State previousState;
     private float stateTimer;
-    private final int WIDTH = 23;
-    private final int HEIGHT = 35;
+    protected final int WIDTH = 23;
+    protected final int HEIGHT = 35;
 
     public Person(World world, PlayScreen screen, String textureName) {
         super(screen.getAtlas().findRegion(textureName));

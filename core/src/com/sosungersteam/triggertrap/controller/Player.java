@@ -7,7 +7,6 @@ import com.sosungersteam.triggertrap.model.GameController;
 import com.sosungersteam.triggertrap.model.map.InteractiveObject;
 import com.sosungersteam.triggertrap.model.map.Room;
 import com.sosungersteam.triggertrap.model.map.SpawnPoint;
-import com.sosungersteam.triggertrap.model.persons.Somov;
 import com.sosungersteam.triggertrap.model.player.GameProgress;
 import com.sosungersteam.triggertrap.model.persons.Person;
 

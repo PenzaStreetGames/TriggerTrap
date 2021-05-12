@@ -10,13 +10,21 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.sosungersteam.triggertrap.model.map.Room;
 import com.sosungersteam.triggertrap.model.physics.PhysicsBodyCreator;
 import com.sosungersteam.triggertrap.view.Renderer;
 import com.sosungersteam.triggertrap.view.screens.PlayScreen;
 
-public class Somov extends Person {
-    public Somov(World world, PlayScreen screen, String textureName) {
+public class NPC extends Person {
+
+    public Room room;
+
+    public NPC(World world, PlayScreen screen, String textureName) {
         super(world, screen, textureName);
+    }
+
+    public void update(float dt) {
+        super.update(dt);
     }
 
     // создать человечка
