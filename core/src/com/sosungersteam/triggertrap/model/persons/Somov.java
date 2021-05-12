@@ -17,6 +17,7 @@ import com.sosungersteam.triggertrap.view.screens.PlayScreen;
 public class Somov extends Person {
     public Somov(World world, PlayScreen screen, String textureName) {
         super(world, screen, textureName);
+
     }
 
     // создать человечка
