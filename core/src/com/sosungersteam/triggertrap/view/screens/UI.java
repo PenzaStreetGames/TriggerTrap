@@ -9,14 +9,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sosungersteam.triggertrap.controller.Player;
@@ -30,12 +34,13 @@ public class UI {
     public Stage stage;
     public Viewport viewport;
     private Texture texture;
-    private Label DialogText;
-    public Dialog dialog;
     public static enum Buttons{LEFT,RIGHT,NEXT};
     private ImageTextButton DialogBtn1;
     private ImageTextButton DialogBtn2;
     private  ImageTextButton DialogBtn3;
+    private Image DialogWindow;
+    private Label TextWindow;
+    private Label Hint;
     public HashMap<Player.Buttons, Button> buttonMap = new HashMap<>();
     public HashMap<Buttons,Button> DialogButtonMap = new HashMap<>();
     public HashMap<Buttons,String> buttonText = new HashMap<>();
@@ -43,14 +48,18 @@ public class UI {
     public static int buttonHeight = 16;
     public TextureAtlas.AtlasRegion region;
     BitmapFont font;
+    BitmapFont hintfont;
 
     public UI(SpriteBatch sb){
 
         viewport = new StretchViewport(1024,576, new OrthographicCamera());//
         stage = new Stage(viewport,sb);
-        font =MenuScreen.createFont(12,1f,Color.WHITE,0,0,Color.WHITE);
+        font =MenuScreen.createFont(24,1f,Color.WHITE,0,0,Color.WHITE);
+        hintfont=MenuScreen.createFont(12,1f,Color.WHITE,0,0,Color.WHITE);
         region = Renderer.get().atlas.findRegion("interfacex32");
         texture = region.getTexture();
+        createDialogWindow();
+        createDialogLabels("О-о-о-о повезло, повезло,\n не повезло,\n или повезло");
         createButton(0, 5*32, 5*32, 2*32, 2*32, Player.Buttons.UP);//
         createButton(1, 2.8f*32,2.75f*32, 2*32,2*32, Player.Buttons.LEFT);//
         createButton(2, 7.2f*32,2.75f*32, 2*32,2*32, Player.Buttons.RIGHT);//
@@ -91,13 +100,12 @@ public class UI {
         buttonMap.put(signal, button);
         //stage.setDebugAll(true);
     }
-    public void createDialogWindow(){
-
-    }
-
     public void switchUI(GameController.GameMode mode){
         if (mode== GameController.GameMode.DIALOG){
-
+            if (DialogWindow!=null && TextWindow!=null){
+                DialogWindow.setVisible(true);
+                TextWindow.setVisible(true);
+            }
             for(Button button:buttonMap.values()){
                 button.setVisible(false);
                 button.setDisabled(true);
@@ -105,14 +113,41 @@ public class UI {
         }
 
         if (mode == GameController.GameMode.PLAYING){
-            if (dialog!=null) {
-                dialog.remove();
+            if (DialogWindow!=null &&  TextWindow!=null) {
+                DialogWindow.setVisible(false);
+                TextWindow.setVisible(false);
             }
             for (Button button:buttonMap.values()){
                 button.setVisible(true);
                 button.setDisabled(false);
             }
         }
+    }
+    private void createDialogLabels(String text){
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font=font;
+        TextWindow = new Label(text,labelStyle);
+        TextWindow.setBounds(DialogWindow.getX(),DialogWindow.getY(),DialogWindow.getWidth(),DialogWindow.getHeight());
+        TextWindow.setAlignment(Align.center);
+        TextWindow.setTouchable(Touchable.enabled);
+        TextWindow.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
+                GameController.get().setGameMode(GameController.GameMode.PLAYING);
+                return true;
+            }
+        });
+        stage.addActor(TextWindow);
+    }
+    private  void createHintLabel(){
+
+    }
+    private void createDialogWindow(){
+        TextureRegion textureRegion = new TextureRegion(this.texture,region.getRegionX(),region.getRegionY()+1024, 64*32,32*32 );
+        DialogWindow = new Image(textureRegion);
+        DialogWindow.setSize(600,200);
+        DialogWindow.setPosition(212,20);
+        stage.addActor(DialogWindow);
     }
 
 
