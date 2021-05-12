@@ -59,7 +59,8 @@ public class UI {
         region = Renderer.get().atlas.findRegion("interfacex32");
         texture = region.getTexture();
         createDialogWindow();
-        createDialogLabels("О-о-о-о повезло, повезло,\n не повезло,\n или повезло");
+        createHintLabel();
+        createDialogLabels("Вы порылись в мусорке и на-\nшли D-триггер, вот это ве-\nзение!"); // 26-27 символов в строке
         createButton(0, 5*32, 5*32, 2*32, 2*32, Player.Buttons.UP);//
         createButton(1, 2.8f*32,2.75f*32, 2*32,2*32, Player.Buttons.LEFT);//
         createButton(2, 7.2f*32,2.75f*32, 2*32,2*32, Player.Buttons.RIGHT);//
@@ -102,9 +103,10 @@ public class UI {
     }
     public void switchUI(GameController.GameMode mode){
         if (mode== GameController.GameMode.DIALOG){
-            if (DialogWindow!=null && TextWindow!=null){
+            if (DialogWindow!=null){
                 DialogWindow.setVisible(true);
                 TextWindow.setVisible(true);
+                Hint.setVisible(true);
             }
             for(Button button:buttonMap.values()){
                 button.setVisible(false);
@@ -113,9 +115,10 @@ public class UI {
         }
 
         if (mode == GameController.GameMode.PLAYING){
-            if (DialogWindow!=null &&  TextWindow!=null) {
+            if (DialogWindow!=null) {
                 DialogWindow.setVisible(false);
                 TextWindow.setVisible(false);
+                Hint.setVisible(false);
             }
             for (Button button:buttonMap.values()){
                 button.setVisible(true);
@@ -127,8 +130,8 @@ public class UI {
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font=font;
         TextWindow = new Label(text,labelStyle);
-        TextWindow.setBounds(DialogWindow.getX(),DialogWindow.getY(),DialogWindow.getWidth(),DialogWindow.getHeight());
-        TextWindow.setAlignment(Align.center);
+        TextWindow.setBounds(DialogWindow.getX()+27,DialogWindow.getY()-20,DialogWindow.getWidth()-27,DialogWindow.getHeight());
+        TextWindow.setAlignment(Align.topLeft);
         TextWindow.setTouchable(Touchable.enabled);
         TextWindow.addListener(new InputListener(){
             @Override
@@ -140,7 +143,12 @@ public class UI {
         stage.addActor(TextWindow);
     }
     private  void createHintLabel(){
-
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font=hintfont;
+        Hint = new Label("Нажмите, чтобы продолжить",labelStyle);
+        Hint.setBounds(DialogWindow.getX()+27,DialogWindow.getY()+20,DialogWindow.getWidth()-27,DialogWindow.getHeight()-20);
+        Hint.setAlignment(Align.bottomLeft);
+        stage.addActor(Hint);
     }
     private void createDialogWindow(){
         TextureRegion textureRegion = new TextureRegion(this.texture,region.getRegionX(),region.getRegionY()+1024, 64*32,32*32 );
