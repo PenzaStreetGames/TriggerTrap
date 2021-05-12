@@ -6,11 +6,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.sosungersteam.triggertrap.TriggerTrap;
 import com.sosungersteam.triggertrap.model.GameController;
-import com.sosungersteam.triggertrap.model.map.Room;
 import com.sosungersteam.triggertrap.model.persons.Person;
-import com.sosungersteam.triggertrap.model.persons.Somov;
 import com.sosungersteam.triggertrap.view.Renderer;
 
 public class PlayScreen implements Screen {
@@ -18,6 +17,7 @@ public class PlayScreen implements Screen {
     private TriggerTrap game;
     private OrthographicCamera camera;
     private TextureAtlas atlas;
+    public Stage stage;
 
     public PlayScreen(TriggerTrap game){
         atlas = Renderer.get().atlas;
@@ -38,6 +38,8 @@ public class PlayScreen implements Screen {
         Renderer.get().world.step(1/60f,6,2); // change later
         Person person = GameController.get().player.person;
         person.update(delta);
+        if (GameController.get().personage != null)
+            GameController.get().personage.update(delta);
         correctView(person);
         Renderer.get().orthogonalRenderer.setView(camera);
     }
@@ -125,7 +127,8 @@ public class PlayScreen implements Screen {
         game.batch.begin();
         Person person = GameController.get().player.person;
         person.draw(game.batch);
-        GameController.get().personage.draw(game.batch);
+        if (GameController.get().personage != null)
+            GameController.get().personage.draw(game.batch);
         game.batch.end();
 
     }

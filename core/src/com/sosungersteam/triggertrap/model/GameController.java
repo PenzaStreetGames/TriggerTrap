@@ -13,7 +13,7 @@ import com.sosungersteam.triggertrap.model.map.Edge;
 import com.sosungersteam.triggertrap.model.map.Room;
 import com.sosungersteam.triggertrap.model.map.SpawnPoint;
 import com.sosungersteam.triggertrap.model.persons.Person;
-import com.sosungersteam.triggertrap.model.persons.Somov;
+import com.sosungersteam.triggertrap.model.persons.NPC;
 import com.sosungersteam.triggertrap.view.music.DJ;
 import com.sosungersteam.triggertrap.view.Renderer;
 import com.sosungersteam.triggertrap.view.screens.PlayScreen;
@@ -67,7 +67,10 @@ public class GameController {
         Renderer.get().createNewWorld(getTargetRoom().tiledMap);
 
         Person person = new Person(Renderer.get().world, Renderer.get().playScreen, "student");
-        personage = new Person(Renderer.get().world,Renderer.get().playScreen,"student");
+        if(getTargetRoom().id == 1)
+            personage = new NPC(Renderer.get().world,Renderer.get().playScreen,"somov");
+        else
+            personage = null;
         player.setPerson(person);
         spawnOnStartPosition();
         Renderer.get().playScreen.entryView(person);
