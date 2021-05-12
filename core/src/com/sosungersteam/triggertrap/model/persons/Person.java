@@ -52,7 +52,7 @@ public class Person extends Sprite {
         stateTimer = 0;
 
         cutAnimations();
-        defineSomov();
+        defineSomov(0, 0);
         setBounds(0,0, WIDTH / 1/16f, HEIGHT / 1/16f);
     }
 
@@ -136,10 +136,10 @@ public class Person extends Sprite {
         }
     }
 
-    public void  defineSomov() {
+    public void  defineSomov(float x, float y) {
 
         BodyDef bdef = new BodyDef();
-        bdef.position.set(17, 4); // change position
+        bdef.position.set(x, y); // change position
         bdef.type = BodyDef.BodyType.DynamicBody; // Dynamic or kinetic???
         body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();

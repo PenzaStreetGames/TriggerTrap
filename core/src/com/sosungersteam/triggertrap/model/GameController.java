@@ -6,12 +6,14 @@ import com.sosungersteam.triggertrap.controller.Player;
 import com.sosungersteam.triggertrap.model.managers.DoorManager;
 import com.sosungersteam.triggertrap.model.managers.EdgeManager;
 import com.sosungersteam.triggertrap.model.managers.MapObjectManager;
+import com.sosungersteam.triggertrap.model.managers.NPCManager;
 import com.sosungersteam.triggertrap.model.managers.RoomManager;
 import com.sosungersteam.triggertrap.model.managers.SpawnPointManager;
 import com.sosungersteam.triggertrap.model.map.Door;
 import com.sosungersteam.triggertrap.model.map.Edge;
 import com.sosungersteam.triggertrap.model.map.Room;
 import com.sosungersteam.triggertrap.model.map.SpawnPoint;
+import com.sosungersteam.triggertrap.model.persons.NPCModel;
 import com.sosungersteam.triggertrap.model.persons.Person;
 import com.sosungersteam.triggertrap.model.persons.NPC;
 import com.sosungersteam.triggertrap.view.music.DJ;
@@ -31,6 +33,7 @@ public class GameController {
     public MapObjectManager<Room> roomManager;
     public MapObjectManager<Edge> edgeManager;
     public MapObjectManager<SpawnPoint> spawnPointManager;
+    public MapObjectManager<NPCModel> npcModelManager;
 
     public DJ dj;
 
@@ -41,6 +44,7 @@ public class GameController {
         roomManager = RoomManager.get();
         edgeManager = EdgeManager.get();
         spawnPointManager = SpawnPointManager.get();
+        npcModelManager = NPCManager.get();
         dj = DJ.get();
         gameMode = GameMode.MENU;
     }
@@ -57,6 +61,7 @@ public class GameController {
         doorManager.load();
         edgeManager.load();
         spawnPointManager.load();
+        npcModelManager.load();
     }
     public void entryToRoom(){
         if (Renderer.get().playScreen != null)
@@ -67,10 +72,13 @@ public class GameController {
         Renderer.get().createNewWorld(getTargetRoom().tiledMap);
 
         Person person = new Person(Renderer.get().world, Renderer.get().playScreen, "student");
-        if(getTargetRoom().id == 1)
-            personage = new NPC(Renderer.get().world,Renderer.get().playScreen,"somov");
-        else
-            personage = null;
+
+        NPCManager.get().clearPeople();
+        NPCManager.get().createPeopleInRoom(GameController.get().getTargetRoom());
+        //if(getTargetRoom().id == 1)
+        //    personage = new NPC(Renderer.get().world,Renderer.get().playScreen,"somov");
+        //else
+        //    personage = null;
         player.setPerson(person);
         spawnOnStartPosition();
         Renderer.get().playScreen.entryView(person);
