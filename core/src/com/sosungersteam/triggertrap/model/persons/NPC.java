@@ -24,6 +24,7 @@ public class NPC extends Person {
 
     public NPC(World world, PlayScreen screen, String textureName) {
         super(world, screen, textureName);
+
     }
 
     public NPC(World world, PlayScreen screen, NPCModel model) {
