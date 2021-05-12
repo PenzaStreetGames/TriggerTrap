@@ -10,7 +10,7 @@
     {"id": 7, "roomId": 2, "doorId": 7, "spawnX": 15.0, "spawnY":  6.0},
     {"id": 8, "roomId": 3, "doorId": 8, "spawnX": 14.0, "spawnY":  37.0},
     {"id": 9, "roomId": 4, "doorId": 9, "spawnX": 42.0, "spawnY":  10.0},
-    {"id": 10, "roomId": 4, "doorId": 10, "spawnX": 5.0, "spawnY":  15.0},
+    {"id": 10, "roomId": 4, "doorId": 10, "spawnX": 7.0, "spawnY":  16.5},
     {"id": 11, "roomId": 5, "doorId": 11, "spawnX": 3.0, "spawnY":  3.0},
     {"id": 12, "roomId": 5, "doorId": 12, "spawnX": 3.0, "spawnY":  22.0}
   ]
