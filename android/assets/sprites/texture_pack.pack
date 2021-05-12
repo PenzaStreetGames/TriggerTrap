@@ -5,21 +5,21 @@ filter: Nearest,Nearest
 repeat: none
 interfacex32
   rotate: false
-  xy: 1, 2565
-  size: 4096, 4096
-  orig: 4096, 4096
+  xy: 1, 1541
+  size: 3072, 2048
+  orig: 3072, 2048
   offset: 0, 0
   index: -1
 interfacex16
   rotate: false
   xy: 1, 515
-  size: 2048, 2048
-  orig: 2048, 2048
+  size: 1536, 1024
+  orig: 1536, 1024
   offset: 0, 0
   index: -1
 somov
   rotate: false
-  xy: 4099, 6149
+  xy: 3075, 3077
   size: 256, 512
   orig: 256, 512
   offset: 0, 0
@@ -31,17 +31,17 @@ student
   orig: 256, 512
   offset: 0, 0
   index: -1
-interface
-  rotate: false
-  xy: 2051, 2435
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
 dialog_button
   rotate: false
-  xy: 4099, 6115
+  xy: 1539, 1507
   size: 128, 32
   orig: 128, 32
+  offset: 0, 0
+  index: -1
+interface
+  rotate: false
+  xy: 3075, 3011
+  size: 96, 64
+  orig: 96, 64
   offset: 0, 0
   index: -1

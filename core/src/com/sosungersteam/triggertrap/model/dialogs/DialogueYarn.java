@@ -48,7 +48,7 @@ public class DialogueYarn {
     SpriteBatch batch;
     //какие кнопки проверять при выборе какой-то опции в диалоге
     int[] OP_KEYS = {Input.Keys.NUM_1, Input.Keys.NUM_2, Input.Keys.NUM_3, Input.Keys.NUM_4, Input.Keys.NUM_5};
-    public Path testDialogue = Paths.get("C:\\Users\\usp20\\Desktop\\IT Academy\\Android\\TriggerTrap\\android\\assets\\data\\awdsad.json");
+    public Path testDialogue = Paths.get("data/awdsad.json");
     boolean show_tokens = false; // токены выдаваемые парсером
     boolean show_parse_tree=false; // дерево созданное парсером из списка токенов
     String only_consider = null; // если null - загружает весь диалог
