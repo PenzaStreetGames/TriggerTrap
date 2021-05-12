@@ -4,6 +4,7 @@
     {"id": 2, "name": "memrea_under_pants"},
     {"id": 3, "name": "memrea_alley"},
     {"id": 4, "name": "memrea_left_pants"},
-    {"id": 5, "name": "memrea_cyber_hall"}
+    {"id": 5, "name": "memrea_cyber_hall"},
+    {"id": 6, "name": "memrea_cyber_gallery"}
   ]
 }

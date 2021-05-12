@@ -69,6 +69,7 @@ public class Player {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
                 vx = -velocity_scale;
             }
+            //System.out.println(person.body.getPosition());
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             GameController.get().setGameMode(

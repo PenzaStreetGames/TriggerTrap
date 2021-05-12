@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.sosungersteam.triggertrap.TriggerTrap;
 import com.sosungersteam.triggertrap.model.GameController;
+import com.sosungersteam.triggertrap.model.managers.NPCManager;
 import com.sosungersteam.triggertrap.model.persons.Person;
 import com.sosungersteam.triggertrap.view.Renderer;
 
@@ -38,8 +39,9 @@ public class PlayScreen implements Screen {
         Renderer.get().world.step(1/60f,6,2); // change later
         Person person = GameController.get().player.person;
         person.update(delta);
-        if (GameController.get().personage != null)
-            GameController.get().personage.update(delta);
+        NPCManager.get().updatePeopleView(GameController.get().getTargetRoom(), delta);
+        //if (GameController.get().personage != null)
+        //    GameController.get().personage.update(delta);
         correctView(person);
         Renderer.get().orthogonalRenderer.setView(camera);
     }
@@ -127,8 +129,9 @@ public class PlayScreen implements Screen {
         game.batch.begin();
         Person person = GameController.get().player.person;
         person.draw(game.batch);
-        if (GameController.get().personage != null)
-            GameController.get().personage.draw(game.batch);
+        NPCManager.get().drawPeople(GameController.get().getTargetRoom());
+        //if (GameController.get().personage != null)
+        //    GameController.get().personage.draw(game.batch);
         game.batch.end();
 
     }

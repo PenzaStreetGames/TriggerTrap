@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.sosungersteam.triggertrap.model.managers.NPCManager;
 import com.sosungersteam.triggertrap.model.map.Room;
 import com.sosungersteam.triggertrap.model.physics.PhysicsBodyCreator;
 import com.sosungersteam.triggertrap.view.Renderer;
@@ -18,13 +19,49 @@ import com.sosungersteam.triggertrap.view.screens.PlayScreen;
 public class NPC extends Person {
 
     public Room room;
+    public String textureName;
+    public Vector2 spawnPosition = new Vector2(0, 0);
 
     public NPC(World world, PlayScreen screen, String textureName) {
         super(world, screen, textureName);
     }
 
+    public NPC(World world, PlayScreen screen, NPCModel model) {
+        super(world, screen, model.textureName);
+        setModel(model);
+        defineSomov(spawnPosition.x, spawnPosition.y);
+    }
+
     public void update(float dt) {
         super.update(dt);
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public void setModel(NPCModel model) {
+        textureName = model.textureName;
+        room = model.room;
+        spawnPosition = model.spawnPosition;
+        direction = model.direction;
+    }
+
+    @Override
+    public void defineSomov(float x, float y) {
+
+        BodyDef bdef = new BodyDef();
+        bdef.position.set(x, y); // change position
+        bdef.type = BodyDef.BodyType.DynamicBody; // Dynamic or kinetic???
+        body = world.createBody(bdef);
+        FixtureDef fdef = new FixtureDef();
+
+        PolygonShape shape = new PolygonShape();
+        Rectangle rect = new Rectangle(1, 1, 15, 25);
+        shape.setAsBox(rect.getWidth() / 2 / 1 / 16f,rect.getHeight() / 2 / 1 / 16f,//
+                new Vector2(0 / 1 / 16f,-5/1/16f), 0);//
+        fdef.shape = shape;
+        body.createFixture(fdef);
     }
 
     // создать человечка
