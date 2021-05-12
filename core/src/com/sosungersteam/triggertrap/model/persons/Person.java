@@ -69,7 +69,7 @@ public class Person extends Sprite {
         animations.put("stayHor", cutAnimation(8, 0.2f, super.getRegionX(), super.getRegionY() + height * 4, width, height));
     }
 
-    private Animation<TextureRegion> cutAnimation(int countFrames, float timeDuration, int x, int y, int width, int height) {
+    protected Animation<TextureRegion> cutAnimation(int countFrames, float timeDuration, int x, int y, int width, int height) {
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for (int i=0;i<countFrames;i++){
             frames.add(new TextureRegion(getTexture(),x + i * width, y, width, height));
@@ -136,7 +136,7 @@ public class Person extends Sprite {
         }
     }
 
-    public void defineSomov() {
+    public void  defineSomov() {
 
         BodyDef bdef = new BodyDef();
         bdef.position.set(17, 4); // change position

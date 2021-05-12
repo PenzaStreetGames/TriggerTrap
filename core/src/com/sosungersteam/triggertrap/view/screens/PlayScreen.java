@@ -125,6 +125,7 @@ public class PlayScreen implements Screen {
         game.batch.begin();
         Person person = GameController.get().player.person;
         person.draw(game.batch);
+        GameController.get().personage.draw(game.batch);
         game.batch.end();
 
     }

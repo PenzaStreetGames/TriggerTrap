@@ -11,9 +11,15 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.sosungersteam.triggertrap.model.physics.PhysicsBodyCreator;
+import com.sosungersteam.triggertrap.view.Renderer;
 import com.sosungersteam.triggertrap.view.screens.PlayScreen;
 
-public class Somov { // создать человечка
+public class Somov extends Person {
+    public Somov(World world, PlayScreen screen, String textureName) {
+        super(world, screen, textureName);
+    }
+
+    // создать человечка
     /*
     public enum State {STANDING, RUNNINGHOR, RUNNINGVERUP, RUNNINGVERDOWN}
 

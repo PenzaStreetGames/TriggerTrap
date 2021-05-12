@@ -26,6 +26,7 @@ public class GameController {
 
     public Renderer renderer;
     public Player player;
+    public Person personage;
     public MapObjectManager<Door> doorManager;
     public MapObjectManager<Room> roomManager;
     public MapObjectManager<Edge> edgeManager;
@@ -66,6 +67,7 @@ public class GameController {
         Renderer.get().createNewWorld(getTargetRoom().tiledMap);
 
         Person person = new Person(Renderer.get().world, Renderer.get().playScreen, "student");
+        personage = new Person(Renderer.get().world,Renderer.get().playScreen,"student");
         player.setPerson(person);
         spawnOnStartPosition();
         Renderer.get().playScreen.entryView(person);
