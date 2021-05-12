@@ -26,8 +26,10 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sosungersteam.triggertrap.controller.Player;
 import com.sosungersteam.triggertrap.model.GameController;
+import com.sosungersteam.triggertrap.model.dialogs.DialogueYarn;
 import com.sosungersteam.triggertrap.view.Renderer;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class UI {
@@ -47,8 +49,9 @@ public class UI {
     public static int buttonHeight = 16;
     public TextureAtlas.AtlasRegion region;
     BitmapFont font;
-
+    public DialogueYarn dialogue;
     public UI(SpriteBatch sb){
+        dialogue=new DialogueYarn();
         viewport = new StretchViewport(1024,576, new OrthographicCamera());//
         stage = new Stage(viewport,sb);
         font =MenuScreen.createFont(12,1f,Color.WHITE,0,0,Color.WHITE);
@@ -150,6 +153,11 @@ public class UI {
     public void switchUI(GameController.GameMode mode){
         if (mode== GameController.GameMode.DIALOG){
            //setButtonsText("Да","Нет","Далее");
+            try {
+                dialogue.create();
+            }catch (IOException e) {
+                e.printStackTrace();
+            } ;
             //dialog = createDialogWindow("Студент","Да","Нет","КОНЕЧНО","Может быть поискать там еду?");
             for(Button button:buttonMap.values()){
                 button.setVisible(false);

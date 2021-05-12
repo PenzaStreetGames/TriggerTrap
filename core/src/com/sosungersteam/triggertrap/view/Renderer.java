@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.sosungersteam.triggertrap.model.dialogs.DialogueYarn;
 import com.sosungersteam.triggertrap.view.screens.MenuScreen;
 import com.sosungersteam.triggertrap.view.screens.PlayScreen;
 import com.sosungersteam.triggertrap.model.physics.WorldContactListener;
@@ -29,7 +30,6 @@ public class Renderer {
     public com.sosungersteam.triggertrap.view.screens.UI UI;
 
     public TextureAtlas atlas;
-
     private Renderer() {
         atlas = new TextureAtlas("sprites/texture_pack.pack");
     }

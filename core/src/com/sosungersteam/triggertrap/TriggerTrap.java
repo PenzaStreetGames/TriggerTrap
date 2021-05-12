@@ -56,7 +56,7 @@ public class TriggerTrap extends Game {
 		gameController.player = new Player(null);
 		Gdx.input.setInputProcessor(renderer.UI.stage);
 		// выбор точки спавна
-		gameController.player.setSpawnPoint(SpawnPointManager.get().getById(1));
+		gameController.player.setSpawnPoint(SpawnPointManager.get().getById(2));
 		//
 		gameController.entryToRoom();
 	}
