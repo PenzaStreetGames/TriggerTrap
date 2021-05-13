@@ -13,6 +13,7 @@ public class Dialog {
         this.name = name;
         this.id=id;
         int messageId = 0;
+        nextMessage();
     }
 
     public void addMessage(Message message) {

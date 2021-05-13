@@ -12,5 +12,9 @@ public class Message {
         this.text = text;
         wasPrinted=false;
     }
+    public String getText(){
+        wasPrinted=true;
+        return text;
+    }
 
 }
