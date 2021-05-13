@@ -3,6 +3,8 @@ package com.sosungersteam.triggertrap.model;
 import com.badlogic.gdx.utils.Array;
 import com.sosungersteam.triggertrap.TriggerTrap;
 import com.sosungersteam.triggertrap.controller.Player;
+import com.sosungersteam.triggertrap.model.dialogs.Dialog;
+import com.sosungersteam.triggertrap.model.managers.DialogManager;
 import com.sosungersteam.triggertrap.model.managers.DoorManager;
 import com.sosungersteam.triggertrap.model.managers.EdgeManager;
 import com.sosungersteam.triggertrap.model.managers.MapObjectManager;
@@ -34,6 +36,7 @@ public class GameController {
     public MapObjectManager<Edge> edgeManager;
     public MapObjectManager<SpawnPoint> spawnPointManager;
     public MapObjectManager<NPCModel> npcModelManager;
+    public MapObjectManager<Dialog> dialogManager;
 
     public DJ dj;
 
@@ -45,6 +48,7 @@ public class GameController {
         edgeManager = EdgeManager.get();
         spawnPointManager = SpawnPointManager.get();
         npcModelManager = NPCManager.get();
+        dialogManager = DialogManager.get();
         dj = DJ.get();
         gameMode = GameMode.MENU;
     }
@@ -62,6 +66,7 @@ public class GameController {
         edgeManager.load();
         spawnPointManager.load();
         npcModelManager.load();
+        dialogManager.load();
     }
     public void entryToRoom(){
         if (Renderer.get().playScreen != null)

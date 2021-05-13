@@ -29,6 +29,6 @@ public class Bin extends InteractiveObject {
     public void act() {
         GameController.get().setGameMode(GameController.GameMode.DIALOG);
         Renderer.get().UI.switchUI(GameController.get().gameMode);
-        System.out.println(name);
+        //System.out.println(name);
     }
 }

@@ -27,12 +27,21 @@ public class Dialog {
         return targetMessage.text;
     }
 
+    public void setMessageId (int messageId) {
+        this.messageId = messageId;
+        targetMessage = messages.get(messageId);
+    }
+
     public boolean nextMessage() {
         if (messageId < messages.size - 1) {
             messageId++;
-            targetMessage = messages.get(messageId);
+            setMessageId(messageId);
             return true;
         }
         return false;
+    }
+
+    public void reset() {
+        messageId = 0;
     }
 }
