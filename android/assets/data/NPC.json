@@ -1,9 +1,9 @@
 {
   "NPC": [
-    {"id": 1, "roomId": 1, "textureName": "somov", "spawnX": 12.0, "spawnY": 15.0, "dir": 0},
-    {"id": 2, "roomId": 1, "textureName": "student", "spawnX": 5.0, "spawnY": 10.0, "dir": 1},
-    {"id": 3, "roomId": 1, "textureName": "student", "spawnX": 15.0, "spawnY": 12.0, "dir": 2},
-    {"id": 4, "roomId": 1, "textureName": "student", "spawnX": 17.0, "spawnY": 14.0, "dir": 3},
+    {"id": 1, "roomId": 6, "textureName": "somov", "spawnX": 5.5, "spawnY": 10.5, "dir": 1},
+    {"id": 2, "roomId": 3, "textureName": "student", "spawnX": 22.6, "spawnY": 3.4, "dir": 2},
+    {"id": 3, "roomId": 3, "textureName": "student", "spawnX": 19.6, "spawnY": 3.7, "dir": 3},
+    {"id": 4, "roomId": 3, "textureName": "student", "spawnX": 7.7, "spawnY": 3.5, "dir": 3},
     {"id": 2, "roomId": 4, "textureName": "student", "spawnX": 24.5, "spawnY": 10.8, "dir": 3},
     {"id": 3, "roomId": 4, "textureName": "student", "spawnX": 26.5, "spawnY": 10.8, "dir": 2},
     {"id": 4, "roomId": 4, "textureName": "student", "spawnX": 28.1, "spawnY": 6.1, "dir": 1}

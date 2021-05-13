@@ -18,7 +18,6 @@ public class PlayScreen implements Screen {
     private TriggerTrap game;
     private OrthographicCamera camera;
     private TextureAtlas atlas;
-    public Stage stage;
 
     public PlayScreen(TriggerTrap game){
         atlas = Renderer.get().atlas;
@@ -40,8 +39,7 @@ public class PlayScreen implements Screen {
         Person person = GameController.get().player.person;
         person.update(delta);
         NPCManager.get().updatePeopleView(GameController.get().getTargetRoom(), delta);
-        //if (GameController.get().personage != null)
-        //    GameController.get().personage.update(delta);
+        System.out.println(GameController.get().player.person.body.getPosition());
         correctView(person);
         Renderer.get().orthogonalRenderer.setView(camera);
     }
@@ -72,7 +70,7 @@ public class PlayScreen implements Screen {
             camera.position.y=Math.abs(camera.viewportHeight/2);;
         }
     }
-    public void correctView(Person person){
+    public void correctView(Person person) {
         MapProperties prop = GameController.get().getTargetRoom().tiledMap.getProperties();
         int mapWidth = prop.get("width", Integer.class);
         int mapHeight = prop.get("height", Integer.class);
@@ -80,34 +78,61 @@ public class PlayScreen implements Screen {
         int tilePixelHeight = prop.get("tileheight", Integer.class);
         int mapPixelWidth = mapWidth * tilePixelWidth;
         int mapPixelHeight = mapHeight * tilePixelHeight;
-        boolean negX = (person.body.getPosition().x-camera.viewportWidth/2)<=0;
-        boolean posX = (person.body.getPosition().x+camera.viewportWidth/2)>=mapPixelWidth/1/16f;
-        boolean negY=(person.body.getPosition().y-camera.viewportHeight/2)<=0;
-        boolean posY = (person.body.getPosition().y+camera.viewportHeight/2)>=mapPixelHeight/1/16f;
-        if (posX){
-            if (camera.position.x>=person.body.getPosition().x)
-                camera.position.x=person.body.getPosition().x;
+        boolean negX = (person.body.getPosition().x - camera.viewportWidth / 2) <= 0;
+        boolean posX = (person.body.getPosition().x + camera.viewportWidth / 2) >= mapPixelWidth / 1 / 16f;
+        boolean negY = (person.body.getPosition().y - camera.viewportHeight / 2) <= 0;
+        boolean posY = (person.body.getPosition().y + camera.viewportHeight / 2) >= mapPixelHeight / 1 / 16f;
+        if (mapWidth > camera.viewportWidth && mapHeight>camera.viewportHeight) {
+            if (posX) {
+                if (camera.position.x >= person.body.getPosition().x)
+                    camera.position.x = person.body.getPosition().x;
+            } else if (negX) {
+                if (camera.position.x <= person.body.getPosition().x)
+                    camera.position.x = person.body.getPosition().x;
+            } else {
+                camera.position.x = person.body.getPosition().x;
+            }
+            if (posY) {
+                if (camera.position.y >= person.body.getPosition().y)
+                    camera.position.y = person.body.getPosition().y;
+            } else if (negY) {
+                if (camera.position.y <= person.body.getPosition().y)
+                    camera.position.y = person.body.getPosition().y;
+            } else {
+                camera.position.y = person.body.getPosition().y;
+            }
+        } else {
+            if (mapWidth<camera.viewportWidth && mapHeight<camera.viewportHeight){
+                camera.position.x=mapWidth/2;
+                camera.position.y=mapHeight/2;
+            }
+            else if (mapWidth<camera.viewportWidth){
+                camera.position.x=mapWidth/2;
+                if (posY) {
+                    if (camera.position.y >= person.body.getPosition().y)
+                        camera.position.y = person.body.getPosition().y;
+                } else if (negY) {
+                    if (camera.position.y <= person.body.getPosition().y)
+                        camera.position.y = person.body.getPosition().y;
+                } else {
+                    camera.position.y = person.body.getPosition().y;
+                }
+            }
+            else if (mapHeight<camera.viewportHeight){
+                camera.position.y=mapHeight/2;
+                if (posX) {
+                    if (camera.position.x >= person.body.getPosition().x)
+                        camera.position.x = person.body.getPosition().x;
+                } else if (negX) {
+                    if (camera.position.x <= person.body.getPosition().x)
+                        camera.position.x = person.body.getPosition().x;
+                } else {
+                    camera.position.x = person.body.getPosition().x;
+                }
+            }
         }
-        else if (negX){
-            if (camera.position.x<=person.body.getPosition().x)
-                camera.position.x=person.body.getPosition().x;
-        }
-        else {
-            camera.position.x=person.body.getPosition().x;
-        }
-        if (posY){
-            if (camera.position.y>=person.body.getPosition().y)
-                camera.position.y=person.body.getPosition().y;
-        }
-        else if (negY){
-            if (camera.position.y<=person.body.getPosition().y)
-                camera.position.y=person.body.getPosition().y;
-        }
-        else{
-            camera.position.y=person.body.getPosition().y;
-        }
-    }
 
+    }
     @Override
     public void render(float delta) {
         update(delta); // updates map
@@ -118,10 +143,8 @@ public class PlayScreen implements Screen {
         Renderer.get().orthogonalRenderer.render(); // renders map
         drawLvl();
         game.renderer.UI.stage.draw();
-        Renderer.get().box2DDebugRenderer.render(Renderer.get().world, camera.combined);
-        if (GameController.get().gameMode== GameController.GameMode.DIALOG){
-            Renderer.get().UI.dialogue.render();
-        }
+        //Renderer.get().box2DDebugRenderer.render(Renderer.get().world, camera.combined);
+
 
     }
     private void drawLvl(){
@@ -130,8 +153,7 @@ public class PlayScreen implements Screen {
         Person person = GameController.get().player.person;
         person.draw(game.batch);
         NPCManager.get().drawPeople(GameController.get().getTargetRoom());
-        //if (GameController.get().personage != null)
-        //    GameController.get().personage.draw(game.batch);
+
         game.batch.end();
 
     }
@@ -157,9 +179,7 @@ public class PlayScreen implements Screen {
 
     @Override
     public void dispose() {
-        //if (GameController.get().gameMode== GameController.GameMode.PLAYING && Renderer.get().UI!=null && Renderer.get().UI.dialogue!=null){
-           // Renderer.get().UI.dialogue.dispose();
-        //}
+
     }
 
 }

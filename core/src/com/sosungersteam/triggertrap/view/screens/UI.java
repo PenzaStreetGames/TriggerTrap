@@ -1,6 +1,5 @@
 package com.sosungersteam.triggertrap.view.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,24 +8,23 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.DelayAction;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sosungersteam.triggertrap.controller.Player;
 import com.sosungersteam.triggertrap.model.GameController;
-import com.sosungersteam.triggertrap.model.dialogs.DialogueYarn;
 import com.sosungersteam.triggertrap.view.Renderer;
 
 import java.io.IOException;
@@ -36,12 +34,13 @@ public class UI {
     public Stage stage;
     public Viewport viewport;
     private Texture texture;
-    private Label DialogText;
-    public Dialog dialog;
     public static enum Buttons{LEFT,RIGHT,NEXT};
     private ImageTextButton DialogBtn1;
     private ImageTextButton DialogBtn2;
     private  ImageTextButton DialogBtn3;
+    private Image DialogWindow;
+    private Label TextWindow;
+    private Label Hint;
     public HashMap<Player.Buttons, Button> buttonMap = new HashMap<>();
     public HashMap<Buttons,Button> DialogButtonMap = new HashMap<>();
     public HashMap<Buttons,String> buttonText = new HashMap<>();
@@ -49,14 +48,19 @@ public class UI {
     public static int buttonHeight = 16;
     public TextureAtlas.AtlasRegion region;
     BitmapFont font;
-    public DialogueYarn dialogue;
+    BitmapFont hintfont;
+
     public UI(SpriteBatch sb){
-        dialogue=new DialogueYarn();
+
         viewport = new StretchViewport(1024,576, new OrthographicCamera());//
         stage = new Stage(viewport,sb);
-        font =MenuScreen.createFont(12,1f,Color.WHITE,0,0,Color.WHITE);
+        font =MenuScreen.createFont(24,1f,Color.WHITE,0,0,Color.WHITE);
+        hintfont=MenuScreen.createFont(12,1f,Color.WHITE,0,0,Color.WHITE);
         region = Renderer.get().atlas.findRegion("interfacex32");
         texture = region.getTexture();
+        createDialogWindow();
+        createHintLabel();
+        createDialogLabels("Вы порылись в мусорке и на-\nшли D-триггер, вот это ве-\nзение!"); // 26-27 символов в строке
         createButton(0, 5*32, 5*32, 2*32, 2*32, Player.Buttons.UP);//
         createButton(1, 2.8f*32,2.75f*32, 2*32,2*32, Player.Buttons.LEFT);//
         createButton(2, 7.2f*32,2.75f*32, 2*32,2*32, Player.Buttons.RIGHT);//
@@ -95,70 +99,15 @@ public class UI {
         button.setColor(buttonColor);
         stage.addActor(button);
         buttonMap.put(signal, button);
-        stage.setDebugAll(true);
+        //stage.setDebugAll(true);
     }
-/*
-    public Dialog createDialogWindow(String questText,String btnText1,String btnText2,String btnText3, String DialogText) {
-        TextureRegion textureRegion = new TextureRegion(this.texture,region.getRegionX(),region.getRegionY()+32*32,64*32,32*32);
-        Window.WindowStyle windowStyle = new Window.WindowStyle();
-        windowStyle.background=new SpriteDrawable(new Sprite(textureRegion));
-        windowStyle.titleFont=font;
-        Dialog dialogNew = new Dialog(questText,windowStyle){
-            @Override
-            protected void result(Object object){
-                if ((Boolean) object){
-                    System.out.println("DADADADA");
-                    hide();
-                }
-            }
-        }.show(stage);
-        dialogNew.setMovable(false);
-        dialogNew.setModal(true);
-        dialogNew.setResizable(false);
-        createDialogButtonsAndText(dialogNew,btnText1,btnText2,btnText3,DialogText);
-        dialogNew.setPosition(10.5f*32,1.25f*32);
-        dialogNew.setSize(13*32,4*32);
-        return dialogNew;
-    }
-    public void createDialogButtonsAndText(Dialog dialog, String text1, String text2, String text3, final String textDialog){
-        Texture texture = new Texture(Gdx.files.internal("sprites/dialog_button.png"));
-        Label.LabelStyle labelStyle= new Label.LabelStyle();
-        labelStyle.font=font;
-        DialogText = new Label(textDialog,labelStyle);
-        final ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(new TextureRegionDrawable(texture),
-                new TextureRegionDrawable(texture),new TextureRegionDrawable(texture), font);
-        for (Buttons buttons: Buttons.values()){
-            createDialogButton(dialog,style,buttons);
-        }
-        DialogButtonMap.get(Buttons.NEXT).addListener(new ClickListener(){
-           @Override
-           public void clicked(InputEvent event, float x,float y){
-               //GameController.get().setGameMode(GameController.GameMode.PLAYING);
-           }
-        });
-        dialog.text(DialogText);
-    }
-    public void createDialogButton(Dialog dialog, ImageTextButton.ImageTextButtonStyle style,UI.Buttons buttons){
-        ImageTextButton button = new ImageTextButton(buttonText.get(buttons),style);
-        DialogButtonMap.put(buttons,button);
-        dialog.button(button,true);
-
-    }
-    public void setButtonsText(String text1, String text2, String text3){
-        buttonText.put(Buttons.LEFT,text1);
-        buttonText.put(Buttons.RIGHT,text2);
-        buttonText.put(Buttons.NEXT,text3);
-    }*/
-
     public void switchUI(GameController.GameMode mode){
         if (mode== GameController.GameMode.DIALOG){
-           //setButtonsText("Да","Нет","Далее");
-            try {
-                dialogue.create();
-            }catch (IOException e) {
-                e.printStackTrace();
-            } ;
-            //dialog = createDialogWindow("Студент","Да","Нет","КОНЕЧНО","Может быть поискать там еду?");
+            if (DialogWindow!=null){
+                DialogWindow.setVisible(true);
+                TextWindow.setVisible(true);
+                Hint.setVisible(true);
+            }
             for(Button button:buttonMap.values()){
                 button.setVisible(false);
                 button.setDisabled(true);
@@ -166,14 +115,47 @@ public class UI {
         }
 
         if (mode == GameController.GameMode.PLAYING){
-            if (dialog!=null) {
-                dialog.remove();
+            if (DialogWindow!=null) {
+                DialogWindow.setVisible(false);
+                TextWindow.setVisible(false);
+                Hint.setVisible(false);
             }
             for (Button button:buttonMap.values()){
                 button.setVisible(true);
                 button.setDisabled(false);
             }
         }
+    }
+    private void createDialogLabels(String text){
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font=font;
+        TextWindow = new Label(text,labelStyle);
+        TextWindow.setBounds(DialogWindow.getX()+27,DialogWindow.getY()-20,DialogWindow.getWidth()-27,DialogWindow.getHeight());
+        TextWindow.setAlignment(Align.topLeft);
+        TextWindow.setTouchable(Touchable.enabled);
+        TextWindow.addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
+                GameController.get().setGameMode(GameController.GameMode.PLAYING);
+                return true;
+            }
+        });
+        stage.addActor(TextWindow);
+    }
+    private  void createHintLabel(){
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.font=hintfont;
+        Hint = new Label("Нажмите, чтобы продолжить",labelStyle);
+        Hint.setBounds(DialogWindow.getX()+27,DialogWindow.getY()+20,DialogWindow.getWidth()-27,DialogWindow.getHeight()-20);
+        Hint.setAlignment(Align.bottomLeft);
+        stage.addActor(Hint);
+    }
+    private void createDialogWindow(){
+        TextureRegion textureRegion = new TextureRegion(this.texture,region.getRegionX(),region.getRegionY()+1024, 64*32,32*32 );
+        DialogWindow = new Image(textureRegion);
+        DialogWindow.setSize(600,200);
+        DialogWindow.setPosition(212,20);
+        stage.addActor(DialogWindow);
     }
 
 
