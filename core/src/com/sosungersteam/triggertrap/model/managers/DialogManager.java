@@ -9,7 +9,7 @@ import org.json.simple.JSONObject;
 
 public class DialogManager extends AbstractResourceManager implements MapObjectManager<Dialog> {
     public static DialogManager manager = null;
-    public Array<Dialog> dialogs;
+    public Array<Dialog> dialogs = new Array<>();
 
     private DialogManager() {
 
@@ -31,12 +31,12 @@ public class DialogManager extends AbstractResourceManager implements MapObjectM
             String name = (String) element.get("name");
             JSONArray messages = (JSONArray) element.get("messages");
             Dialog dialog = new Dialog(name, id);
-            for (int j = 0; j < list.size(); j++) {
-                String text = (String) element.get(j);
+            for (int j = 0; j < messages.size(); j++) {
+                String text = (String) messages.get(j);
+                System.out.println(text);
                 Message message = new Message(text);
                 dialog.addMessage(message);
             }
-            Message msg = new Message((String) element.get("messages"));
             dialogs.add(dialog);
         }
     }

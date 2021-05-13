@@ -39,7 +39,7 @@ public class PlayScreen implements Screen {
         Person person = GameController.get().player.person;
         person.update(delta);
         NPCManager.get().updatePeopleView(GameController.get().getTargetRoom(), delta);
-        System.out.println(GameController.get().player.person.body.getPosition());
+        //System.out.println(GameController.get().player.person.body.getPosition());
         correctView(person);
         Renderer.get().orthogonalRenderer.setView(camera);
     }

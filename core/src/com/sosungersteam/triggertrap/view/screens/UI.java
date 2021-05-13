@@ -117,8 +117,10 @@ public class UI {
         if (mode == GameController.GameMode.PLAYING){
             if (DialogWindow!=null) {
                 DialogWindow.setVisible(false);
-                TextWindow.setVisible(false);
-                Hint.setVisible(false);
+                if (TextWindow != null)
+                    TextWindow.setVisible(false);
+                if (Hint != null)
+                    Hint.setVisible(false);
             }
             for (Button button:buttonMap.values()){
                 button.setVisible(true);
@@ -126,7 +128,7 @@ public class UI {
             }
         }
     }
-    public void createDialogLabels(Dialog dialog){
+    public void createDialogLabels(final Dialog dialog){
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font=font;
         TextWindow = new Label(dialog.getTargetMessage().getText(),labelStyle);
@@ -139,7 +141,8 @@ public class UI {
                 if (dialog.nextMessage()){
                     TextWindow.setText(dialog.getTargetMessage().getText());
                 }
-                else{
+                else {
+                    dialog.reset();
                     GameController.get().setGameMode(GameController.GameMode.PLAYING);
                 }
                 return true;

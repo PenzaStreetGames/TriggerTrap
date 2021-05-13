@@ -21,6 +21,7 @@ public class Dialog {
     }
 
     public Message getTargetMessage() {
+        targetMessage = messages.get(messageId);
         return targetMessage;
     }
 
