@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
@@ -25,6 +24,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.sosungersteam.triggertrap.controller.Player;
 import com.sosungersteam.triggertrap.model.GameController;
+import com.sosungersteam.triggertrap.model.dialogs.Dialog;
 import com.sosungersteam.triggertrap.view.Renderer;
 
 import java.io.IOException;
@@ -60,7 +60,7 @@ public class UI {
         texture = region.getTexture();
         createDialogWindow();
         createHintLabel();
-        createDialogLabels("Вы порылись в мусорке и на-\nшли D-триггер, вот это ве-\nзение!"); // 26-27 символов в строке
+         // 26-27 символов в строке
         createButton(0, 5*32, 5*32, 2*32, 2*32, Player.Buttons.UP);//
         createButton(1, 2.8f*32,2.75f*32, 2*32,2*32, Player.Buttons.LEFT);//
         createButton(2, 7.2f*32,2.75f*32, 2*32,2*32, Player.Buttons.RIGHT);//
@@ -126,17 +126,22 @@ public class UI {
             }
         }
     }
-    private void createDialogLabels(String text){
+    public void createDialogLabels(Dialog dialog){
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font=font;
-        TextWindow = new Label(text,labelStyle);
+        TextWindow = new Label(dialog.getTargetMessage().getText(),labelStyle);
         TextWindow.setBounds(DialogWindow.getX()+27,DialogWindow.getY()-20,DialogWindow.getWidth()-27,DialogWindow.getHeight());
         TextWindow.setAlignment(Align.topLeft);
         TextWindow.setTouchable(Touchable.enabled);
         TextWindow.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                GameController.get().setGameMode(GameController.GameMode.PLAYING);
+                if (dialog.nextMessage()){
+                    TextWindow.setText(dialog.getTargetMessage().getText());
+                }
+                else{
+                    GameController.get().setGameMode(GameController.GameMode.PLAYING);
+                }
                 return true;
             }
         });
