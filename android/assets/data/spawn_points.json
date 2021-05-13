@@ -1,6 +1,6 @@
 {
   "spawn_points": [
-    {"id": 0, "roomId": 1, "doorId": 0, "spawnX": 16.0, "spawnY": 12.0},
+    {"id": 0, "roomId": 3, "doorId": 0, "spawnX": 5.0, "spawnY": 2.0},
     {"id": 1, "roomId": 1, "doorId": 1, "spawnX": 16.0, "spawnY":  5.0},
     {"id": 2, "roomId": 1, "doorId": 2, "spawnX": 16.0, "spawnY": 19.0},
     {"id": 3, "roomId": 2, "doorId": 3, "spawnX": 14.0, "spawnY":  4.0},

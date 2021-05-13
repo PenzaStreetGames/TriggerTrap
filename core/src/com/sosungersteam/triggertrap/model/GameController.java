@@ -21,6 +21,7 @@ import com.sosungersteam.triggertrap.model.persons.NPC;
 import com.sosungersteam.triggertrap.view.music.DJ;
 import com.sosungersteam.triggertrap.view.Renderer;
 import com.sosungersteam.triggertrap.view.screens.PlayScreen;
+import com.sosungersteam.triggertrap.view.screens.UI;
 
 public class GameController {
     private static GameController gameController = null;
@@ -87,6 +88,12 @@ public class GameController {
         player.setPerson(person);
         spawnOnStartPosition();
         Renderer.get().playScreen.entryView(person);
+
+        Dialog dialog = DialogManager.get().getByName("room_" + getTargetRoom().id);
+        if (!dialog.firstEnd) {
+            Renderer.get().UI.setDialogLabel(dialog);
+            setGameMode(GameMode.DIALOG);
+        }
 
     }
 

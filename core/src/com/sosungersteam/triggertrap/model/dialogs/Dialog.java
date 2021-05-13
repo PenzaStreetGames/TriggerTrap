@@ -13,9 +13,8 @@ public class Dialog {
     public Dialog(String name,int id) {
         this.name = name;
         this.id=id;
-        int messageId = 0;
+        messageId = 0;
         firstEnd = false;
-        nextMessage();
     }
 
     public void addMessage(Message message) {

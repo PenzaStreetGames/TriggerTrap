@@ -49,6 +49,7 @@ public class UI {
     public TextureAtlas.AtlasRegion region;
     BitmapFont font;
     BitmapFont hintfont;
+    public Dialog dialog;
 
     public UI(SpriteBatch sb){
 
@@ -60,6 +61,7 @@ public class UI {
         texture = region.getTexture();
         createDialogWindow();
         createHintLabel();
+        createDialogLabels();
          // 26-27 символов в строке
         createButton(0, 5*32, 5*32, 2*32, 2*32, Player.Buttons.UP);//
         createButton(1, 2.8f*32,2.75f*32, 2*32,2*32, Player.Buttons.LEFT);//
@@ -128,28 +130,41 @@ public class UI {
             }
         }
     }
-    public void createDialogLabels(final Dialog dialog){
+    public void createDialogLabels(){
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font=font;
-        TextWindow = new Label(dialog.getTargetMessage().getText(),labelStyle);
+        TextWindow = new Label("",labelStyle);
         TextWindow.setBounds(DialogWindow.getX()+27,DialogWindow.getY()-20,DialogWindow.getWidth()-27,DialogWindow.getHeight());
         TextWindow.setAlignment(Align.topLeft);
         TextWindow.setTouchable(Touchable.enabled);
         TextWindow.addListener(new InputListener(){
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                if (dialog.nextMessage()){
-                    TextWindow.setText(dialog.getTargetMessage().getText());
-                }
-                else {
-                    dialog.reset();
-                    GameController.get().setGameMode(GameController.GameMode.PLAYING);
-                }
+                handleDialogClick();
                 return true;
             }
         });
         stage.addActor(TextWindow);
     }
+
+    public void setDialogLabel(final Dialog dialog) {
+        System.out.println(dialog.messages.size);
+        TextWindow.setText(dialog.getTargetMessage().getText());
+        this.dialog = dialog;
+    }
+
+    public void handleDialogClick() {
+        boolean flag = dialog.nextMessage();
+        System.out.println(flag);
+        if (flag){
+            TextWindow.setText(dialog.getTargetMessage().getText());
+        }
+        else {
+            dialog.reset();
+            GameController.get().setGameMode(GameController.GameMode.PLAYING);
+        }
+    }
+
     private  void createHintLabel(){
         Label.LabelStyle labelStyle = new Label.LabelStyle();
         labelStyle.font=hintfont;
