@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.sosungersteam.triggertrap.model.dialogs.Dialog;
 
 public abstract class InteractiveObject {
     protected World world;
@@ -19,6 +20,7 @@ public abstract class InteractiveObject {
     protected Body interactiveBody;
     protected Fixture fixture;
     public String name;
+    public Dialog dialog;
 
     public InteractiveObject(World world, TiledMap map, Rectangle bounds){
         this.world = world;
@@ -71,4 +73,8 @@ public abstract class InteractiveObject {
     public abstract void onAttach();
     public abstract void onDetach();
     public abstract void act();
+
+    public void setDialog(Dialog dialog) {
+        this.dialog = dialog;
+    }
 }
