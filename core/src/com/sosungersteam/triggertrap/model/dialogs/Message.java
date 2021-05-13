@@ -8,5 +8,9 @@ public class Message {
     public Sound sound;
     public int targetChar;
     public boolean wasPrinted;
+    public Message(String text){
+        this.text = text;
+        wasPrinted=false;
+    }
 
 }

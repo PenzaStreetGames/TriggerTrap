@@ -9,8 +9,9 @@ public class Dialog {
     public String name;
     public int id;
 
-    public Dialog(String name) {
+    public Dialog(String name,int id) {
         this.name = name;
+        this.id=id;
         int messageId = 0;
     }
 
