@@ -8,11 +8,13 @@ public class Dialog {
     public int messageId;
     public String name;
     public int id;
+    public boolean firstEnd;
 
     public Dialog(String name,int id) {
         this.name = name;
         this.id=id;
         int messageId = 0;
+        firstEnd = false;
         nextMessage();
     }
 
@@ -40,6 +42,7 @@ public class Dialog {
             setMessageId(messageId);
             return true;
         }
+        firstEnd = true;
         return false;
     }
 
