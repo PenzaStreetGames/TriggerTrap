@@ -16,7 +16,7 @@ public class TriggerTrap extends Game {
 	public final int PPM=100;
 	public GameController gameController;
 	public Renderer renderer;
-	public static final String bitmapTTF = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\\\/?-+=()*&.;,{}\\\"´`'<>АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+	public static final String bitmapTTF = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\\\/?-+=()*&.:;,{}\\\"´`'<>АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя";
 
 	@Override
 	public void create () {
@@ -56,7 +56,7 @@ public class TriggerTrap extends Game {
 		gameController.player = new Player(null);
 		Gdx.input.setInputProcessor(renderer.UI.stage);
 		// выбор точки спавна
-		gameController.player.setSpawnPoint(SpawnPointManager.get().getById(11));
+		gameController.player.setSpawnPoint(SpawnPointManager.get().getById(0));
 		//
 		gameController.entryToRoom();
 	}
