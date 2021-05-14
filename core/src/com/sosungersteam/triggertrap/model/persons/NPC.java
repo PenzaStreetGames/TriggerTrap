@@ -10,6 +10,10 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.sosungersteam.triggertrap.controller.Player;
+import com.sosungersteam.triggertrap.model.GameController;
+import com.sosungersteam.triggertrap.model.dialogs.Dialog;
+import com.sosungersteam.triggertrap.model.managers.DialogManager;
 import com.sosungersteam.triggertrap.model.managers.NPCManager;
 import com.sosungersteam.triggertrap.model.map.Room;
 import com.sosungersteam.triggertrap.model.physics.PhysicsBodyCreator;
@@ -21,7 +25,7 @@ public class NPC extends Person {
     public Room room;
     public String textureName;
     public Vector2 spawnPosition = new Vector2(0, 0);
-
+    public Dialog dialog;
     public NPC(World world, PlayScreen screen, String textureName) {
         super(world, screen, textureName);
 
@@ -30,7 +34,7 @@ public class NPC extends Person {
     public NPC(World world, PlayScreen screen, NPCModel model) {
         super(world, screen, model.textureName);
         setModel(model);
-        defineSomov(spawnPosition.x, spawnPosition.y);
+        defineSomov(spawnPosition.x, spawnPosition.y,model);
     }
 
     public void update(float dt) {
@@ -48,12 +52,15 @@ public class NPC extends Person {
         direction = model.direction;
     }
 
-    @Override
-    public void defineSomov(float x, float y) {
+
+    public void defineSomov(float x, float y, NPCModel model) {
 
         BodyDef bdef = new BodyDef();
         bdef.position.set(x, y); // change position
-        bdef.type = BodyDef.BodyType.DynamicBody; // Dynamic or kinetic???
+        if(model.textureName.equals("somov"))
+            bdef.type=BodyDef.BodyType.KinematicBody;
+        else
+            bdef.type = BodyDef.BodyType.DynamicBody; // Dynamic or kinetic???
         body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
 
@@ -62,9 +69,25 @@ public class NPC extends Person {
         shape.setAsBox(rect.getWidth() / 2 / 1 / 16f,rect.getHeight() / 2 / 1 / 16f,//
                 new Vector2(0 / 1 / 16f,-5/1/16f), 0);//
         fdef.shape = shape;
-        body.createFixture(fdef);
+        if (model.textureName.equals("somov")){
+            body.createFixture(fdef).setUserData(this);
+            dialog= DialogManager.get().getByName("somov");
+        }
+        else
+            body.createFixture(fdef);
     }
-
+    public void speak(){
+        Renderer.get().UI.setDialogLabel(dialog);
+        GameController.get().setGameMode(GameController.GameMode.DIALOG);
+    }
+    public void onAttach(){
+        Renderer.get().UI.buttonMap.get(Player.Buttons.ACT).setColor(1,1,1,0.75f);
+        GameController.get().player.setTargetNPC(this);
+    }
+    public void onDetach(){
+        Renderer.get().UI.buttonMap.get(Player.Buttons.ACT).setColor(1,1,1,0.75f);
+        GameController.get().player.setTargetNPC(null);
+    }
     // создать человечка
     /*
     public enum State {STANDING, RUNNINGHOR, RUNNINGVERUP, RUNNINGVERDOWN}

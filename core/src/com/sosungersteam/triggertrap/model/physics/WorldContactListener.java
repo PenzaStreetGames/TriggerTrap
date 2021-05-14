@@ -5,7 +5,11 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.sosungersteam.triggertrap.controller.Player;
+import com.sosungersteam.triggertrap.model.GameController;
 import com.sosungersteam.triggertrap.model.map.InteractiveObject;
+import com.sosungersteam.triggertrap.model.persons.NPC;
+import com.sosungersteam.triggertrap.view.Renderer;
 
 public class WorldContactListener implements ContactListener { // Метод отвечающий за взаимодействие объектов в мире
     @Override
@@ -17,6 +21,9 @@ public class WorldContactListener implements ContactListener { // Метод о�
             Fixture object = bodyTouch==fixA?fixB:fixA;
             if (object.getUserData()!=null && InteractiveObject.class.isAssignableFrom(object.getUserData().getClass())){
                 ((InteractiveObject) object.getUserData()).onAttach();
+            }
+            if(object.getUserData()!=null && NPC.class.isAssignableFrom(object.getUserData().getClass())){
+                ((NPC)object.getUserData()).onAttach();
             }
         }
     }
@@ -30,6 +37,9 @@ public class WorldContactListener implements ContactListener { // Метод о�
             Fixture object = bodyTouch==fixA?fixB:fixA;
             if (object.getUserData()!=null && InteractiveObject.class.isAssignableFrom(object.getUserData().getClass())){
                 ((InteractiveObject) object.getUserData()).onDetach();
+            }
+            if(object.getUserData()!=null && NPC.class.isAssignableFrom(object.getUserData().getClass())){
+                ((NPC)object.getUserData()).onDetach();
             }
         }
     }

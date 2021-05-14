@@ -7,6 +7,7 @@ import com.sosungersteam.triggertrap.model.GameController;
 import com.sosungersteam.triggertrap.model.map.InteractiveObject;
 import com.sosungersteam.triggertrap.model.map.Room;
 import com.sosungersteam.triggertrap.model.map.SpawnPoint;
+import com.sosungersteam.triggertrap.model.persons.NPC;
 import com.sosungersteam.triggertrap.model.player.GameProgress;
 import com.sosungersteam.triggertrap.model.persons.Person;
 
@@ -25,6 +26,7 @@ public class Player {
     public HashMap<Buttons, Boolean> isPressed = new HashMap<>();
     public HashMap<Buttons, Boolean> isClicked = new HashMap<>();
     public InteractiveObject targetObject;
+    public NPC targetNPC;
 
     public Player(Person person) {
         for (Buttons button : Buttons.values()) {
@@ -95,10 +97,12 @@ public class Player {
         this.spawnPoint = spawnPoint;
     }
 
-    public void setTargetObject(InteractiveObject targetObject) {
+    public void setTargetObject(InteractiveObject targetObject) { //InteractiveObject targetObject
         this.targetObject = targetObject;
     }
-
+    public void setTargetNPC(NPC npc){
+        this.targetNPC=npc;
+    }
     public void setPerson (Person person) {
         this.person = person;
     }
@@ -110,5 +114,8 @@ public class Player {
     public void doAction() {
         if (targetObject != null)
             targetObject.act();
+        if (targetNPC !=null ){
+            targetNPC.speak();
+        }
     }
 }

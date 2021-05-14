@@ -143,7 +143,7 @@ public class PlayScreen implements Screen {
         Renderer.get().orthogonalRenderer.render(); // renders map
         drawLvl();
         game.renderer.UI.stage.draw();
-        //Renderer.get().box2DDebugRenderer.render(Renderer.get().world, camera.combined);
+        Renderer.get().box2DDebugRenderer.render(Renderer.get().world, camera.combined);
 
 
     }
